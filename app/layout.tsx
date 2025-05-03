@@ -9,9 +9,8 @@ import { AuthProvider } from "@/lib/auth-context"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Disaster Response Management System",
+  title: "HopeNet",
   description: "A comprehensive platform for disaster management and response coordination",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({

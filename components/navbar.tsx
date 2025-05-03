@@ -38,7 +38,7 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center gap-2">
             <AlertTriangle className="h-6 w-6 text-primary" />
-            <span className="text-lg font-bold">DisasterResponse</span>
+            <span className="text-lg font-bold">HopeNet</span>
           </Link>
         </div>
 
