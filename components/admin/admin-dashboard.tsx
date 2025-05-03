@@ -1,165 +1,529 @@
 "use client"
 
+import type React from "react"
+
 import { useState } from "react"
+import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { AdminSidebar } from "./admin-sidebar"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { AlertTriangle, Download, MapPin, RefreshCw, Users, Bell, FileText, BarChart3, User } from 'lucide-react'
+import {AdminSidebar} from "./admin-sidebar"
 import { AdminHeader } from "./admin-header"
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts"
-import { AlertTriangle, CheckCircle, Clock, AlertCircle } from "lucide-react"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Progress } from "@/components/ui/progress"
 
-// Mock data for charts
-const disasterData = [
-  { name: "Jan", count: 4 },
-  { name: "Feb", count: 3 },
-  { name: "Mar", count: 5 },
-  { name: "Apr", count: 7 },
-  { name: "May", count: 2 },
-]
-
-const disasterTypeData = [
-  { name: "Flood", value: 35 },
-  { name: "Fire", value: 25 },
-  { name: "Earthquake", value: 15 },
-  { name: "Hurricane", value: 20 },
-  { name: "Landslide", value: 5 },
-]
-
-const COLORS = ["#29ABE2", "#FF9933", "#808080", "#e74c3c", "#8e44ad"]
-
-const responseTimeData = [
-  { name: "Jan", time: 45 },
-  { name: "Feb", time: 38 },
-  { name: "Mar", time: 42 },
-  { name: "Apr", time: 30 },
-  { name: "May", time: 25 },
-]
+// Metric Card Component
+const MetricCard = ({
+  title,
+  value,
+  change,
+  icon,
+  changeType = "positive",
+}: {
+  title: string
+  value: string
+  change?: string
+  icon: React.ReactNode
+  changeType?: "positive" | "negative" | "neutral"
+}) => {
+  return (
+    <Card>
+      <CardContent className="p-6">
+        <div className="flex items-center justify-between">
+          <div className="bg-gray-100 p-3 rounded-full">{icon}</div>
+          {change && (
+            <Badge
+              variant="outline"
+              className={`
+                ${changeType === "positive" ? "bg-green-50 text-green-700 border-green-200" : ""}
+                ${changeType === "negative" ? "bg-red-50 text-red-700 border-red-200" : ""}
+                ${changeType === "neutral" ? "bg-blue-50 text-blue-700 border-blue-200" : ""}
+              `}
+            >
+              {change}
+            </Badge>
+          )}
+        </div>
+        <div className="mt-4">
+          <h3 className="text-sm font-medium text-gray-500">{title}</h3>
+          <p className="text-2xl font-bold mt-1">{value}</p>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
 
 export default function AdminDashboard() {
-  const [activeTab, setActiveTab] = useState("overview")
-  
+  const [date, setDate] = useState<Date | undefined>(new Date())
+
+  // Mock data for admin dashboard
+  const recentAlerts = [
+    { id: 1, title: "Flash Flood Warning", location: "Eastern District", severity: "High", time: "2 hours ago" },
+    { id: 2, title: "Evacuation Order", location: "Coastal Areas", severity: "Critical", time: "5 hours ago" },
+    { id: 3, title: "Road Closure", location: "Highway 101", severity: "Medium", time: "Yesterday" },
+  ]
+
+  const pendingReports = [
+    {
+      id: 1,
+      title: "Building Damage Report",
+      location: "Downtown Area",
+      status: "Pending Review",
+      time: "3 hours ago",
+    },
+    {
+      id: 2,
+      title: "Medical Supply Shortage",
+      location: "Northern Relief Camp",
+      status: "Pending Review",
+      time: "5 hours ago",
+    },
+    { id: 3, title: "Volunteer Request", location: "Southern District", status: "Pending Review", time: "Yesterday" },
+  ]
+
+  const resourceStatus = [
+    { id: 1, name: "Food Supplies", available: 65, allocated: 40, required: 100 },
+    { id: 2, name: "Medical Kits", available: 120, allocated: 85, required: 150 },
+    { id: 3, name: "Shelter Capacity", available: 450, allocated: 380, required: 500 },
+    { id: 4, name: "Rescue Teams", available: 12, allocated: 10, required: 15 },
+  ]
+
+  const recentActivity = [
+    {
+      id: 1,
+      action: "Alert Created",
+      user: "John Smith",
+      time: "10 minutes ago",
+      details: "Flash Flood Warning for Eastern District",
+    },
+    {
+      id: 2,
+      action: "Resource Allocated",
+      user: "Maria Garcia",
+      time: "1 hour ago",
+      details: "20 Medical Kits to Northern Relief Camp",
+    },
+    {
+      id: 3,
+      action: "Report Approved",
+      user: "David Chen",
+      time: "3 hours ago",
+      details: "Road Damage Report in Western District",
+    },
+    {
+      id: 4,
+      action: "Volunteer Assigned",
+      user: "Sarah Johnson",
+      time: "Yesterday",
+      details: "5 volunteers to Evacuation Center",
+    },
+    {
+      id: 5,
+      action: "System Update",
+      user: "System",
+      time: "2 days ago",
+      details: "Platform maintenance and security updates",
+    },
+  ]
+
   return (
-    <div className="flex min-h-screen bg-gray-100">
-      <AdminSidebar activePage="dashboard" />
-      
+    <div className="flex min-h-screen bg-gray-50">
+      <AdminSidebar />
+
       <div className="flex-1">
-        <AdminHeader title="Admin Dashboard" />
-        
-        <main className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium">Active Disasters</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-[#29ABE2]">12</div>
-                <p className="text-xs text-gray-500">+2 from last month</p>
-                <div className="mt-4 flex items-center text-xs text-red-500">
-                  <AlertTriangle className="h-4 w-4 mr-1" />
-                  <span>3 critical situations</span>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium">Active Volunteers</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-[#29ABE2]">248</div>
-                <p className="text-xs text-gray-500">+15% from last month</p>
-                <div className="mt-4 flex items-center text-xs text-green-500">
-                  <CheckCircle className="h-4 w-4 mr-1" />
-                  <span>All teams deployed</span>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium">Avg. Response Time</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-[#29ABE2]">25 min</div>
-                <p className="text-xs text-gray-500">-5 min from last month</p>
-                <div className="mt-4 flex items-center text-xs text-green-500">
-                  <Clock className="h-4 w-4 mr-1" />
-                  <span>Improved efficiency</span>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium">Resources Deployed</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-[#29ABE2]">85%</div>
-                <p className="text-xs text-gray-500">Of total inventory</p>
-                <div className="mt-4 flex items-center text-xs text-amber-500">
-                  <AlertCircle className="h-4 w-4 mr-1" />
-                  <span>Restock needed soon</span>
-                </div>
-              </CardContent>
-            </Card>
+        <AdminHeader title="Dashboard" />
+
+        <main className="p-4 sm:p-6">
+          <div className="mb-6">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+              <div>
+                <h2 className="text-xl font-semibold">Welcome back, Admin</h2>
+                <p className="text-muted-foreground">
+                  Here's what's happening with your disaster response operations today.
+                </p>
+              </div>
+              <div className="flex gap-2 w-full sm:w-auto">
+                <Button variant="outline" size="sm" className="flex-1 sm:flex-none flex items-center gap-1">
+                  <RefreshCw className="h-4 w-4" />
+                  Refresh Data
+                </Button>
+                <Button variant="outline" size="sm" className="flex-1 sm:flex-none flex items-center gap-1">
+                  <Download className="h-4 w-4" />
+                  Export Report
+                </Button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <MetricCard
+                title="Active Disasters"
+                value="3"
+                change="+1 from last week"
+                icon={<AlertTriangle className="text-red-500" />}
+                changeType="negative"
+              />
+
+              <MetricCard
+                title="Affected Population"
+                value="12,450"
+                change="+2,300 from last week"
+                icon={<Users className="text-blue-500" />}
+                changeType="neutral"
+              />
+
+              <MetricCard
+                title="Active Volunteers"
+                value="245"
+                change="+28 from last week"
+                icon={<Users className="text-green-500" />}
+                changeType="positive"
+              />
+
+              <MetricCard title="Relief Centers" value="8" icon={<MapPin className="text-purple-500" />} />
+            </div>
           </div>
-          
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-            <TabsList>
+
+          <Tabs defaultValue="overview" className="mb-6">
+            <TabsList className="mb-4 flex flex-wrap gap-2">
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="alerts">Alerts</TabsTrigger>
-              <TabsTrigger value="resources">Resources</TabsTrigger>
               <TabsTrigger value="reports">Reports</TabsTrigger>
+              <TabsTrigger value="resources">Resources</TabsTrigger>
+              <TabsTrigger value="activity">Recent Activity</TabsTrigger>
             </TabsList>
-            
-            <TabsContent value="overview" className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card className="col-span-1">
-                  <CardHeader>
-                    <CardTitle>Disaster Incidents</CardTitle>
-                    <CardDescription>Monthly disaster incidents reported</CardDescription>
+
+            <TabsContent value="overview">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+                <Card className="lg:col-span-2">
+                  <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div>
+                      <CardTitle>Disaster Overview</CardTitle>
+                      <CardDescription>Current active disasters and their status</CardDescription>
+                    </div>
+                    <div className="flex items-center gap-2 w-full sm:w-auto">
+                      <Button variant="outline" size="sm" className="flex-1 sm:flex-none flex items-center gap-1">
+                        <RefreshCw size={14} />
+                        Refresh
+                      </Button>
+                      <Button variant="outline" size="sm" className="flex-1 sm:flex-none flex items-center gap-1">
+                        <Download size={14} />
+                        Export
+                      </Button>
+                    </div>
                   </CardHeader>
-                  <CardContent className="h-[300px]">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={disasterData}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <Tooltip />
-                        <Bar dataKey="count" fill="#29ABE2" />
-                      </BarChart>
-                    </ResponsiveContainer>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="p-4 border rounded-lg">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-2">
+                          <div className="flex items-center gap-2">
+                            <div className="bg-red-100 p-2 rounded-full">
+                              <AlertTriangle className="h-5 w-5 text-red-500" />
+                            </div>
+                            <div>
+                              <h3 className="font-medium">Flash Flood</h3>
+                              <p className="text-sm text-muted-foreground">Eastern District</p>
+                            </div>
+                          </div>
+                          <Badge className="bg-red-100 text-red-700 border-red-200">Critical</Badge>
+                        </div>
+                        <div className="mt-2">
+                          <div className="flex justify-between text-sm mb-1">
+                            <span>Response Progress</span>
+                            <span>45%</span>
+                          </div>
+                          <Progress value={45} className="h-2" />
+                        </div>
+                        <div className="mt-4 flex flex-col sm:flex-row gap-2">
+                          <Button variant="outline" size="sm" className="flex-1 sm:flex-none">
+                            View Details
+                          </Button>
+                          <Button size="sm" className="flex-1 sm:flex-none">Manage Response</Button>
+                        </div>
+                      </div>
+
+                      <div className="p-4 border rounded-lg">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-2">
+                          <div className="flex items-center gap-2">
+                            <div className="bg-amber-100 p-2 rounded-full">
+                              <AlertTriangle className="h-5 w-5 text-amber-500" />
+                            </div>
+                            <div>
+                              <h3 className="font-medium">Wildfire</h3>
+                              <p className="text-sm text-muted-foreground">Northern Forest Area</p>
+                            </div>
+                          </div>
+                          <Badge className="bg-amber-100 text-amber-700 border-amber-200">High</Badge>
+                        </div>
+                        <div className="mt-2">
+                          <div className="flex justify-between text-sm mb-1">
+                            <span>Response Progress</span>
+                            <span>70%</span>
+                          </div>
+                          <Progress value={70} className="h-2" />
+                        </div>
+                        <div className="mt-4 flex flex-col sm:flex-row gap-2">
+                          <Button variant="outline" size="sm" className="flex-1 sm:flex-none">
+                            View Details
+                          </Button>
+                          <Button size="sm" className="flex-1 sm:flex-none">Manage Response</Button>
+                        </div>
+                      </div>
+
+                      <div className="p-4 border rounded-lg">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-2">
+                          <div className="flex items-center gap-2">
+                            <div className="bg-blue-100 p-2 rounded-full">
+                              <AlertTriangle className="h-5 w-5 text-blue-500" />
+                            </div>
+                            <div>
+                              <h3 className="font-medium">Coastal Storm</h3>
+                              <p className="text-sm text-muted-foreground">Southern Coastal Region</p>
+                            </div>
+                          </div>
+                          <Badge className="bg-blue-100 text-blue-700 border-blue-200">Medium</Badge>
+                        </div>
+                        <div className="mt-2">
+                          <div className="flex justify-between text-sm mb-1">
+                            <span>Response Progress</span>
+                            <span>30%</span>
+                          </div>
+                          <Progress value={30} className="h-2" />
+                        </div>
+                        <div className="mt-4 flex flex-col sm:flex-row gap-2">
+                          <Button variant="outline" size="sm" className="flex-1 sm:flex-none">
+                            View Details
+                          </Button>
+                          <Button size="sm" className="flex-1 sm:flex-none">Manage Response</Button>
+                        </div>
+                      </div>
+                    </div>
                   </CardContent>
                 </Card>
-                
-                <Card className="col-span-1">
+
+                <Card>
                   <CardHeader>
-                    <CardTitle>Disaster Types</CardTitle>
-                    <CardDescription>Distribution by disaster category</CardDescription>
+                    <CardTitle>Quick Actions</CardTitle>
+                    <CardDescription>Common tasks and operations</CardDescription>
                   </CardHeader>
-                  <CardContent className="h-[300px]">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <PieChart>
-                        <Pie
-                          data={disasterTypeData}
-                          cx="50%"
-                          cy="50%"
-                          labelLine={false}
-                          outerRadius={100}
-                          fill="#8884d8"
-                          dataKey="value"
-                        >
-                          {disasterTypeData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                          ))}
-                        </Pie>
-                      </PieChart>
-                    </ResponsiveContainer>
+                  <CardContent>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2">
+                      <Button variant="outline" className="flex items-center gap-2 justify-start">
+                        <Bell className="h-4 w-4" />
+                        Create Alert
+                      </Button>
+                      <Button variant="outline" className="flex items-center gap-2 justify-start">
+                        <FileText className="h-4 w-4" />
+                        New Report
+                      </Button>
+                      <Button variant="outline" className="flex items-center gap-2 justify-start">
+                        <BarChart3 className="h-4 w-4" />
+                        View Analytics
+                      </Button>
+                      <Button variant="outline" className="flex items-center gap-2 justify-start">
+                        <User className="h-4 w-4" />
+                        Manage Team
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               </div>
             </TabsContent>
+
+            <TabsContent value="alerts">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Recent Alerts</CardTitle>
+                  <CardDescription>Latest emergency alerts and notifications</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {recentAlerts.map((alert) => (
+                      <div key={alert.id} className="p-4 border rounded-lg">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-2">
+                            <AlertTriangle
+                              className={`h-5 w-5 ${
+                                alert.severity === "Critical"
+                                  ? "text-red-500"
+                                  : alert.severity === "High"
+                                    ? "text-orange-500"
+                                    : "text-yellow-500"
+                              }`}
+                            />
+                            <h3 className="font-medium">{alert.title}</h3>
+                          </div>
+                          <Badge
+                            className={`${
+                              alert.severity === "Critical"
+                                ? "bg-red-100 text-red-700 border-red-200"
+                                : alert.severity === "High"
+                                  ? "bg-orange-100 text-orange-700 border-orange-200"
+                                  : "bg-yellow-100 text-yellow-700 border-yellow-200"
+                            }`}
+                          >
+                            {alert.severity}
+                          </Badge>
+                        </div>
+                        <div className="flex items-center gap-4 mt-2 text-sm text-gray-600">
+                          <div className="flex items-center gap-1">
+                            <MapPin size={14} />
+                            {alert.location}
+                          </div>
+                          <div>{alert.time}</div>
+                        </div>
+                        <div className="mt-4 flex justify-end gap-2">
+                          <Button variant="outline" size="sm">
+                            Edit
+                          </Button>
+                          <Button size="sm">View Details</Button>
+                        </div>
+                      </div>
+                    ))}
+
+                    <div className="flex justify-center mt-6">
+                      <Button>View All Alerts</Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="reports">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Pending Reports</CardTitle>
+                  <CardDescription>Reports awaiting review and action</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {pendingReports.map((report) => (
+                      <div key={report.id} className="p-4 border rounded-lg">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-2">
+                            <FileText className="h-5 w-5 text-blue-500" />
+                            <h3 className="font-medium">{report.title}</h3>
+                          </div>
+                          <Badge className="bg-blue-100 text-blue-700 border-blue-200">{report.status}</Badge>
+                        </div>
+                        <div className="flex items-center gap-4 mt-2 text-sm text-gray-600">
+                          <div className="flex items-center gap-1">
+                            <MapPin size={14} />
+                            {report.location}
+                          </div>
+                          <div>{report.time}</div>
+                        </div>
+                        <div className="mt-4 flex justify-end gap-2">
+                          <Button variant="outline" size="sm">
+                            Reject
+                          </Button>
+                          <Button variant="outline" size="sm">
+                            Approve
+                          </Button>
+                          <Button size="sm">Review</Button>
+                        </div>
+                      </div>
+                    ))}
+
+                    <div className="flex justify-center mt-6">
+                      <Button>View All Reports</Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="resources">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Resource Status</CardTitle>
+                  <CardDescription>Current inventory and allocation of resources</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-6">
+                    {resourceStatus.map((resource) => (
+                      <div key={resource.id} className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <h3 className="font-medium">{resource.name}</h3>
+                          <div className="text-sm">
+                            <span className="font-medium">{resource.available}</span>
+                            <span className="text-muted-foreground"> / {resource.required} available</span>
+                          </div>
+                        </div>
+                        <Progress value={(resource.available / resource.required) * 100} className="h-2" />
+                        <div className="flex justify-between text-sm text-muted-foreground">
+                          <span>{resource.allocated} allocated</span>
+                          <span>
+                            {resource.available < resource.required * 0.3
+                              ? "Low stock"
+                              : resource.available < resource.required * 0.7
+                                ? "Adequate"
+                                : "Well stocked"}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+
+                    <div className="flex justify-end gap-2 mt-6">
+                      <Button variant="outline">Request Resources</Button>
+                      <Button>Manage Inventory</Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="activity">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Recent Activity</CardTitle>
+                  <CardDescription>Latest actions and system events</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {recentActivity.map((activity) => (
+                      <div key={activity.id} className="flex items-start gap-4 p-4 border rounded-lg">
+                        <div className="bg-gray-100 p-2 rounded-full">
+                          {activity.action.includes("Alert") ? (
+                            <Bell className="h-5 w-5 text-orange-500" />
+                          ) : activity.action.includes("Resource") ? (
+                            <MapPin className="h-5 w-5 text-blue-500" />
+                          ) : activity.action.includes("Report") ? (
+                            <FileText className="h-5 w-5 text-green-500" />
+                          ) : activity.action.includes("Volunteer") ? (
+                            <Users className="h-5 w-5 text-purple-500" />
+                          ) : (
+                            <BarChart3 className="h-5 w-5 text-gray-500" />
+                          )}
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between mb-1">
+                            <h3 className="font-medium">{activity.action}</h3>
+                            <span className="text-sm text-muted-foreground">{activity.time}</span>
+                          </div>
+                          <p className="text-sm">{activity.details}</p>
+                          <p className="text-xs text-muted-foreground mt-1">By: {activity.user}</p>
+                        </div>
+                      </div>
+                    ))}
+
+                    <div className="flex justify-center mt-6">
+                      <Button>View All Activity</Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
           </Tabs>
+
+          <div className="mt-6 flex justify-end">
+            <Link href="/admin/profile">
+              <Button variant="outline" className="flex items-center gap-2">
+                <User className="h-4 w-4" />
+                Manage Profile
+              </Button>
+            </Link>
+          </div>
         </main>
       </div>
     </div>

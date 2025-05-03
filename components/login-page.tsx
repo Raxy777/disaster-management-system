@@ -12,46 +12,35 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { useToast } from "@/hooks/use-toast"
+import { useAuth, type UserRole } from "@/lib/auth-context"
 
 export function LoginPage() {
-  const { toast } = useToast()
   const router = useRouter()
+  const { login } = useAuth()
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const [userType, setUserType] = useState("user")
+  const [userType, setUserType] = useState<UserRole>("user")
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
 
-    // Simulate login process
-    setTimeout(() => {
-      setIsLoading(false)
+    try {
+      const success = await login(username, password, userType)
 
-      // Demo login logic
-      if (userType === "admin" && username === "admin" && password === "admin123") {
-        toast({
-          title: "Admin login successful",
-          description: "Redirecting to admin dashboard",
-        })
-        router.push("/admin/dashboard")
-      } else if (userType === "user" && username === "user" && password === "user123") {
-        toast({
-          title: "User login successful",
-          description: "Redirecting to user dashboard",
-        })
-        router.push("/volunteer/dashboard")
-      } else {
-        toast({
-          title: "Login failed",
-          description: "Invalid username or password. Try the demo credentials.",
-          variant: "destructive",
-        })
+      if (success) {
+        // Redirect based on user role
+        if (userType === "admin") {
+          router.push("/admin/dashboard")
+        } else {
+          router.push("/volunteer/dashboard")
+        }
       }
-    }, 1500)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -67,7 +56,7 @@ export function LoginPage() {
           <CardDescription>Access your account to manage disaster response</CardDescription>
         </CardHeader>
         <CardContent className="pb-4">
-          <Tabs defaultValue="user" className="w-full" onValueChange={setUserType}>
+          <Tabs defaultValue="user" className="w-full" onValueChange={(value) => setUserType(value as UserRole)}>
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="user">User</TabsTrigger>
               <TabsTrigger value="admin">Admin</TabsTrigger>

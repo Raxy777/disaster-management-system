@@ -17,10 +17,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { SidebarProvider } from "@/components/ui/sidebar"
-import { AdminSidebar } from "@/components/admin/admin-sidebar"
-import { AdminHeader } from "@/components/admin/admin-header"
 import { useToast } from "@/hooks/use-toast"
+import { AdminLayout } from "./admin-layout"
 
 // Mock data for reports
 const reportsData = [
@@ -261,433 +259,287 @@ export function ReportReview() {
   }
 
   return (
-    <SidebarProvider>
-      <div className="flex min-h-screen">
-        <AdminSidebar />
-
-        <div className="flex flex-1 flex-col">
-          <AdminHeader title="Report Review" />
-
-          <main className="flex-1 overflow-auto p-6">
-            <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <h1 className="text-2xl font-bold">Report Review</h1>
-              <Button variant="outline">
-                <Download className="mr-2 h-4 w-4" />
-                Export Reports
+    <AdminLayout title="Report Review">
+      <div className="container mx-auto p-4 sm:p-6">
+        <div className="mb-6">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+            <div>
+              <h2 className="text-xl font-semibold">Report Review</h2>
+              <p className="text-muted-foreground">
+                Review and manage disaster reports submitted by users.
+              </p>
+            </div>
+            <div className="flex gap-2 w-full sm:w-auto">
+              <Button variant="outline" size="sm" className="flex-1 sm:flex-none flex items-center gap-1">
+                <Filter className="h-4 w-4" />
+                Filter
+              </Button>
+              <Button variant="outline" size="sm" className="flex-1 sm:flex-none flex items-center gap-1">
+                <Download className="h-4 w-4" />
+                Export
               </Button>
             </div>
+          </div>
 
-            <div className="mb-6 flex flex-col gap-4 md:flex-row">
-              <div className="relative flex-1">
-                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="Search reports..."
-                  className="pl-8"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
-              <div className="flex flex-wrap gap-2">
-                <Select defaultValue="all" onValueChange={setStatusFilter}>
-                  <SelectTrigger className="w-[130px]">
-                    <SelectValue placeholder="Status" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Statuses</SelectItem>
-                    <SelectItem value="pending">Pending</SelectItem>
-                    <SelectItem value="in-review">In Review</SelectItem>
-                    <SelectItem value="verified">Verified</SelectItem>
-                    <SelectItem value="resolved">Resolved</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Select defaultValue="all" onValueChange={setTypeFilter}>
-                  <SelectTrigger className="w-[130px]">
-                    <SelectValue placeholder="Type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Types</SelectItem>
-                    {reportTypes.map((type) => (
-                      <SelectItem key={type.value} value={type.value}>
-                        {type.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Select defaultValue="all" onValueChange={setSeverityFilter}>
-                  <SelectTrigger className="w-[130px]">
-                    <SelectValue placeholder="Severity" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Severities</SelectItem>
-                    <SelectItem value="high">High</SelectItem>
-                    <SelectItem value="medium">Medium</SelectItem>
-                    <SelectItem value="low">Low</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Button variant="outline" size="icon">
-                  <Filter className="h-4 w-4" />
-                </Button>
-              </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search reports..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-9"
+              />
             </div>
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger>
+                <SelectValue placeholder="Status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Status</SelectItem>
+                <SelectItem value="pending">Pending</SelectItem>
+                <SelectItem value="in-review">In Review</SelectItem>
+                <SelectItem value="verified">Verified</SelectItem>
+                <SelectItem value="resolved">Resolved</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select value={typeFilter} onValueChange={setTypeFilter}>
+              <SelectTrigger>
+                <SelectValue placeholder="Type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Types</SelectItem>
+                {reportTypes.map((type) => (
+                  <SelectItem key={type.value} value={type.value}>
+                    {type.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Select value={severityFilter} onValueChange={setSeverityFilter}>
+              <SelectTrigger>
+                <SelectValue placeholder="Severity" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Severity</SelectItem>
+                <SelectItem value="high">High</SelectItem>
+                <SelectItem value="medium">Medium</SelectItem>
+                <SelectItem value="low">Low</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
 
-            <Tabs defaultValue="all">
-              <TabsList className="mb-6">
-                <TabsTrigger value="all">All Reports</TabsTrigger>
-                <TabsTrigger value="pending">Pending</TabsTrigger>
-                <TabsTrigger value="in-review">In Review</TabsTrigger>
-                <TabsTrigger value="verified">Verified</TabsTrigger>
-                <TabsTrigger value="resolved">Resolved</TabsTrigger>
-              </TabsList>
-
-              <div className="space-y-4">
-                {filteredReports.length > 0 ? (
-                  filteredReports.map((report) => (
-                    <Card key={report.id} className="overflow-hidden">
-                      <CardHeader className="pb-3">
-                        <div className="flex flex-wrap items-center justify-between gap-2">
-                          <div className="flex items-center gap-2">
-                            <Badge
-                              className={
-                                report.severity === "high"
-                                  ? "bg-red-500"
-                                  : report.severity === "medium"
-                                    ? "bg-amber-500"
-                                    : "bg-green-500"
-                              }
-                            >
-                              {report.severity} severity
-                            </Badge>
-                            <Badge
-                              variant="outline"
-                              className={
-                                report.status === "pending"
-                                  ? "border-amber-500 text-amber-500"
-                                  : report.status === "in-review"
-                                    ? "border-blue-500 text-blue-500"
-                                    : report.status === "verified"
-                                      ? "border-green-500 text-green-500"
-                                      : "border-gray-500 text-gray-500"
-                              }
-                            >
-                              {report.status}
-                            </Badge>
-                            <Badge variant="outline">{report.type}</Badge>
-                            {report.peopleInDanger === "yes" && <Badge className="bg-red-500">People in danger</Badge>}
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={() => {
-                                setSelectedReport(report)
-                                setIsViewDialogOpen(true)
-                              }}
-                            >
-                              <Eye className="h-4 w-4" />
-                            </Button>
-                            {report.status === "pending" && (
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                className="text-green-500"
-                                onClick={() => handleVerifyReport(report.id)}
-                              >
-                                <CheckCircle className="h-4 w-4" />
-                              </Button>
-                            )}
-                            {report.status === "verified" && (
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                className="text-blue-500"
-                                onClick={() => handleResolveReport(report.id)}
-                              >
-                                <CheckCircle className="h-4 w-4" />
-                              </Button>
-                            )}
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              className="text-red-500"
-                              onClick={() => handleDeleteReport(report.id)}
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </div>
-                        <CardTitle className="text-lg">{report.title}</CardTitle>
-                        <CardDescription className="flex items-center gap-1">
-                          <MapPin className="h-3 w-3" /> {report.location}
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent className="pb-3">
-                        <p className="text-sm text-muted-foreground">{report.description}</p>
-                        {report.images.length > 0 && (
-                          <div className="mt-4 flex gap-2 overflow-x-auto pb-2">
-                            {report.images.map((image, index) => (
-                              <div key={index} className="relative h-20" />
-                            ))}
-                          </div>
-                        )}
-                      </CardContent>
-                    </Card>
-                  ))
-                ) : (
-                  <Card>
-                    <CardContent>
-                      <p>No reports found.</p>
-                    </CardContent>
-                  </Card>
-                )}
-              </div>
-            </Tabs>
-
-            <Dialog open={isViewDialogOpen} onOpenChange={setIsViewDialogOpen}>
-              <DialogContent className="sm:max-w-[425px]">
-                <DialogHeader>
-                  <DialogTitle>Report Details</DialogTitle>
-                  <DialogDescription>View all the information about this report.</DialogDescription>
-                </DialogHeader>
-
-                {selectedReport && (
-                  <div className="grid gap-4 py-4">
-                    <div className="grid grid-cols-4 items-center gap-4">
-                      <label htmlFor="title" className="text-right text-sm font-medium leading-none text-right">
-                        Title
-                      </label>
-                      <Input type="text" id="title" value={selectedReport.title} className="col-span-3" disabled />
-                    </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                      <label htmlFor="type" className="text-right text-sm font-medium leading-none text-right">
-                        Type
-                      </label>
-                      <Input type="text" id="type" value={selectedReport.type} className="col-span-3" disabled />
-                    </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                      <label htmlFor="location" className="text-right text-sm font-medium leading-none text-right">
-                        Location
-                      </label>
-                      <Input
-                        type="text"
-                        id="location"
-                        value={selectedReport.location}
-                        className="col-span-3"
-                        disabled
-                      />
-                    </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                      <label htmlFor="coordinates" className="text-right text-sm font-medium leading-none text-right">
-                        Coordinates
-                      </label>
-                      <Input
-                        type="text"
-                        id="coordinates"
-                        value={selectedReport.coordinates}
-                        className="col-span-3"
-                        disabled
-                      />
-                    </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                      <label htmlFor="description" className="text-right text-sm font-medium leading-none text-right">
-                        Description
-                      </label>
-                      <Input
-                        type="text"
-                        id="description"
-                        value={selectedReport.description}
-                        className="col-span-3"
-                        disabled
-                      />
-                    </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                      <label htmlFor="severity" className="text-right text-sm font-medium leading-none text-right">
-                        Severity
-                      </label>
-                      <Input
-                        type="text"
-                        id="severity"
-                        value={selectedReport.severity}
-                        className="col-span-3"
-                        disabled
-                      />
-                    </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                      <label htmlFor="status" className="text-right text-sm font-medium leading-none text-right">
-                        Status
-                      </label>
-                      <Input type="text" id="status" value={selectedReport.status} className="col-span-3" disabled />
-                    </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                      <label htmlFor="reporterName" className="text-right text-sm font-medium leading-none text-right">
-                        Reporter Name
-                      </label>
-                      <Input
-                        type="text"
-                        id="reporterName"
-                        value={selectedReport.reporter.name}
-                        className="col-span-3"
-                        disabled
-                      />
-                    </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                      <label htmlFor="reporterPhone" className="text-right text-sm font-medium leading-none text-right">
-                        Reporter Phone
-                      </label>
-                      <Input
-                        type="text"
-                        id="reporterPhone"
-                        value={selectedReport.reporter.phone}
-                        className="col-span-3"
-                        disabled
-                      />
-                    </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                      <label htmlFor="reporterEmail" className="text-right text-sm font-medium leading-none text-right">
-                        Reporter Email
-                      </label>
-                      <Input
-                        type="text"
-                        id="reporterEmail"
-                        value={selectedReport.reporter.email}
-                        className="col-span-3"
-                        disabled
-                      />
-                    </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                      <label htmlFor="submittedAt" className="text-right text-sm font-medium leading-none text-right">
-                        Submitted At
-                      </label>
-                      <Input
-                        type="text"
-                        id="submittedAt"
-                        value={formatDate(selectedReport.submittedAt)}
-                        className="col-span-3"
-                        disabled
-                      />
-                    </div>
-                    {selectedReport.verified && (
-                      <>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                          <label
-                            htmlFor="verifiedBy"
-                            className="text-right text-sm font-medium leading-none text-right"
-                          >
-                            Verified By
-                          </label>
-                          <Input
-                            type="text"
-                            id="verifiedBy"
-                            value={selectedReport.verifiedBy}
-                            className="col-span-3"
-                            disabled
-                          />
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                          <label
-                            htmlFor="verifiedAt"
-                            className="text-right text-sm font-medium leading-none text-right"
-                          >
-                            Verified At
-                          </label>
-                          <Input
-                            type="text"
-                            id="verifiedAt"
-                            value={formatDate(selectedReport.verifiedAt)}
-                            className="col-span-3"
-                            disabled
-                          />
-                        </div>
-                      </>
+          <div className="grid grid-cols-1 gap-4">
+            {filteredReports.map((report) => (
+              <Card key={report.id}>
+                <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div>
+                    <CardTitle className="flex items-center gap-2">
+                      {report.title}
+                      {report.verified && (
+                        <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                          <CheckCircle className="h-3 w-3 mr-1" />
+                          Verified
+                        </Badge>
+                      )}
+                    </CardTitle>
+                    <CardDescription className="flex items-center gap-2">
+                      <MapPin className="h-4 w-4" />
+                      {report.location}
+                    </CardDescription>
+                  </div>
+                  <div className="flex gap-2 w-full sm:w-auto">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex-1 sm:flex-none"
+                      onClick={() => {
+                        setSelectedReport(report)
+                        setIsViewDialogOpen(true)
+                      }}
+                    >
+                      <Eye className="h-4 w-4 mr-1" />
+                      View
+                    </Button>
+                    {!report.verified && (
+                      <Button
+                        size="sm"
+                        className="flex-1 sm:flex-none"
+                        onClick={() => handleVerifyReport(report.id)}
+                      >
+                        <CheckCircle className="h-4 w-4 mr-1" />
+                        Verify
+                      </Button>
                     )}
-                    {selectedReport.resolution && (
-                      <>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                          <label htmlFor="action" className="text-right text-sm font-medium leading-none text-right">
-                            Resolution Action
-                          </label>
-                          <Input
-                            type="text"
-                            id="action"
-                            value={selectedReport.resolution.action}
-                            className="col-span-3"
-                            disabled
-                          />
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                          <label htmlFor="notes" className="text-right text-sm font-medium leading-none text-right">
-                            Resolution Notes
-                          </label>
-                          <Input
-                            type="text"
-                            id="notes"
-                            value={selectedReport.resolution.notes}
-                            className="col-span-3"
-                            disabled
-                          />
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                          <label
-                            htmlFor="resolvedBy"
-                            className="text-right text-sm font-medium leading-none text-right"
-                          >
-                            Resolved By
-                          </label>
-                          <Input
-                            type="text"
-                            id="resolvedBy"
-                            value={selectedReport.resolution.resolvedBy}
-                            className="col-span-3"
-                            disabled
-                          />
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                          <label
-                            htmlFor="resolvedAt"
-                            className="text-right text-sm font-medium leading-none text-right"
-                          >
-                            Resolved At
-                          </label>
-                          <Input
-                            type="text"
-                            id="resolvedAt"
-                            value={formatDate(selectedReport.resolution.resolvedAt)}
-                            className="col-span-3"
-                            disabled
-                          />
-                        </div>
-                      </>
+                    {report.status !== "resolved" && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex-1 sm:flex-none"
+                        onClick={() => handleResolveReport(report.id)}
+                      >
+                        Resolve
+                      </Button>
                     )}
-                    {selectedReport.images.length > 0 && (
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <label className="text-right text-sm font-medium leading-none text-right">Images</label>
-                        <div className="col-span-3 flex gap-2 overflow-x-auto pb-2">
-                          {selectedReport.images.map((image, index) => (
-                            <div key={index} className="relative h-20">
-                              <Image
-                                src={image || "/placeholder.svg"}
-                                alt={`Report Image ${index + 1}`}
-                                width={160}
-                                height={120}
-                                className="rounded-md object-cover"
-                              />
-                            </div>
-                          ))}
-                        </div>
-                      </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex-1 sm:flex-none text-red-600 hover:text-red-700"
+                      onClick={() => handleDeleteReport(report.id)}
+                    >
+                      <Trash2 className="h-4 w-4 mr-1" />
+                      Delete
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">{report.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        <Dialog open={isViewDialogOpen} onOpenChange={setIsViewDialogOpen}>
+          <DialogContent className="max-w-3xl">
+            <DialogHeader>
+              <DialogTitle>{selectedReport?.title}</DialogTitle>
+              <DialogDescription>
+                <div className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4" />
+                  {selectedReport?.location}
+                </div>
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <h3 className="font-medium mb-2">Report Details</h3>
+                  <div className="space-y-2 text-sm">
+                    <p>
+                      <span className="text-muted-foreground">Type:</span> {selectedReport?.type}
+                    </p>
+                    <p>
+                      <span className="text-muted-foreground">Severity:</span>{" "}
+                      <Badge
+                        variant="outline"
+                        className={`
+                          ${
+                            selectedReport?.severity === "high"
+                              ? "bg-red-50 text-red-700 border-red-200"
+                              : selectedReport?.severity === "medium"
+                                ? "bg-amber-50 text-amber-700 border-amber-200"
+                                : "bg-green-50 text-green-700 border-green-200"
+                          }
+                        `}
+                      >
+                        {selectedReport?.severity}
+                      </Badge>
+                    </p>
+                    <p>
+                      <span className="text-muted-foreground">Status:</span>{" "}
+                      <Badge
+                        variant="outline"
+                        className={`
+                          ${
+                            selectedReport?.status === "pending"
+                              ? "bg-gray-50 text-gray-700 border-gray-200"
+                              : selectedReport?.status === "in-review"
+                                ? "bg-blue-50 text-blue-700 border-blue-200"
+                                : selectedReport?.status === "verified"
+                                  ? "bg-green-50 text-green-700 border-green-200"
+                                  : "bg-purple-50 text-purple-700 border-purple-200"
+                          }
+                        `}
+                      >
+                        {selectedReport?.status}
+                      </Badge>
+                    </p>
+                    <p>
+                      <span className="text-muted-foreground">Submitted:</span>{" "}
+                      {new Date(selectedReport?.submittedAt).toLocaleString()}
+                    </p>
+                    {selectedReport?.verified && (
+                      <p>
+                        <span className="text-muted-foreground">Verified by:</span>{" "}
+                        {selectedReport?.verifiedBy} on{" "}
+                        {new Date(selectedReport?.verifiedAt).toLocaleString()}
+                      </p>
                     )}
                   </div>
-                )}
+                </div>
+                <div>
+                  <h3 className="font-medium mb-2">Reporter Information</h3>
+                  <div className="space-y-2 text-sm">
+                    <p>
+                      <span className="text-muted-foreground">Name:</span> {selectedReport?.reporter.name}
+                    </p>
+                    <p>
+                      <span className="text-muted-foreground">Phone:</span> {selectedReport?.reporter.phone}
+                    </p>
+                    <p>
+                      <span className="text-muted-foreground">Email:</span> {selectedReport?.reporter.email}
+                    </p>
+                  </div>
+                </div>
+              </div>
 
-                <DialogFooter>
-                  <Button type="button" variant="secondary" onClick={() => setIsViewDialogOpen(false)}>
-                    Close
-                  </Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-          </main>
-        </div>
+              <div>
+                <h3 className="font-medium mb-2">Description</h3>
+                <p className="text-sm">{selectedReport?.description}</p>
+              </div>
+
+              {selectedReport?.images && selectedReport.images.length > 0 && (
+                <div>
+                  <h3 className="font-medium mb-2">Images</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {selectedReport.images.map((image, index) => (
+                      <div key={index} className="relative aspect-video">
+                        <Image
+                          src={image}
+                          alt={`Report image ${index + 1}`}
+                          fill
+                          className="object-cover rounded-lg"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {selectedReport?.resolution && (
+                <div>
+                  <h3 className="font-medium mb-2">Resolution</h3>
+                  <div className="space-y-2 text-sm">
+                    <p>
+                      <span className="text-muted-foreground">Action:</span> {selectedReport.resolution.action}
+                    </p>
+                    <p>
+                      <span className="text-muted-foreground">Notes:</span> {selectedReport.resolution.notes}
+                    </p>
+                    <p>
+                      <span className="text-muted-foreground">Resolved by:</span>{" "}
+                      {selectedReport.resolution.resolvedBy} on{" "}
+                      {new Date(selectedReport.resolution.resolvedAt).toLocaleString()}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setIsViewDialogOpen(false)}>
+                Close
+              </Button>
+              {!selectedReport?.verified && (
+                <Button onClick={() => handleVerifyReport(selectedReport?.id)}>
+                  <CheckCircle className="h-4 w-4 mr-1" />
+                  Verify Report
+                </Button>
+              )}
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
-    </SidebarProvider>
+    </AdminLayout>
   )
 }
