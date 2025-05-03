@@ -28,7 +28,7 @@ export function AdminHeader({ title }: AdminHeaderProps) {
       <div className="container flex h-16 items-center justify-between py-4">
         <div className="flex items-center gap-4">
           <SidebarTrigger className="md:hidden" />
-          <h1 className="text-2xl font-bold">{title}</h1>
+          <h1 className="text-2xl font-bold text-white">{title}</h1>
         </div>
 
         <div className="flex items-center gap-4">

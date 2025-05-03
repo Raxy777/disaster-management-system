@@ -98,7 +98,7 @@ export function AdminLayout({ children, title }: AdminLayoutProps) {
           </div>
 
           <div className="flex flex-1 flex-col md:pl-64">
-            <AdminHeader title={title} />
+            <AdminHeader title={"ForIncreasingTheWidthOfTheContainerrree"} />
             <main className="flex-1 p-6 overflow-y-auto">{children}</main>
           </div>
         </div>
