@@ -226,6 +226,8 @@ export function ReportReview() {
                 resolvedBy: "Admin User",
                 resolvedAt: new Date().toISOString(),
               },
+              verifiedBy: report.verifiedBy ?? "",
+              verifiedAt: report.verifiedAt ?? "",
             }
           : report,
       ),
@@ -493,7 +495,7 @@ export function ReportReview() {
                 <div>
                   <h3 className="font-medium mb-2">Images</h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {selectedReport.images.map((image, index) => (
+                    {selectedReport.images.map((image: string, index: number) => (
                       <div key={index} className="relative aspect-video">
                         <Image
                           src={image}

@@ -8,7 +8,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { AlertTriangle, Download, MapPin, RefreshCw, Users, Bell, FileText, BarChart3, User } from 'lucide-react'
-import {AdminSidebar} from "./admin-sidebar"
 import { AdminHeader } from "./admin-header"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Progress } from "@/components/ui/progress"
@@ -129,8 +128,6 @@ export default function AdminDashboard() {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <AdminSidebar />
-
       <div className="flex-1">
         <AdminHeader title="Dashboard" />
 

@@ -99,7 +99,7 @@ export function AdminLayout({ children, title }: AdminLayoutProps) {
 
           <div className="flex flex-1 flex-col md:pl-64">
             <AdminHeader title={title} />
-            <main className="flex-1 p-6">{children}</main>
+            <main className="flex-1 p-6 overflow-y-auto">{children}</main>
           </div>
         </div>
       </Sidebar>
