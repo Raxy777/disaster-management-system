@@ -9,7 +9,7 @@ export function Footer() {
           <div>
             <Link href="/" className="mb-4 flex items-center gap-2">
               <AlertTriangle className="h-6 w-6 text-primary" />
-              <span className="text-lg font-bold">DisasterResponse</span>
+              <span className="text-lg font-bold">HopeNet</span>
             </Link>
             <p className="text-sm text-muted-foreground">
               A comprehensive disaster management and response platform providing real-time alerts, resources, and
@@ -106,7 +106,7 @@ export function Footer() {
         <div className="mt-8 border-t pt-8">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <p className="text-xs text-muted-foreground">
-              © {new Date().getFullYear()} DisasterResponse. All rights reserved.
+              © {new Date().getFullYear()}HopeNet. All rights reserved.
             </p>
             <div className="flex gap-4 text-xs text-muted-foreground">
               <Link href="/privacy" className="hover:text-foreground">

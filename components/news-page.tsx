@@ -377,8 +377,8 @@ export function NewsPage() {
                     <div className="mb-2 flex items-center gap-2">
                       <div className="h-8 w-8 rounded-full bg-[#1DA1F2]" />
                       <div>
-                        <p className="text-sm font-medium">Disaster Response</p>
-                        <p className="text-xs text-muted-foreground">@DisasterResponse</p>
+                        <p className="text-sm font-medium">HopeNet</p>
+                        <p className="text-xs text-muted-foreground">@HopeNet</p>
                       </div>
                     </div>
                     <p className="text-sm">
@@ -391,8 +391,8 @@ export function NewsPage() {
                     <div className="mb-2 flex items-center gap-2">
                       <div className="h-8 w-8 rounded-full bg-[#1DA1F2]" />
                       <div>
-                        <p className="text-sm font-medium">Disaster Response</p>
-                        <p className="text-xs text-muted-foreground">@DisasterResponse</p>
+                        <p className="text-sm font-medium">HopeNet</p>
+                        <p className="text-xs text-muted-foreground">@HopeNet</p>
                       </div>
                     </div>
                     <p className="text-sm">
@@ -405,8 +405,8 @@ export function NewsPage() {
                     <div className="mb-2 flex items-center gap-2">
                       <div className="h-8 w-8 rounded-full bg-[#1DA1F2]" />
                       <div>
-                        <p className="text-sm font-medium">Disaster Response</p>
-                        <p className="text-xs text-muted-foreground">@DisasterResponse</p>
+                        <p className="text-sm font-medium">HopeNet</p>
+                        <p className="text-xs text-muted-foreground">@HopeNet</p>
                       </div>
                     </div>
                     <p className="text-sm">

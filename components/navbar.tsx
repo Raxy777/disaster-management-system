@@ -154,7 +154,7 @@ export function Navbar() {
                 </Button>
               </>
             ) : (
-              <Button variant="outline" className="text-white border-white hover:bg-white/10" asChild>
+              <Button variant="outline" className="text-white bg-[#29ABE2] border-white hover:bg-white/10" asChild>
                 <Link href="/login" onClick={() => setIsOpen(false)}>
                   Login
                 </Link>

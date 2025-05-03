@@ -61,9 +61,9 @@ export function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-medium">Email</h3>
-                    <p className="text-sm text-muted-foreground">General Inquiries: info@disasterresponse.org</p>
-                    <p className="text-sm text-muted-foreground">Support: support@disasterresponse.org</p>
-                    <p className="text-sm text-muted-foreground">Media: media@disasterresponse.org</p>
+                    <p className="text-sm text-muted-foreground">General Inquiries: info@hopenet.org</p>
+                    <p className="text-sm text-muted-foreground">Support: support@hopenet.org</p>
+                    <p className="text-sm text-muted-foreground">Media: media@hopenet.org</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">

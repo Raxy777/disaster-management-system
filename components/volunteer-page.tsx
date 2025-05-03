@@ -857,7 +857,7 @@ export function VolunteerPage() {
             <Card>
               <CardHeader>
                 <CardTitle>Partner Benefits</CardTitle>
-                <CardDescription>Why partner with DisasterResponse</CardDescription>
+                <CardDescription>Why partner with HopeNet</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid gap-6 sm:grid-cols-2">

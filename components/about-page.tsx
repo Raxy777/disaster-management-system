@@ -130,7 +130,7 @@ export function AboutPage() {
           <div className="flex flex-col justify-center">
             <h2 className="mb-4 text-2xl font-bold">Our Mission</h2>
             <p className="mb-6 text-muted-foreground">
-              DisasterResponse is dedicated to providing rapid, effective, and coordinated disaster management services
+              HopeNet is dedicated to providing rapid, effective, and coordinated disaster management services
               to communities affected by natural and man-made disasters. We work tirelessly to save lives, alleviate
               suffering, and support recovery efforts through innovative technology, community engagement, and
               partnerships with government agencies and NGOs.
@@ -431,7 +431,7 @@ export function AboutPage() {
               <div>
                 <h3 className="font-bold">2015: Foundation</h3>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  DisasterResponse was founded with a mission to improve disaster management through technology and
+                   HopeNet was founded with a mission to improve disaster management through technology and
                   community engagement.
                 </p>
               </div>
