@@ -1,6 +1,6 @@
-import Link from "next/link"
-import { AlertOctagon, HandHelping, Heart, MapPin } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { AlertOctagon, HandHelping, Heart, MapPin } from "lucide-react"
+import Link from "next/link"
 
 const actions = [
   {
@@ -16,7 +16,7 @@ const actions = [
     description: "Find emergency resources and assistance",
     icon: HandHelping,
     href: "/resources",
-    color: "text-[#29ABE2]",
+    color: "text-[#0077B6]",
     bgColor: "bg-blue-50",
   },
   {

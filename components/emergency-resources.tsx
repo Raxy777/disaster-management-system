@@ -1,7 +1,7 @@
-import Link from "next/link"
-import { ArrowRight, Phone, Hospital, FileText, Video } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { ArrowRight, FileText, Hospital, Phone, Video } from "lucide-react"
+import Link from "next/link"
 
 const resources = [
   {
@@ -17,7 +17,7 @@ const resources = [
     description: "Find nearby medical facilities and emergency rooms",
     icon: Hospital,
     href: "/resources/hospitals",
-    color: "text-[#29ABE2]",
+    color: "text-[#0077B6]",
     bgColor: "bg-blue-50",
   },
   {

@@ -1,10 +1,10 @@
-import Image from "next/image"
-import Link from "next/link"
-import { Download, ExternalLink, FileText, Users } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Download, ExternalLink, FileText, Users } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
 
 // Mock data for officials
 const officials = [
@@ -50,25 +50,25 @@ const partnerNGOs = [
   },
   {
     name: "World Food Programme",
-    logo: "/placeholder.svg?height=60&width=120",
+    logo: "/logos/world-food-programme.svg?height=60&width=120",
     description: "Delivering food assistance in emergencies and working with communities to improve nutrition.",
     website: "https://www.wfp.org",
   },
   {
     name: "UNICEF",
-    logo: "/placeholder.svg?height=60&width=120",
+    logo: "/logos/unicef.svg?height=60&width=120",
     description: "Working to protect the rights and wellbeing of every child, especially during emergencies.",
     website: "https://www.unicef.org",
   },
   {
     name: "Habitat for Humanity",
-    logo: "/placeholder.svg?height=60&width=120",
+    logo: "/logos/habitat-for-humanity.svg?height=60&width=120",
     description: "Building and repairing homes in disaster-affected communities.",
     website: "https://www.habitat.org",
   },
   {
     name: "Save the Children",
-    logo: "/placeholder.svg?height=60&width=120",
+    logo: "/logos/save-the-children.svg?height=60&width=120",
     description: "Providing support to children in crisis situations and disaster-affected areas.",
     website: "https://www.savethechildren.org",
   },
@@ -120,27 +120,15 @@ export function AboutPage() {
         {/* Mission & Vision Section */}
         <div className="mb-12 grid gap-8 md:grid-cols-2">
           <div className="relative aspect-video overflow-hidden rounded-lg md:aspect-auto md:h-full">
-            <Image
-              src="/placeholder.svg?height=400&width=600"
-              alt="Disaster Response Team"
-              fill
-              className="object-cover"
-            />
+
           </div>
           <div className="flex flex-col justify-center">
             <h2 className="mb-4 text-2xl font-bold">Our Mission</h2>
             <p className="mb-6 text-muted-foreground">
-              HopeNet is dedicated to providing rapid, effective, and coordinated disaster management services
+              Suraksha Setu is dedicated to providing rapid, effective, and coordinated disaster management services
               to communities affected by natural and man-made disasters. We work tirelessly to save lives, alleviate
               suffering, and support recovery efforts through innovative technology, community engagement, and
               partnerships with government agencies and NGOs.
-            </p>
-            <h2 className="mb-4 text-2xl font-bold">Our Vision</h2>
-            <p className="text-muted-foreground">
-              We envision a world where communities are resilient in the face of disasters, where response efforts are
-              swift and effective, and where recovery leads to stronger, more prepared communities. Through education,
-              preparation, and coordinated response, we aim to minimize the impact of disasters on human lives and
-              livelihoods.
             </p>
           </div>
         </div>
@@ -153,7 +141,7 @@ export function AboutPage() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <Card>
               <CardHeader>
-                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-[#29ABE2]/10 text-[#29ABE2]">
+                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-[#0077B6]/10 text-[#0077B6]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -180,7 +168,7 @@ export function AboutPage() {
             </Card>
             <Card>
               <CardHeader>
-                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-[#29ABE2]/10 text-[#29ABE2]">
+                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-[#0077B6]/10 text-[#0077B6]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -207,7 +195,7 @@ export function AboutPage() {
             </Card>
             <Card>
               <CardHeader>
-                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-[#29ABE2]/10 text-[#29ABE2]">
+                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-[#0077B6]/10 text-[#0077B6]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -234,7 +222,7 @@ export function AboutPage() {
             </Card>
             <Card>
               <CardHeader>
-                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-[#29ABE2]/10 text-[#29ABE2]">
+                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-[#0077B6]/10 text-[#0077B6]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -380,7 +368,7 @@ export function AboutPage() {
                         <p className="text-sm text-muted-foreground">
                           A comprehensive guide to preparing communities for various types of disasters.
                         </p>
-                        <Button variant="link" className="mt-1 h-auto p-0 text-[#29ABE2]" asChild>
+                        <Button variant="link" className="mt-1 h-auto p-0 text-[#0077B6]" asChild>
                           <Link href="/publications/disaster-preparedness.pdf">Download PDF</Link>
                         </Button>
                       </div>
@@ -394,7 +382,7 @@ export function AboutPage() {
                         <p className="text-sm text-muted-foreground">
                           Research paper on the correlation between climate change and increasing disaster frequency.
                         </p>
-                        <Button variant="link" className="mt-1 h-auto p-0 text-[#29ABE2]" asChild>
+                        <Button variant="link" className="mt-1 h-auto p-0 text-[#0077B6]" asChild>
                           <Link href="/publications/climate-change-research.pdf">Download PDF</Link>
                         </Button>
                       </div>
@@ -408,7 +396,7 @@ export function AboutPage() {
                         <p className="text-sm text-muted-foreground">
                           Detailed analysis of the response efforts during the Riverside County floods.
                         </p>
-                        <Button variant="link" className="mt-1 h-auto p-0 text-[#29ABE2]" asChild>
+                        <Button variant="link" className="mt-1 h-auto p-0 text-[#0077B6]" asChild>
                           <Link href="/publications/riverside-case-study.pdf">Download PDF</Link>
                         </Button>
                       </div>
@@ -426,19 +414,19 @@ export function AboutPage() {
           <div className="relative border-l border-muted pl-6">
             <div className="mb-10 relative">
               <div className="absolute -left-10 flex h-6 w-6 items-center justify-center rounded-full border bg-background">
-                <div className="h-3 w-3 rounded-full bg-[#29ABE2]"></div>
+                <div className="h-3 w-3 rounded-full bg-[#0077B6]"></div>
               </div>
               <div>
                 <h3 className="font-bold">2015: Foundation</h3>
                 <p className="mt-2 text-sm text-muted-foreground">
-                   HopeNet was founded with a mission to improve disaster management through technology and
+                   Suraksha Setu was founded with a mission to improve disaster management through technology and
                   community engagement.
                 </p>
               </div>
             </div>
             <div className="mb-10 relative">
               <div className="absolute -left-10 flex h-6 w-6 items-center justify-center rounded-full border bg-background">
-                <div className="h-3 w-3 rounded-full bg-[#29ABE2]"></div>
+                <div className="h-3 w-3 rounded-full bg-[#0077B6]"></div>
               </div>
               <div>
                 <h3 className="font-bold">2017: First Major Response</h3>
@@ -450,7 +438,7 @@ export function AboutPage() {
             </div>
             <div className="mb-10 relative">
               <div className="absolute -left-10 flex h-6 w-6 items-center justify-center rounded-full border bg-background">
-                <div className="h-3 w-3 rounded-full bg-[#29ABE2]"></div>
+                <div className="h-3 w-3 rounded-full bg-[#0077B6]"></div>
               </div>
               <div>
                 <h3 className="font-bold">2019: Technology Innovation</h3>
@@ -462,7 +450,7 @@ export function AboutPage() {
             </div>
             <div className="mb-10 relative">
               <div className="absolute -left-10 flex h-6 w-6 items-center justify-center rounded-full border bg-background">
-                <div className="h-3 w-3 rounded-full bg-[#29ABE2]"></div>
+                <div className="h-3 w-3 rounded-full bg-[#0077B6]"></div>
               </div>
               <div>
                 <h3 className="font-bold">2021: International Expansion</h3>
@@ -474,7 +462,7 @@ export function AboutPage() {
             </div>
             <div className="relative">
               <div className="absolute -left-10 flex h-6 w-6 items-center justify-center rounded-full border bg-background">
-                <div className="h-3 w-3 rounded-full bg-[#29ABE2]"></div>
+                <div className="h-3 w-3 rounded-full bg-[#0077B6]"></div>
               </div>
               <div>
                 <h3 className="font-bold">2023: Community Resilience Initiative</h3>
@@ -488,7 +476,7 @@ export function AboutPage() {
         </div>
 
         {/* CTA Section */}
-        <div className="mt-12 rounded-lg bg-[#29ABE2]/10 p-8 text-center">
+        <div className="mt-12 rounded-lg bg-[#0077B6]/10 p-8 text-center">
           <h2 className="text-2xl font-bold">Join Our Mission</h2>
           <p className="mx-auto mt-2 max-w-2xl text-muted-foreground">
             Whether you're interested in volunteering, donating, or partnering with us, there are many ways to support

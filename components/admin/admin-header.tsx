@@ -1,10 +1,7 @@
 "use client"
 
-import { useState } from "react"
-import Link from "next/link"
-import { Bell, LogOut, Search, Settings, UserIcon } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,8 +10,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Badge } from "@/components/ui/badge"
+import { Input } from "@/components/ui/input"
 import { SidebarTrigger } from "@/components/ui/sidebar"
+import { Bell, LogOut, Search, Settings, UserIcon } from "lucide-react"
+import Link from "next/link"
+import { useState } from "react"
 
 interface AdminHeaderProps {
   title: string
@@ -57,7 +57,7 @@ export function AdminHeader({ title }: AdminHeaderProps) {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#29ABE2] text-white">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0077B6] text-white">
                   <UserIcon className="h-4 w-4" />
                 </div>
                 <span className="hidden md:inline">Admin User</span>

@@ -1,17 +1,17 @@
 "use client"
 
-import { useState } from "react"
-import Link from "next/link"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Calendar } from "@/components/ui/calendar"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Progress } from "@/components/ui/progress"
-import { AlertCircle, CalendarIcon, Clock, Download, MapPin, MessageSquare, User, Users } from "lucide-react"
 import { Navbar } from "@/components/navbar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Progress } from "@/components/ui/progress"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useAuth } from "@/lib/auth-context"
+import { AlertCircle, CalendarIcon, Clock, Download, MapPin, MessageSquare, User, Users } from "lucide-react"
+import Link from "next/link"
+import { useState } from "react"
 
 export default function VolunteerDashboard() {
   const [date, setDate] = useState<Date | undefined>(new Date())
@@ -105,7 +105,7 @@ export default function VolunteerDashboard() {
                 <Download size={16} />
                 Download Schedule
               </Button>
-              <Button className="bg-[#29ABE2] hover:bg-[#1d8eb8]">Check In</Button>
+              <Button className="bg-[#0077B6] hover:bg-[#1d8eb8]">Check In</Button>
             </div>
           </div>
 
@@ -223,7 +223,7 @@ export default function VolunteerDashboard() {
                               Update Status
                             </Button>
                           )}
-                          <Button size="sm" className="bg-[#29ABE2] hover:bg-[#1d8eb8]">
+                          <Button size="sm" className="bg-[#0077B6] hover:bg-[#1d8eb8]">
                             View Details
                           </Button>
                         </div>
@@ -317,7 +317,7 @@ export default function VolunteerDashboard() {
                               Certificate
                             </Button>
                           ) : (
-                            <Button size="sm" className="bg-[#29ABE2] hover:bg-[#1d8eb8]">
+                            <Button size="sm" className="bg-[#0077B6] hover:bg-[#1d8eb8]">
                               Continue
                             </Button>
                           )}
@@ -457,7 +457,7 @@ export default function VolunteerDashboard() {
                           </div>
                         )}
                         {announcement.id === 2 && (
-                          <Button className="mt-3 bg-[#29ABE2] hover:bg-[#1d8eb8]">Sign Up</Button>
+                          <Button className="mt-3 bg-[#0077B6] hover:bg-[#1d8eb8]">Sign Up</Button>
                         )}
                       </div>
                     ))}

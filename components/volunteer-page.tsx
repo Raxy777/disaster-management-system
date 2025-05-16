@@ -2,34 +2,34 @@
 
 import type React from "react"
 
-import { useState } from "react"
-import Image from "next/image"
-import Link from "next/link"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Separator } from "@/components/ui/separator"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Textarea } from "@/components/ui/textarea"
+import { useToast } from "@/hooks/use-toast"
 import {
   ArrowRight,
   Calendar,
   CreditCard,
   DollarSign,
   Download,
+  ExternalLink,
   Heart,
   HelpingHand,
+  Home,
   MapPin,
   Package,
   ShoppingBag,
   Users,
-  Home,
-  ExternalLink,
 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Textarea } from "@/components/ui/textarea"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
-import { useToast } from "@/hooks/use-toast"
+import Image from "next/image"
+import Link from "next/link"
+import { useState } from "react"
 
 // Mock data for requirements
 const requirementFeeds = [
@@ -322,13 +322,13 @@ export function VolunteerPage() {
                       <input type="checkbox" id="terms" className="h-4 w-4 rounded border-gray-300" required />
                       <Label htmlFor="terms" className="text-sm">
                         I agree to the{" "}
-                        <Link href="/terms" className="text-[#29ABE2] hover:underline">
+                        <Link href="/terms" className="text-[#0077B6] hover:underline">
                           volunteer terms and conditions
                         </Link>
                       </Label>
                     </div>
 
-                    <Button type="submit" className="w-full bg-[#29ABE2] hover:bg-[#29ABE2]/90">
+                    <Button type="submit" className="w-full bg-[#0077B6] hover:bg-[#0077B6]/90">
                       <HelpingHand className="mr-2 h-4 w-4" />
                       Submit Application
                     </Button>
@@ -344,7 +344,7 @@ export function VolunteerPage() {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="flex items-start gap-3">
-                      <div className="rounded-full bg-blue-50 p-2 text-[#29ABE2]">
+                      <div className="rounded-full bg-blue-50 p-2 text-[#0077B6]">
                         <HelpingHand className="h-5 w-5" />
                       </div>
                       <div>
@@ -355,7 +355,7 @@ export function VolunteerPage() {
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="rounded-full bg-blue-50 p-2 text-[#29ABE2]">
+                      <div className="rounded-full bg-blue-50 p-2 text-[#0077B6]">
                         <Users className="h-5 w-5" />
                       </div>
                       <div>
@@ -366,7 +366,7 @@ export function VolunteerPage() {
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="rounded-full bg-blue-50 p-2 text-[#29ABE2]">
+                      <div className="rounded-full bg-blue-50 p-2 text-[#0077B6]">
                         <Calendar className="h-5 w-5" />
                       </div>
                       <div>
@@ -377,7 +377,7 @@ export function VolunteerPage() {
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="rounded-full bg-blue-50 p-2 text-[#29ABE2]">
+                      <div className="rounded-full bg-blue-50 p-2 text-[#0077B6]">
                         <Heart className="h-5 w-5" />
                       </div>
                       <div>
@@ -417,7 +417,7 @@ export function VolunteerPage() {
                 <Card key={opportunity.id}>
                   <CardHeader>
                     <div className="flex items-center justify-between">
-                      <Badge className="bg-[#29ABE2]">{opportunity.slots}</Badge>
+                      <Badge className="bg-[#0077B6]">{opportunity.slots}</Badge>
                       <span className="text-sm text-muted-foreground">{opportunity.date}</span>
                     </div>
                     <CardTitle className="text-xl">{opportunity.title}</CardTitle>
@@ -478,7 +478,7 @@ export function VolunteerPage() {
                             key={amount}
                             type="button"
                             variant={donationAmount === amount ? "default" : "outline"}
-                            className={donationAmount === amount ? "bg-[#29ABE2] hover:bg-[#29ABE2]/90" : ""}
+                            className={donationAmount === amount ? "bg-[#0077B6] hover:bg-[#0077B6]/90" : ""}
                             onClick={() => {
                               setDonationAmount(amount)
                               setCustomAmount("")
@@ -575,7 +575,7 @@ export function VolunteerPage() {
                       </Label>
                     </div>
 
-                    <Button type="submit" className="w-full bg-[#29ABE2] hover:bg-[#29ABE2]/90">
+                    <Button type="submit" className="w-full bg-[#0077B6] hover:bg-[#0077B6]/90">
                       <Heart className="mr-2 h-4 w-4" />
                       {donationAmount || customAmount
                         ? `Donate $${donationAmount || customAmount}`
@@ -641,7 +641,7 @@ export function VolunteerPage() {
                   <CardContent>
                     <div className="space-y-4">
                       <div className="flex items-start gap-3">
-                        <div className="rounded-full bg-blue-50 p-2 text-[#29ABE2]">
+                        <div className="rounded-full bg-blue-50 p-2 text-[#0077B6]">
                           <Package className="h-5 w-5" />
                         </div>
                         <div>
@@ -652,7 +652,7 @@ export function VolunteerPage() {
                         </div>
                       </div>
                       <div className="flex items-start gap-3">
-                        <div className="rounded-full bg-blue-50 p-2 text-[#29ABE2]">
+                        <div className="rounded-full bg-blue-50 p-2 text-[#0077B6]">
                           <ShoppingBag className="h-5 w-5" />
                         </div>
                         <div>
@@ -662,7 +662,7 @@ export function VolunteerPage() {
                         </div>
                       </div>
                       <div className="flex items-start gap-3">
-                        <div className="rounded-full bg-blue-50 p-2 text-[#29ABE2]">
+                        <div className="rounded-full bg-blue-50 p-2 text-[#0077B6]">
                           <Home className="h-5 w-5" />
                         </div>
                         <div>
@@ -672,7 +672,7 @@ export function VolunteerPage() {
                         </div>
                       </div>
                       <div className="flex items-start gap-3">
-                        <div className="rounded-full bg-blue-50 p-2 text-[#29ABE2]">
+                        <div className="rounded-full bg-blue-50 p-2 text-[#0077B6]">
                           <Heart className="h-5 w-5" />
                         </div>
                         <div>
@@ -741,7 +741,7 @@ export function VolunteerPage() {
                         </table>
                       </div>
                       <div className="flex justify-end">
-                        <Button variant="link" className="text-[#29ABE2]" asChild>
+                        <Button variant="link" className="text-[#0077B6]" asChild>
                           <Link href={`/requirements/${feed.id}`}>
                             View Full Requirements <ArrowRight className="ml-1 h-4 w-4" />
                           </Link>
@@ -763,7 +763,7 @@ export function VolunteerPage() {
                   <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     <Card>
                       <CardHeader className="pb-2">
-                        <Badge className="w-fit bg-[#29ABE2]">Medical</Badge>
+                        <Badge className="w-fit bg-[#0077B6]">Medical</Badge>
                         <CardTitle className="text-base">Medical Professionals</CardTitle>
                       </CardHeader>
                       <CardContent className="pb-2">
@@ -779,7 +779,7 @@ export function VolunteerPage() {
                     </Card>
                     <Card>
                       <CardHeader className="pb-2">
-                        <Badge className="w-fit bg-[#29ABE2]">Logistics</Badge>
+                        <Badge className="w-fit bg-[#0077B6]">Logistics</Badge>
                         <CardTitle className="text-base">Supply Distribution</CardTitle>
                       </CardHeader>
                       <CardContent className="pb-2">
@@ -795,7 +795,7 @@ export function VolunteerPage() {
                     </Card>
                     <Card>
                       <CardHeader className="pb-2">
-                        <Badge className="w-fit bg-[#29ABE2]">Support</Badge>
+                        <Badge className="w-fit bg-[#0077B6]">Support</Badge>
                         <CardTitle className="text-base">Shelter Assistance</CardTitle>
                       </CardHeader>
                       <CardContent className="pb-2">
@@ -857,7 +857,7 @@ export function VolunteerPage() {
             <Card>
               <CardHeader>
                 <CardTitle>Partner Benefits</CardTitle>
-                <CardDescription>Why partner with HopeNet</CardDescription>
+                <CardDescription>Why partner with Suraksha Setu</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid gap-6 sm:grid-cols-2">

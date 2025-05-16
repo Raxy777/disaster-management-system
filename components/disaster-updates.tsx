@@ -1,9 +1,9 @@
-import Image from "next/image"
-import Link from "next/link"
-import { ArrowRight, Calendar } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { ArrowRight, Calendar } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
 
 const updates = [
   {
@@ -77,7 +77,7 @@ export function DisasterUpdates() {
                 <CardDescription className="line-clamp-3">{update.description}</CardDescription>
               </CardContent>
               <CardFooter>
-                <Button variant="link" className="px-0 text-[#29ABE2]" asChild>
+                <Button variant="link" className="px-0 text-[#0077B6]" asChild>
                   <Link href={`/news/${update.id}`}>
                     Read more <ArrowRight className="ml-1 h-3 w-3" />
                   </Link>

@@ -2,27 +2,9 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import {
-  AlertTriangle,
-  Download,
-  Edit,
-  Filter,
-  MoreHorizontal,
-  Package,
-  Plus,
-  RefreshCw,
-  Search,
-  Truck,
-} from "lucide-react"
 import {
   Dialog,
   DialogContent,
@@ -40,7 +22,25 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Progress } from "@/components/ui/progress"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useToast } from "@/hooks/use-toast"
+import {
+  AlertTriangle,
+  Download,
+  Edit,
+  Filter,
+  MoreHorizontal,
+  Package,
+  Plus,
+  RefreshCw,
+  Search,
+  Truck,
+} from "lucide-react"
+import { useState } from "react"
 
 // Mock data for resources
 const resourcesData = [
@@ -203,7 +203,7 @@ export function ResourceManagement() {
         <div className="mt-4 md:mt-0 flex gap-2">
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-[#29ABE2] hover:bg-[#29ABE2]/90">
+              <Button className="bg-[#0077B6] hover:bg-[#0077B6]/90">
                 <Plus className="mr-2 h-4 w-4" />
                 Add Resource
               </Button>
@@ -272,7 +272,7 @@ export function ResourceManagement() {
                   <Button type="button" variant="outline" onClick={() => setIsAddDialogOpen(false)}>
                     Cancel
                   </Button>
-                  <Button type="submit" className="bg-[#29ABE2] hover:bg-[#29ABE2]/90">
+                  <Button type="submit" className="bg-[#0077B6] hover:bg-[#0077B6]/90">
                     Add Resource
                   </Button>
                 </DialogFooter>

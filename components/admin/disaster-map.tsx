@@ -1,13 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Filter, Layers, MapPin, Search, ZoomIn, ZoomOut } from "lucide-react"
+import { useState } from "react"
 
 export function DisasterMap() {
   const [mapType, setMapType] = useState("incidents")
@@ -94,7 +94,7 @@ export function DisasterMap() {
               <div className="relative bg-gray-100 h-[600px] rounded-md flex items-center justify-center">
                 {/* This would be replaced with an actual map component */}
                 <div className="text-center">
-                  <MapPin className="h-12 w-12 text-[#29ABE2]" />
+                  <MapPin className="h-12 w-12 text-[#0077B6]" />
                   <p className="mt-4 text-lg font-medium">Interactive Map</p>
                   <p className="text-sm text-muted-foreground">
                     This would be an interactive map showing disaster incidents and resources.

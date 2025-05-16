@@ -2,44 +2,44 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import {
-  AlertTriangle,
-  Calendar,
-  Download,
-  Filter,
-  MapPin,
-  MoreHorizontal,
-  Phone,
-  Search,
-  UserPlus,
-} from "lucide-react"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from "@/components/ui/dialog"
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useToast } from "@/hooks/use-toast"
+import {
+    AlertTriangle,
+    Calendar,
+    Download,
+    Filter,
+    MapPin,
+    MoreHorizontal,
+    Phone,
+    Search,
+    UserPlus,
+} from "lucide-react"
+import { useState } from "react"
 
 // Mock data for volunteers
 const volunteersData = [
@@ -239,7 +239,7 @@ export function VolunteerManagement() {
         <div className="mt-4 md:mt-0 flex gap-2">
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-[#29ABE2] hover:bg-[#29ABE2]/90">
+              <Button className="bg-[#0077B6] hover:bg-[#0077B6]/90">
                 <UserPlus className="mr-2 h-4 w-4" />
                 Add Volunteer
               </Button>
@@ -350,7 +350,7 @@ export function VolunteerManagement() {
                   <Button type="button" variant="outline" onClick={() => setIsAddDialogOpen(false)}>
                     Cancel
                   </Button>
-                  <Button type="submit" className="bg-[#29ABE2] hover:bg-[#29ABE2]/90">
+                  <Button type="submit" className="bg-[#0077B6] hover:bg-[#0077B6]/90">
                     Add Volunteer
                   </Button>
                 </DialogFooter>

@@ -2,9 +2,6 @@
 
 import type React from "react"
 
-import { useState } from "react"
-import Image from "next/image"
-import { Camera, MapPin, Upload, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -13,6 +10,9 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
+import { Camera, MapPin, Upload, X } from "lucide-react"
+import Image from "next/image"
+import { useState } from "react"
 
 export function ReportForm() {
   const { toast } = useToast()
@@ -223,7 +223,7 @@ export function ReportForm() {
               </div>
 
               <div className="flex flex-col gap-2 sm:flex-row">
-                <Button type="submit" className="bg-[#29ABE2] hover:bg-[#29ABE2]/90">
+                <Button type="submit" className="bg-[#0077B6] hover:bg-[#0077B6]/90">
                   <Upload className="mr-2 h-4 w-4" />
                   Submit Report
                 </Button>

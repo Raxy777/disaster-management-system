@@ -2,36 +2,36 @@
 
 import type React from "react"
 
-import { useState } from "react"
-import Link from "next/link"
-import { AlertTriangle, ChevronDown, Clock, Edit, Eye, Filter, MapPin, Plus, Search, User } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
+import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
+import { AlertTriangle, ChevronDown, Clock, Edit, Eye, Filter, MapPin, Plus, Search, User } from "lucide-react"
+import Link from "next/link"
+import { useState } from "react"
 
 // Mock data for alerts
 const alertsData = [
@@ -253,7 +253,7 @@ export function AlertManagement() {
           <h1 className="text-2xl font-bold">Alert Management</h1>
           <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-[#29ABE2] hover:bg-[#29ABE2]/90">
+              <Button className="bg-[#0077B6] hover:bg-[#0077B6]/90">
                 <Plus className="mr-2 h-4 w-4" />
                 Create New Alert
               </Button>
@@ -369,7 +369,7 @@ export function AlertManagement() {
                   <Button type="button" variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
                     Cancel
                   </Button>
-                  <Button type="submit" className="bg-[#29ABE2] hover:bg-[#29ABE2]/90">
+                  <Button type="submit" className="bg-[#0077B6] hover:bg-[#0077B6]/90">
                     Create Alert
                   </Button>
                 </DialogFooter>

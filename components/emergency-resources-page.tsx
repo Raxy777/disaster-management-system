@@ -1,16 +1,16 @@
 "use client"
 
-import { useState } from "react"
-import Link from "next/link"
-import Image from "next/image"
-import { Download, ExternalLink, MapPin, Phone, Thermometer, Umbrella, AlertTriangle } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
-import { Badge } from "@/components/ui/badge"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { AlertTriangle, Download, ExternalLink, MapPin, Phone, Thermometer, Umbrella } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
+import { useState } from "react"
 
 // Mock data for helplines
 const helplines = [
@@ -318,7 +318,7 @@ export function EmergencyResourcesPage() {
                 <Card key={category.category}>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <Phone className="h-5 w-5 text-[#29ABE2]" />
+                      <Phone className="h-5 w-5 text-[#0077B6]" />
                       {category.category}
                     </CardTitle>
                   </CardHeader>
@@ -329,7 +329,7 @@ export function EmergencyResourcesPage() {
                           <span className="text-sm">{item.name}</span>
                           <a
                             href={`tel:${item.number}`}
-                            className="flex items-center gap-1 font-medium text-[#29ABE2] hover:underline"
+                            className="flex items-center gap-1 font-medium text-[#0077B6] hover:underline"
                           >
                             {item.number}
                           </a>
@@ -393,7 +393,7 @@ export function EmergencyResourcesPage() {
                   <Card key={facility.id}>
                     <CardHeader className="pb-2">
                       <div className="flex items-center justify-between">
-                        <Badge className={facility.type === "Hospital" ? "bg-red-500" : "bg-[#29ABE2]"}>
+                        <Badge className={facility.type === "Hospital" ? "bg-red-500" : "bg-[#0077B6]"}>
                           {facility.type}
                         </Badge>
                         <span className="text-xs text-muted-foreground">{facility.distance}</span>
@@ -411,7 +411,7 @@ export function EmergencyResourcesPage() {
                           <span className="text-sm text-muted-foreground">Phone:</span>
                           <a
                             href={`tel:${facility.phone}`}
-                            className="text-sm font-medium text-[#29ABE2] hover:underline"
+                            className="text-sm font-medium text-[#0077B6] hover:underline"
                           >
                             {facility.phone}
                           </a>
@@ -468,7 +468,7 @@ export function EmergencyResourcesPage() {
                         <ul className="grid gap-2 sm:grid-cols-2">
                           {kit.items.map((item, index) => (
                             <li key={index} className="flex items-start gap-2">
-                              <div className="mt-1 h-4 w-4 rounded border border-[#29ABE2]" />
+                              <div className="mt-1 h-4 w-4 rounded border border-[#0077B6]" />
                               <span className="text-sm">{item}</span>
                             </li>
                           ))}
@@ -622,7 +622,7 @@ export function EmergencyResourcesPage() {
                 <CardContent>
                   <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
                     <div className="flex h-24 w-24 items-center justify-center rounded-full bg-blue-50">
-                      <Umbrella className="h-12 w-12 text-[#29ABE2]" />
+                      <Umbrella className="h-12 w-12 text-[#0077B6]" />
                     </div>
                     <div className="text-center sm:text-left">
                       <div className="text-4xl font-bold">{weatherData.current.temperature}</div>
@@ -673,7 +673,7 @@ export function EmergencyResourcesPage() {
                     </CardHeader>
                     <CardContent className="text-center">
                       <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-blue-50">
-                        <Thermometer className="h-6 w-6 text-[#29ABE2]" />
+                        <Thermometer className="h-6 w-6 text-[#0077B6]" />
                       </div>
                       <div className="text-lg font-bold">{day.high}</div>
                       <div className="text-sm text-muted-foreground">{day.low}</div>

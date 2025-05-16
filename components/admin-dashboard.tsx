@@ -1,49 +1,49 @@
 "use client"
 
-import { useState } from "react"
-import Link from "next/link"
-import {
-  AlertTriangle,
-  BarChart3,
-  Bell,
-  Calendar,
-  ChevronDown,
-  FileText,
-  Home,
-  LayoutDashboard,
-  LogOut,
-  Map,
-  MessageSquare,
-  Settings,
-  ShieldAlert,
-  User,
-  Users,
-} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {
+    Sidebar,
+    SidebarContent,
+    SidebarFooter,
+    SidebarGroup,
+    SidebarGroupContent,
+    SidebarGroupLabel,
+    SidebarHeader,
+    SidebarMenu,
+    SidebarMenuButton,
+    SidebarMenuItem,
+    SidebarProvider,
+    SidebarTrigger,
+} from "@/components/ui/sidebar"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
-  SidebarProvider,
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuButton,
-  SidebarTrigger,
-} from "@/components/ui/sidebar"
+    AlertTriangle,
+    BarChart3,
+    Bell,
+    Calendar,
+    ChevronDown,
+    FileText,
+    Home,
+    LayoutDashboard,
+    LogOut,
+    Map,
+    MessageSquare,
+    Settings,
+    ShieldAlert,
+    User,
+    Users,
+} from "lucide-react"
+import Link from "next/link"
+import { useState } from "react"
 
 // Mock data for dashboard stats
 const stats = [
@@ -139,7 +139,7 @@ export function AdminDashboard() {
         <Sidebar>
           <SidebarHeader>
             <div className="flex items-center gap-2 px-2">
-              <AlertTriangle className="h-6 w-6 text-[#29ABE2]" />
+              <AlertTriangle className="h-6 w-6 text-[#0077B6]" />
               <span className="text-lg font-bold">Admin Panel</span>
             </div>
           </SidebarHeader>
@@ -236,7 +236,7 @@ export function AdminDashboard() {
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="flex w-full justify-between p-2">
                     <div className="flex items-center gap-2">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#29ABE2] text-white">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0077B6] text-white">
                         <User className="h-4 w-4" />
                       </div>
                       <div className="text-left">
@@ -380,7 +380,7 @@ export function AdminDashboard() {
                         <div className="space-y-4">
                           {pendingReports.map((report) => (
                             <div key={report.id} className="flex items-start gap-4">
-                              <div className="mt-0.5 h-2 w-2 rounded-full bg-[#29ABE2]" />
+                              <div className="mt-0.5 h-2 w-2 rounded-full bg-[#0077B6]" />
                               <div className="flex-1 space-y-1">
                                 <p className="text-sm font-medium leading-none">{report.title}</p>
                                 <p className="text-xs text-muted-foreground">{report.location}</p>

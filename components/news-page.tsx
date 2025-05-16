@@ -1,15 +1,15 @@
 "use client"
 
-import { useState } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { Calendar, ChevronRight, Facebook, Instagram, Search, Twitter } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Calendar, ChevronRight, Facebook, Instagram, Search, Twitter } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
+import { useState } from "react"
 
 // Mock data for news articles
 const newsArticles = [
@@ -172,7 +172,7 @@ export function NewsPage() {
                 </div>
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <Badge className="bg-[#29ABE2]">{article.category}</Badge>
+                    <Badge className="bg-[#0077B6]">{article.category}</Badge>
                     <div className="flex items-center text-sm text-muted-foreground">
                       <Calendar className="mr-1 h-3 w-3" />
                       {article.date}
@@ -241,7 +241,7 @@ export function NewsPage() {
                     </div>
                     <CardHeader className="pb-2">
                       <div className="flex items-center justify-between">
-                        <Badge className="bg-[#29ABE2]">{article.category}</Badge>
+                        <Badge className="bg-[#0077B6]">{article.category}</Badge>
                         <div className="flex items-center text-xs text-muted-foreground">
                           <Calendar className="mr-1 h-3 w-3" />
                           {article.date}
@@ -253,7 +253,7 @@ export function NewsPage() {
                       <CardDescription className="line-clamp-3">{article.excerpt}</CardDescription>
                     </CardContent>
                     <CardFooter>
-                      <Button variant="link" className="px-0 text-[#29ABE2]" asChild>
+                      <Button variant="link" className="px-0 text-[#0077B6]" asChild>
                         <Link href={`/news/${article.id}`}>
                           Read more <ChevronRight className="ml-1 h-3 w-3" />
                         </Link>
@@ -348,7 +348,7 @@ export function NewsPage() {
                     <CardDescription className="line-clamp-3">{story.excerpt}</CardDescription>
                   </CardContent>
                   <CardFooter>
-                    <Button variant="link" className="px-0 text-[#29ABE2]" asChild>
+                    <Button variant="link" className="px-0 text-[#0077B6]" asChild>
                       <Link href={`/news/success-stories/${story.id}`}>
                         Read full story <ChevronRight className="ml-1 h-3 w-3" />
                       </Link>
@@ -377,8 +377,8 @@ export function NewsPage() {
                     <div className="mb-2 flex items-center gap-2">
                       <div className="h-8 w-8 rounded-full bg-[#1DA1F2]" />
                       <div>
-                        <p className="text-sm font-medium">HopeNet</p>
-                        <p className="text-xs text-muted-foreground">@HopeNet</p>
+                        <p className="text-sm font-medium">Suraksha Setu</p>
+                        <p className="text-xs text-muted-foreground">@SurakshaSetu</p>
                       </div>
                     </div>
                     <p className="text-sm">
@@ -391,8 +391,8 @@ export function NewsPage() {
                     <div className="mb-2 flex items-center gap-2">
                       <div className="h-8 w-8 rounded-full bg-[#1DA1F2]" />
                       <div>
-                        <p className="text-sm font-medium">HopeNet</p>
-                        <p className="text-xs text-muted-foreground">@HopeNet</p>
+                        <p className="text-sm font-medium">Suraksha Setu</p>
+                        <p className="text-xs text-muted-foreground">@SurakshaSetu</p>
                       </div>
                     </div>
                     <p className="text-sm">
@@ -405,8 +405,8 @@ export function NewsPage() {
                     <div className="mb-2 flex items-center gap-2">
                       <div className="h-8 w-8 rounded-full bg-[#1DA1F2]" />
                       <div>
-                        <p className="text-sm font-medium">HopeNet</p>
-                        <p className="text-xs text-muted-foreground">@HopeNet</p>
+                        <p className="text-sm font-medium">Suraksha Setu</p>
+                        <p className="text-xs text-muted-foreground">@SurakshaSetu</p>
                       </div>
                     </div>
                     <p className="text-sm">
@@ -534,7 +534,7 @@ export function NewsPage() {
         </div>
 
         {/* Newsletter Signup */}
-        <div className="mt-12 rounded-lg bg-[#29ABE2]/10 p-6">
+        <div className="mt-12 rounded-lg bg-[#0077B6]/10 p-6">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-2xl font-bold">Stay Updated</h2>
             <p className="mt-2 text-muted-foreground">

@@ -2,15 +2,15 @@
 
 import type React from "react"
 
-import { useState } from "react"
-import Link from "next/link"
-import { AlertTriangle, Eye, EyeOff, KeyRound, Shield, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useToast } from "@/hooks/use-toast"
+import { AlertTriangle, Eye, EyeOff, KeyRound, Shield, User } from "lucide-react"
+import Link from "next/link"
+import { useState } from "react"
 
 export function AdminLogin() {
   const { toast } = useToast()
@@ -51,8 +51,8 @@ export function AdminLogin() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 p-4">
       <div className="mb-8 flex items-center gap-2">
-        <AlertTriangle className="h-8 w-8 text-[#29ABE2]" />
-        <span className="text-2xl font-bold">HopeNet</span>
+        <AlertTriangle className="h-8 w-8 text-[#0077B6]" />
+        <span className="text-2xl font-bold">Suraksha Setu</span>
       </div>
 
       <Card className="mx-auto w-full max-w-md">
@@ -79,9 +79,7 @@ export function AdminLogin() {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <Label htmlFor="password">Password</Label>
-                      <Link href="/admin/reset-password" className="text-xs text-[#29ABE2] hover:underline">
-                        Forgot password?
-                      </Link>
+                      
                     </div>
                     <div className="relative">
                       <KeyRound className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -108,7 +106,7 @@ export function AdminLogin() {
                       </Button>
                     </div>
                   </div>
-                  <Button type="submit" className="w-full bg-[#29ABE2] hover:bg-[#29ABE2]/90" disabled={isLoading}>
+                  <Button type="submit" className="w-full bg-[#0077B6] hover:bg-[#0077B6]/90" disabled={isLoading}>
                     {isLoading ? (
                       <>
                         <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
@@ -157,7 +155,7 @@ export function AdminLogin() {
               </div>
               <Button
                 type="submit"
-                className="w-full bg-[#29ABE2] hover:bg-[#29ABE2]/90"
+                className="w-full bg-[#0077B6] hover:bg-[#0077B6]/90"
                 disabled={isLoading || verificationCode.length !== 6}
               >
                 {isLoading ? (
@@ -181,7 +179,7 @@ export function AdminLogin() {
             <p>Unauthorized access attempts will be logged and reported.</p>
           </div>
           <div className="text-xs">
-            <Link href="/" className="text-[#29ABE2] hover:underline">
+            <Link href="/" className="text-[#0077B6] hover:underline">
               Return to Public Site
             </Link>
           </div>

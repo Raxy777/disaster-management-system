@@ -2,8 +2,6 @@
 
 import type React from "react"
 
-import { useState } from "react"
-import { Mail, MapPin, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -12,6 +10,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
+import { Mail, MapPin, Phone } from "lucide-react"
+import { useState } from "react"
 
 export function ContactPage() {
   const { toast } = useToast()
@@ -45,7 +45,7 @@ export function ContactPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <div className="rounded-full bg-[#29ABE2]/10 p-2 text-[#29ABE2]">
+                  <div className="rounded-full bg-[#0077B6]/10 p-2 text-[#0077B6]">
                     <Phone className="h-5 w-5" />
                   </div>
                   <div>
@@ -56,18 +56,18 @@ export function ContactPage() {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="rounded-full bg-[#29ABE2]/10 p-2 text-[#29ABE2]">
+                  <div className="rounded-full bg-[#0077B6]/10 p-2 text-[#0077B6]">
                     <Mail className="h-5 w-5" />
                   </div>
                   <div>
                     <h3 className="font-medium">Email</h3>
-                    <p className="text-sm text-muted-foreground">General Inquiries: info@hopenet.org</p>
-                    <p className="text-sm text-muted-foreground">Support: support@hopenet.org</p>
-                    <p className="text-sm text-muted-foreground">Media: media@hopenet.org</p>
+                    <p className="text-sm text-muted-foreground">General Inquiries: info@surakshasetu.org</p>
+                    <p className="text-sm text-muted-foreground">Support: support@surakshasetu.org</p>
+                    <p className="text-sm text-muted-foreground">Media: media@surakshasetu.org</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="rounded-full bg-[#29ABE2]/10 p-2 text-[#29ABE2]">
+                  <div className="rounded-full bg-[#0077B6]/10 p-2 text-[#0077B6]">
                     <MapPin className="h-5 w-5" />
                   </div>
                   <div>
@@ -233,14 +233,14 @@ export function ContactPage() {
                       <input type="checkbox" id="privacy" className="h-4 w-4 rounded border-gray-300" required />
                       <Label htmlFor="privacy" className="text-sm">
                         I agree to the{" "}
-                        <a href="/privacy" className="text-[#29ABE2] hover:underline">
+                        <a href="/privacy" className="text-[#0077B6] hover:underline">
                           privacy policy
                         </a>{" "}
                         and consent to being contacted regarding my inquiry.
                       </Label>
                     </div>
 
-                    <Button type="submit" className="w-full bg-[#29ABE2] hover:bg-[#29ABE2]/90">
+                    <Button type="submit" className="w-full bg-[#0077B6] hover:bg-[#0077B6]/90">
                       Send Message
                     </Button>
                   </form>

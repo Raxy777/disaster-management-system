@@ -1,13 +1,13 @@
 "use client"
 
-import { useState } from "react"
-import { Filter, Layers, MapPin, Home, AlertTriangle, Info } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { AlertTriangle, Filter, Home, Info, Layers, MapPin } from "lucide-react"
+import { useState } from "react"
 
 // Mock data for map markers
 const disasterZones = [
@@ -207,7 +207,7 @@ export function InteractiveMap() {
                   <Button
                     variant="link"
                     size="sm"
-                    className="mt-2 p-0 text-[#29ABE2]"
+                    className="mt-2 p-0 text-[#0077B6]"
                     onClick={() => setSelectedMarker(null)}
                   >
                     Close

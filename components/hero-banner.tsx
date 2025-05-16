@@ -1,10 +1,10 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { AlertCircle, AlertTriangle, ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
+import { AlertCircle, AlertTriangle, ArrowRight } from "lucide-react"
 import Link from "next/link"
+import { useEffect, useState } from "react"
 
 // Mock data for live alerts
 const mockAlerts = [
@@ -47,7 +47,7 @@ export function HeroBanner() {
   const alert = mockAlerts[currentAlert]
 
   return (
-    <section className="relative bg-[#29ABE2] py-12 md:py-20">
+    <section className="relative bg-[#0077B6] py-12 md:py-20">
       <div className="container">
         <div className="grid gap-8 md:grid-cols-2 md:gap-12">
           <div className="flex flex-col justify-center space-y-4">
@@ -58,12 +58,12 @@ export function HeroBanner() {
               Real-time alerts, resources, and coordination for effective disaster response and management.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Button className="bg-white text-[#29ABE2] hover:bg-white/90" asChild>
+              <Button className="bg-white text-[#0077B6] hover:bg-white/90" asChild>
                 <Link href="/report">
                   Report Disaster <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button variant="outline" className="bg-[#29ABE2]border-white text-white hover:bg-white/10" asChild>
+              <Button variant="outline" className="bg-[#0077B6]border-white text-white hover:bg-white/10" asChild>
                 <Link href="/resources">Emergency Resources</Link>
               </Button>
             </div>
@@ -97,12 +97,12 @@ export function HeroBanner() {
                       <span
                         key={index}
                         className={`block h-1.5 w-6 rounded-full ${
-                          index === currentAlert ? "bg-[#29ABE2]" : "bg-gray-200"
+                          index === currentAlert ? "bg-[#0077B6]" : "bg-gray-200"
                         }`}
                       />
                     ))}
                   </div>
-                  <Button variant="link" size="sm" className="text-[#29ABE2]" asChild>
+                  <Button variant="link" size="sm" className="text-[#0077B6]" asChild>
                     <Link href="/alerts">
                       View all alerts <ArrowRight className="ml-1 h-3 w-3" />
                     </Link>

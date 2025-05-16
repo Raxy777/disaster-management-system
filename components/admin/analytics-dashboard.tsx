@@ -1,31 +1,31 @@
 "use client"
 
-import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Calendar, Download, RefreshCw } from "lucide-react"
-import type { DateRange } from "react-day-picker"
-import { addDays, format } from "date-fns"
 import { Calendar as CalendarComponent } from "@/components/ui/calendar"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
-  Area,
-  AreaChart,
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Cell,
-  Legend,
-  Line,
-  LineChart,
-  Pie,
-  PieChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
+    Area,
+    AreaChart,
+    Bar,
+    BarChart,
+    CartesianGrid,
+    Cell,
+    Legend,
+    Line,
+    LineChart,
+    Pie,
+    PieChart,
+    ResponsiveContainer,
+    Tooltip,
+    XAxis,
+    YAxis,
 } from "@/components/ui/chart"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { addDays, format } from "date-fns"
+import { Calendar, Download, RefreshCw } from "lucide-react"
+import { useState } from "react"
+import type { DateRange } from "react-day-picker"
 
 // Mock data for analytics
 const disasterData = [
@@ -174,7 +174,7 @@ export function AnalyticsDashboard() {
                       <XAxis dataKey="name" />
                       <YAxis />
                       <Tooltip />
-                      <Line type="monotone" dataKey="avg" stroke="#29ABE2" strokeWidth={2} />
+                      <Line type="monotone" dataKey="avg" stroke="#0077B6" strokeWidth={2} />
                     </LineChart>
                   </ResponsiveContainer>
                 </div>
@@ -215,7 +215,7 @@ export function AnalyticsDashboard() {
                       <YAxis />
                       <Tooltip />
                       <Legend />
-                      <Bar dataKey="allocated" fill="#29ABE2" name="Allocated" />
+                      <Bar dataKey="allocated" fill="#0077B6" name="Allocated" />
                       <Bar dataKey="used" fill="#FF9933" name="Used" />
                     </BarChart>
                   </ResponsiveContainer>
@@ -240,7 +240,7 @@ export function AnalyticsDashboard() {
                       <Line
                         type="monotone"
                         dataKey="active"
-                        stroke="#29ABE2"
+                        stroke="#0077B6"
                         strokeWidth={2}
                         name="Active Volunteers"
                       />

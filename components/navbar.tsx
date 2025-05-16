@@ -1,11 +1,7 @@
 "use client"
 
-import { useState } from "react"
-import Link from "next/link"
-import { Menu, X, AlertTriangle, Bell, LogOut, UserIcon } from "lucide-react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
-import { useAuth } from "@/lib/auth-context"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,7 +10,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { useAuth } from "@/lib/auth-context"
+import { cn } from "@/lib/utils"
+import { AlertTriangle, Bell, LogOut, Menu, UserIcon, X } from "lucide-react"
+import Link from "next/link"
+import { useState } from "react"
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -37,8 +37,8 @@ export function Navbar() {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center gap-2">
-            <AlertTriangle className="h-6 w-6 text-primary" />
-            <span className="text-lg font-bold">HopeNet</span>
+            <img src="/logos/ss-logo.png" alt="Suraksha Setu" className="h-12 w-12" />
+            <span className="text-lg font-bold">Suraksha Setu</span>
           </Link>
         </div>
 
@@ -113,7 +113,7 @@ export function Navbar() {
       </div>
 
       {/* Mobile Navigation */}
-      <div className={cn("fixed inset-0 top-16 z-50 bg-[#29ABE2] md:hidden", isOpen ? "block" : "hidden")}>
+      <div className={cn("fixed inset-0 top-16 z-50 bg-[#0077B6] md:hidden", isOpen ? "block" : "hidden")}>
         <div className="container border-t border-[#1d8eb8] py-4">
           <Button className="absolute right-4 top-4" variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
             <X className="h-5 w-5 text-white" />
@@ -143,7 +143,7 @@ export function Navbar() {
                 </Link>
                 <Button
                   variant="outline"
-                  className="flex items-center gap-2 justify-start text-white bg-[#29ABE2] border-white hover:bg-white/10"
+                  className="flex items-center gap-2 justify-start text-white bg-[#0077B6] border-white hover:bg-white/10"
                   onClick={() => {
                     setIsOpen(false)
                     logout()
@@ -154,7 +154,7 @@ export function Navbar() {
                 </Button>
               </>
             ) : (
-              <Button variant="outline" className="text-white bg-[#29ABE2] border-white hover:bg-white/10" asChild>
+              <Button variant="outline" className="text-white bg-[#0077B6] border-white hover:bg-white/10" asChild>
                 <Link href="/login" onClick={() => setIsOpen(false)}>
                   Login
                 </Link>

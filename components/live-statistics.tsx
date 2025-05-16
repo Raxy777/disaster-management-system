@@ -1,8 +1,8 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { Activity, Users, Home, AlertTriangle } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Activity, AlertTriangle, Home, Users } from "lucide-react"
+import { useEffect, useState } from "react"
 
 // Mock data for statistics
 const initialStats = [
@@ -18,7 +18,7 @@ const initialStats = [
     title: "People Affected",
     value: 24350,
     icon: Users,
-    color: "text-[#29ABE2]",
+    color: "text-[#0077B6]",
     bgColor: "bg-blue-50",
     change: "+350 today",
   },

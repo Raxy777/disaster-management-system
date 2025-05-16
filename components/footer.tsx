@@ -1,5 +1,5 @@
+import { Facebook, Instagram, Twitter, Youtube } from "lucide-react"
 import Link from "next/link"
-import { AlertTriangle, Facebook, Instagram, Twitter, Youtube } from "lucide-react"
 
 export function Footer() {
   return (
@@ -8,8 +8,8 @@ export function Footer() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <Link href="/" className="mb-4 flex items-center gap-2">
-              <AlertTriangle className="h-6 w-6 text-primary" />
-              <span className="text-lg font-bold">HopeNet</span>
+              <img src="/logos/ss-logo.png" alt="Suraksha Setu" className="h-12 w-12" />
+              <span className="text-lg font-bold">Suraksha Setu</span>
             </Link>
             <p className="text-sm text-muted-foreground">
               A comprehensive disaster management and response platform providing real-time alerts, resources, and
@@ -106,7 +106,7 @@ export function Footer() {
         <div className="mt-8 border-t pt-8">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <p className="text-xs text-muted-foreground">
-              © {new Date().getFullYear()}HopeNet. All rights reserved.
+              © {new Date().getFullYear()} Suraksha Setu. All rights reserved.
             </p>
             <div className="flex gap-4 text-xs text-muted-foreground">
               <Link href="/privacy" className="hover:text-foreground">

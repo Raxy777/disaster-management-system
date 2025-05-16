@@ -2,25 +2,25 @@
 
 import type React from "react"
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ArrowRight, Check, Filter, MessageSquare, Plus, Search, Send } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
+import { ArrowRight, Check, Filter, MessageSquare, Plus, Search, Send } from "lucide-react"
+import { useState } from "react"
 
 // Mock data for messages
 const messagesData = [
@@ -178,7 +178,7 @@ export function MessageCenter() {
         <div className="mt-4 md:mt-0 flex gap-2">
           <Dialog open={isComposeDialogOpen} onOpenChange={setIsComposeDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-[#29ABE2] hover:bg-[#29ABE2]/90">
+              <Button className="bg-[#0077B6] hover:bg-[#0077B6]/90">
                 <Plus className="mr-2 h-4 w-4" />
                 New Message
               </Button>
@@ -247,7 +247,7 @@ export function MessageCenter() {
                   <Button type="button" variant="outline" onClick={() => setIsComposeDialogOpen(false)}>
                     Cancel
                   </Button>
-                  <Button type="submit" className="bg-[#29ABE2] hover:bg-[#29ABE2]/90">
+                  <Button type="submit" className="bg-[#0077B6] hover:bg-[#0077B6]/90">
                     <Send className="mr-2 h-4 w-4" />
                     Send Message
                   </Button>
@@ -310,7 +310,7 @@ export function MessageCenter() {
               <Card
                 key={message.id}
                 className={`cursor-pointer transition-colors hover:bg-muted/50 ${
-                  message.status === "unread" ? "border-l-4 border-l-[#29ABE2]" : ""
+                  message.status === "unread" ? "border-l-4 border-l-[#0077B6]" : ""
                 }`}
                 onClick={() => {
                   setSelectedMessage(message)
@@ -441,7 +441,7 @@ export function MessageCenter() {
                       <Check className="mr-2 h-4 w-4" />
                       Mark as Resolved
                     </Button>
-                    <Button className="bg-[#29ABE2] hover:bg-[#29ABE2]/90">
+                    <Button className="bg-[#0077B6] hover:bg-[#0077B6]/90">
                       <Send className="mr-2 h-4 w-4" />
                       Reply
                     </Button>
