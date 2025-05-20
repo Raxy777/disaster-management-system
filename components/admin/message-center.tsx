@@ -26,7 +26,7 @@ import { useState } from "react"
 const messagesData = [
   {
     id: 1,
-    sender: "John Smith",
+    sender: "Aakash Singh",
     role: "Field Volunteer",
     avatar: "/placeholder-user.jpg",
     content:
@@ -49,7 +49,7 @@ const messagesData = [
   },
   {
     id: 3,
-    sender: "David Wilson",
+    sender: "Ankan Basu",
     role: "Logistics Manager",
     avatar: "/placeholder-user.jpg",
     content: "Food and water supplies delivered to Southern Relief Center. Inventory updated in the system.",
@@ -60,7 +60,7 @@ const messagesData = [
   },
   {
     id: 4,
-    sender: "Emily Chen",
+    sender: "Pradip Debnath",
     role: "Field Coordinator",
     avatar: "/placeholder-user.jpg",
     content:
@@ -72,7 +72,7 @@ const messagesData = [
   },
   {
     id: 5,
-    sender: "Michael Brown",
+    sender: "Sayon Roy",
     role: "Search Team Leader",
     avatar: "/placeholder-user.jpg",
     content: "Search operation in Mountain Area complete. All residents accounted for. Team returning to base.",
@@ -100,11 +100,11 @@ const teamMembers = [
   { id: 1, name: "All Field Teams", role: "Group", avatar: "/placeholder.svg" },
   { id: 2, name: "Medical Team", role: "Group", avatar: "/placeholder.svg" },
   { id: 3, name: "Logistics Team", role: "Group", avatar: "/placeholder.svg" },
-  { id: 4, name: "John Smith", role: "Field Volunteer", avatar: "/placeholder-user.jpg" },
+  { id: 4, name: "Aakash Singh", role: "Field Volunteer", avatar: "/placeholder-user.jpg" },
   { id: 5, name: "Rohini Chatterjee", role: "Medical Coordinator", avatar: "/placeholder-user.jpg" },
-  { id: 6, name: "David Wilson", role: "Logistics Manager", avatar: "/placeholder-user.jpg" },
-  { id: 7, name: "Emily Chen", role: "Field Coordinator", avatar: "/placeholder-user.jpg" },
-  { id: 8, name: "Michael Brown", role: "Search Team Leader", avatar: "/placeholder-user.jpg" },
+  { id: 6, name: "Ankan Basu", role: "Logistics Manager", avatar: "/placeholder-user.jpg" },
+  { id: 7, name: "Pradip Debnath", role: "Field Coordinator", avatar: "/placeholder-user.jpg" },
+  { id: 8, name: "Sayon Roy", role: "Search Team Leader", avatar: "/placeholder-user.jpg" },
 ]
 
 export function MessageCenter() {

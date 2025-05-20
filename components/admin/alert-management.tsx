@@ -6,21 +6,21 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from "@/components/ui/dialog"
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -78,7 +78,7 @@ const alertsData = [
     createdAt: "2025-04-29T08:45:00Z",
     expiresAt: "2025-05-01T08:45:00Z",
     sentTo: ["SMS", "Email", "App"],
-    createdBy: "Emily Chen",
+    createdBy: "Pradip Debnath",
   },
   {
     id: 4,
@@ -93,7 +93,7 @@ const alertsData = [
     createdAt: "2025-04-30T16:20:00Z",
     expiresAt: "2025-05-01T23:59:00Z",
     sentTo: ["SMS", "Email", "App"],
-    createdBy: "David Wilson",
+    createdBy: "Ankan Basu",
   },
   {
     id: 5,

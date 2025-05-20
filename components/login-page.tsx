@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useAuth, type UserRole } from "@/lib/auth-context"
-import { AlertTriangle, Eye, EyeOff, Info, KeyRound, User } from "lucide-react"
+import { Eye, EyeOff, Info, KeyRound, User } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
@@ -46,8 +46,10 @@ export function LoginPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 p-4">
       <div className="mb-8 flex items-center gap-2">
-        <AlertTriangle className="h-8 w-8 text-[#0077B6]" />
-        <span className="text-2xl font-bold">Suraksha Setu</span>
+        <Link href="/" className="mb-4 flex items-center gap-2">
+              <img src="/logos/ss-logo.png" alt="Suraksha Setu" className="h-12 w-12" />
+              <span className="text-lg font-bold">Suraksha Setu</span>
+        </Link>
       </div>
 
       <Card className="mx-auto w-full max-w-md">

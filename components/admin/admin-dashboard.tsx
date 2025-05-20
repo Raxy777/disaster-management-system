@@ -92,7 +92,7 @@ export default function AdminDashboard() {
     {
       id: 1,
       action: "Alert Created",
-      user: "John Smith",
+      user: "Aakash Singh",
       time: "10 minutes ago",
       details: "Flash Flood Warning for Eastern District",
     },

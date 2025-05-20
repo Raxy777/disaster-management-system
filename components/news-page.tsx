@@ -22,7 +22,7 @@ const newsArticles = [
       'RIVERSIDE COUNTY - Following the severe flooding that has affected Riverside County over the past 48 hours, emergency response teams have been deployed to assist with evacuation and recovery efforts. The National Guard has been mobilized to support local authorities in rescuing stranded residents and providing essential supplies to affected communities.\n\nAccording to the Disaster Management Agency, over 200 personnel are currently on the ground, with additional teams expected to arrive in the coming days. Helicopters and boats are being used to reach isolated areas where road access has been cut off due to high water levels.\n\n"Our priority is ensuring the safety of all residents in the affected areas," said Emergency Response Coordinator Rohini Chatterjee. "We urge people to follow evacuation orders and to avoid attempting to return to their homes until authorities have declared it safe to do so."\n\nTemporary shelters have been established at local schools and community centers, providing accommodation for displaced residents. Medical teams are on standby to address any health concerns, and psychological support services are available for those experiencing trauma.\n\nThe flooding, caused by unprecedented rainfall, has damaged infrastructure and homes across the county. Early estimates suggest that recovery efforts will continue for several weeks, with a focus on restoring essential services and helping communities rebuild.',
     category: "Emergency Response",
     date: "May 1, 2025",
-    author: "John Smith",
+    author: "Aakash Singh",
     image: "https://images.pexels.com/photos/7527770/pexels-photo-7527770.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     featured: true,
   },
@@ -61,7 +61,7 @@ const newsArticles = [
     category: "Technology",
     date: "April 26, 2025",
     author: "Maria Rodriguez",
-    image: "/placeholder.svg?height=400&width=600",
+    image: "https://www.ceew.in/sites/default/files/EWS-study-image1.webp",
     featured: false,
   },
   {

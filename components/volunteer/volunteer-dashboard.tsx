@@ -61,10 +61,10 @@ export default function VolunteerDashboard() {
   ]
 
   const team = [
-    { id: 1, name: "Rohini Chatterjee", role: "Team Lead", avatar: "/placeholder.svg?height=40&width=40" },
-    { id: 2, name: "Sourav Sarkar", role: "Medical Support", avatar: "/placeholder.svg?height=40&width=40" },
-    { id: 3, name: "Aisha Patel", role: "Logistics", avatar: "/placeholder.svg?height=40&width=40" },
-    { id: 4, name: "Dibyendu Ghosh", role: "Communications", avatar: "/placeholder.svg?height=40&width=40" },
+    { id: 1, name: "Rohini Chatterjee", role: "Team Lead", avatar: "https://plus.unsplash.com/premium_photo-1682089874677-3eee554feb19?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},
+    { id: 2, name: "Sourav Sarkar", role: "Medical Support", avatar: "http://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" },
+    { id: 3, name: "Aisha Patel", role: "Logistics", avatar: "http://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" },
+    { id: 4, name: "Dibyendu Ghosh", role: "Communications", avatar: "http://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" },
   ]
 
   const announcements = [

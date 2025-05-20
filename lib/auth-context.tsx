@@ -81,7 +81,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const userData: UserData = {
           id: "user-1",
           name: "Manoj Dutta",
-          email: "manojd@example.com",
+          email: "manoj.d@example.com",
           role: "user",
           avatar: "/placeholder.svg?height=128&width=128",
         }

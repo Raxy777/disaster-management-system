@@ -4,12 +4,12 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -32,12 +32,12 @@ const reportsData = [
     severity: "high",
     status: "pending",
     reporter: {
-      name: "John Smith",
+      name: "Aakash Singh",
       phone: "555-123-4567",
       email: "john.smith@example.com",
     },
     submittedAt: "2025-05-01T10:30:00Z",
-    images: ["/placeholder.svg?height=300&width=400"],
+    images: ["https://images.indianexpress.com/2024/10/Untitled-design-5-13.jpg"],
     peopleInDanger: "no",
     verified: false,
   },
@@ -54,10 +54,10 @@ const reportsData = [
     reporter: {
       name: "Rohini Chatterjee",
       phone: "555-987-6543",
-      email: "sarah.j@example.com",
+      email: "rohini.chatterjee@example.com",
     },
     submittedAt: "2025-05-01T09:15:00Z",
-    images: ["/placeholder.svg?height=300&width=400", "/placeholder.svg?height=300&width=400"],
+    images: ["https://th-i.thgim.com/public/news/national/karnataka/pt2ss1/article69592991.ece/alternates/FREE_1200/WhatsApp%20Image%202025-05-19%20at%2011.39.01.jpeg"],
     peopleInDanger: "yes",
     verified: false,
   },
@@ -72,7 +72,7 @@ const reportsData = [
     severity: "medium",
     status: "verified",
     reporter: {
-      name: "Michael Brown",
+      name: "Sayon Roy",
       phone: "555-456-7890",
       email: "mbrown@example.com",
     },
@@ -80,7 +80,7 @@ const reportsData = [
     images: ["/placeholder.svg?height=300&width=400"],
     peopleInDanger: "unknown",
     verified: true,
-    verifiedBy: "Emily Chen",
+    verifiedBy: "Pradip Debnath",
     verifiedAt: "2025-05-01T10:20:00Z",
   },
   {
@@ -94,7 +94,7 @@ const reportsData = [
     severity: "medium",
     status: "verified",
     reporter: {
-      name: "David Wilson",
+      name: "Ankan Basu",
       phone: "555-789-0123",
       email: "dwilson@example.com",
     },

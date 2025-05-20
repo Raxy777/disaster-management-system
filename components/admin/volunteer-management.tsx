@@ -45,8 +45,8 @@ import { useState } from "react"
 const volunteersData = [
   {
     id: 1,
-    name: "John Smith",
-    email: "john.smith@example.com",
+    name: "Aakash Singh",
+    email: "aakash.singh@example.com",
     phone: "555-123-4567",
     skills: ["First Aid", "Driving", "Communication"],
     location: "Central City",
@@ -59,8 +59,8 @@ const volunteersData = [
   },
   {
     id: 2,
-    name: "Rohini Chatterjee",
-    email: "sarah.j@example.com",
+    name: "Srijan Chatterjee",
+    email: "sri.j@example.com",
     phone: "555-987-6543",
     skills: ["Medical", "Counseling", "Leadership"],
     location: "North District",
@@ -73,8 +73,8 @@ const volunteersData = [
   },
   {
     id: 3,
-    name: "Michael Brown",
-    email: "mbrown@example.com",
+    name: "Sayon Roy",
+    email: "sroy@example.com",
     phone: "555-456-7890",
     skills: ["Heavy Lifting", "Construction", "Driving"],
     location: "South District",
@@ -87,8 +87,8 @@ const volunteersData = [
   },
   {
     id: 4,
-    name: "Emily Chen",
-    email: "emily.chen@example.com",
+    name: "Pradip Debnath",
+    email: "deb.prdip@example.com",
     phone: "555-789-0123",
     skills: ["Translation", "First Aid", "Cooking"],
     location: "East District",
@@ -101,8 +101,8 @@ const volunteersData = [
   },
   {
     id: 5,
-    name: "David Wilson",
-    email: "dwilson@example.com",
+    name: "Ankan Basu",
+    email: "ankan.basu@example.com",
     phone: "555-234-5678",
     skills: ["Search and Rescue", "First Aid", "Navigation"],
     location: "West District",
@@ -115,8 +115,8 @@ const volunteersData = [
   },
   {
     id: 6,
-    name: "Jennifer Lee",
-    email: "jlee@example.com",
+    name: "Nirmal Chakraborty",
+    email: "nirchakra@example.com",
     phone: "555-345-6789",
     skills: ["Logistics", "Administration", "Communication"],
     location: "Central City",

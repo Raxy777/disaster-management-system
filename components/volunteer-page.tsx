@@ -22,6 +22,7 @@ import {
   Heart,
   HelpingHand,
   Home,
+  IndianRupee,
   MapPin,
   Package,
   ShoppingBag,
@@ -114,28 +115,28 @@ const partnerOrganizations = [
   {
     id: 1,
     name: "Red Cross",
-    logo: "/placeholder.svg?height=60&width=120",
+    logo: "/logos/red-cross.png",
     description: "Providing emergency assistance, disaster relief, and disaster preparedness education.",
     website: "https://www.redcross.org",
   },
   {
     id: 2,
     name: "Doctors Without Borders",
-    logo: "/placeholder.svg?height=60&width=120",
+    logo: "/logos/doctors-without-borders.png",
     description: "Delivering emergency medical care to people affected by conflict, epidemics, and disasters.",
     website: "https://www.doctorswithoutborders.org",
   },
   {
     id: 3,
     name: "World Food Programme",
-    logo: "/placeholder.svg?height=60&width=120",
+    logo: "/logos/world-food-programme.svg",
     description: "Delivering food assistance in emergencies and working with communities to improve nutrition.",
     website: "https://www.wfp.org",
   },
   {
     id: 4,
     name: "UNICEF",
-    logo: "/placeholder.svg?height=60&width=120",
+    logo: "/logos/unicef.svg",
     description: "Working to protect the rights and wellbeing of every child, especially during emergencies.",
     website: "https://www.unicef.org",
   },
@@ -473,7 +474,7 @@ export function VolunteerPage() {
                     <div className="space-y-4">
                       <Label>Donation Amount</Label>
                       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-                        {["10", "25", "50", "100"].map((amount) => (
+                        {["500", "1000", "5000", "10000"].map((amount) => (
                           <Button
                             key={amount}
                             type="button"
@@ -484,12 +485,12 @@ export function VolunteerPage() {
                               setCustomAmount("")
                             }}
                           >
-                            ${amount}
+                            ₹{amount}
                           </Button>
                         ))}
                       </div>
                       <div className="relative">
-                        <DollarSign className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                        <IndianRupee className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
                         <Input
                           placeholder="Custom Amount"
                           className="pl-9"
@@ -646,7 +647,7 @@ export function VolunteerPage() {
                         </div>
                         <div>
                           <p className="text-sm">
-                            <span className="font-medium">$25</span> provides emergency food and water for one person
+                            <span className="font-medium">₹500</span> provides emergency food and water for one person
                             for three days
                           </p>
                         </div>
@@ -657,7 +658,7 @@ export function VolunteerPage() {
                         </div>
                         <div>
                           <p className="text-sm">
-                            <span className="font-medium">$50</span> supplies a family with essential hygiene kits
+                            <span className="font-medium">₹1000</span> supplies a family with essential hygiene kits
                           </p>
                         </div>
                       </div>
@@ -667,7 +668,7 @@ export function VolunteerPage() {
                         </div>
                         <div>
                           <p className="text-sm">
-                            <span className="font-medium">$100</span> provides temporary shelter for a displaced family
+                            <span className="font-medium">₹5000</span> provides temporary shelter for a displaced family
                           </p>
                         </div>
                       </div>
@@ -677,7 +678,7 @@ export function VolunteerPage() {
                         </div>
                         <div>
                           <p className="text-sm">
-                            <span className="font-medium">$250</span> funds medical supplies for emergency response
+                            <span className="font-medium">₹10000</span> funds medical supplies for emergency response
                             teams
                           </p>
                         </div>
