@@ -59,7 +59,7 @@ const volunteersData = [
   },
   {
     id: 2,
-    name: "Sarah Johnson",
+    name: "Rohini Chatterjee",
     email: "sarah.j@example.com",
     phone: "555-987-6543",
     skills: ["Medical", "Counseling", "Leadership"],

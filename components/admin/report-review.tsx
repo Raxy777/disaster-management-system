@@ -1,23 +1,22 @@
 "use client"
 
-import { useState } from "react"
-import Image from "next/image"
-import { CheckCircle, Download, Eye, Filter, MapPin, Search, Trash2 } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
 import { useToast } from "@/hooks/use-toast"
+import { CheckCircle, Download, Eye, Filter, MapPin, Search, Trash2 } from "lucide-react"
+import Image from "next/image"
+import { useState } from "react"
 import { AdminLayout } from "./admin-layout"
 
 // Mock data for reports
@@ -53,7 +52,7 @@ const reportsData = [
     severity: "high",
     status: "in-review",
     reporter: {
-      name: "Sarah Johnson",
+      name: "Rohini Chatterjee",
       phone: "555-987-6543",
       email: "sarah.j@example.com",
     },
@@ -145,7 +144,7 @@ const reportsData = [
     images: ["/placeholder.svg?height=300&width=400"],
     peopleInDanger: "no",
     verified: true,
-    verifiedBy: "Sarah Johnson",
+    verifiedBy: "Rohini Chatterjee",
     verifiedAt: "2025-04-29T13:15:00Z",
     resolution: {
       action: "Area secured and monitored",

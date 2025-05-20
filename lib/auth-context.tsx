@@ -2,9 +2,9 @@
 
 import type React from "react"
 
-import { createContext, useContext, useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
 import { useToast } from "@/hooks/use-toast"
+import { useRouter } from "next/navigation"
+import { createContext, useContext, useEffect, useState } from "react"
 
 // Define user types
 export type UserRole = "admin" | "user" | null
@@ -80,8 +80,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } else if (role === "user" && username === "user" && password === "user123") {
         const userData: UserData = {
           id: "user-1",
-          name: "Alex Johnson",
-          email: "alex@example.com",
+          name: "Manoj Dutta",
+          email: "manojd@example.com",
           role: "user",
           avatar: "/placeholder.svg?height=128&width=128",
         }

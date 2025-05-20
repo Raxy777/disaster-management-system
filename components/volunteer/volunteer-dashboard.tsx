@@ -61,10 +61,10 @@ export default function VolunteerDashboard() {
   ]
 
   const team = [
-    { id: 1, name: "Sarah Johnson", role: "Team Lead", avatar: "/placeholder.svg?height=40&width=40" },
-    { id: 2, name: "Michael Chen", role: "Medical Support", avatar: "/placeholder.svg?height=40&width=40" },
+    { id: 1, name: "Rohini Chatterjee", role: "Team Lead", avatar: "/placeholder.svg?height=40&width=40" },
+    { id: 2, name: "Sourav Sarkar", role: "Medical Support", avatar: "/placeholder.svg?height=40&width=40" },
     { id: 3, name: "Aisha Patel", role: "Logistics", avatar: "/placeholder.svg?height=40&width=40" },
-    { id: 4, name: "Carlos Rodriguez", role: "Communications", avatar: "/placeholder.svg?height=40&width=40" },
+    { id: 4, name: "Dibyendu Ghosh", role: "Communications", avatar: "/placeholder.svg?height=40&width=40" },
   ]
 
   const announcements = [

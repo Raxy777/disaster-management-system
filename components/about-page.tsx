@@ -9,28 +9,28 @@ import Link from "next/link"
 // Mock data for officials
 const officials = [
 	{
-		name: "Dr. Sarah Johnson",
+		name: "Dr. Rohini Chatterjee",
 		title: "Director",
-		image: "/placeholder.svg?height=200&width=200",
-		bio: "Dr. Johnson has over 20 years of experience in disaster management and emergency response. She previously served as the Deputy Director of FEMA and has led response efforts for numerous major disasters.",
+		image: "https://plus.unsplash.com/premium_photo-1682089874677-3eee554feb19?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+		bio: "Dr. Rohini has over 20 years of experience in disaster management and emergency response. She previously served as the Deputy Director of NDMA and has led response efforts for numerous major disasters.",
 	},
 	{
-		name: "Michael Rodriguez",
+		name: "Manpreet Singh",
 		title: "Deputy Director, Operations",
-		image: "/placeholder.svg?height=200&width=200",
-		bio: "Mr. Rodriguez oversees all operational aspects of disaster response and recovery. With a background in military logistics, he brings strategic planning expertise to emergency situations.",
+		image: "https://images.unsplash.com/photo-1590473159791-1d514fd3656e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+		bio: "Mr. Singh oversees all operational aspects of disaster response and recovery. With a background in military logistics, he brings strategic planning expertise to emergency situations.",
 	},
 	{
-		name: "Dr. Emily Chen",
+		name: "Dr. Ashwini Chaudhary",
 		title: "Chief Scientific Officer",
-		image: "/placeholder.svg?height=200&width=200",
-		bio: "Dr. Chen leads our scientific research and technological innovation efforts. Her work focuses on developing advanced early warning systems and predictive models for natural disasters.",
+		image: "https://images.unsplash.com/photo-1577834423067-b47076b66ddb?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+		bio: "Dr. Chaudhary leads our scientific research and technological innovation efforts. Her work focuses on developing advanced early warning systems and predictive models for natural disasters.",
 	},
 	{
-		name: "James Wilson",
+		name: "Aditya Verma",
 		title: "Director of Community Engagement",
-		image: "/placeholder.svg?height=200&width=200",
-		bio: "Mr. Wilson manages our volunteer programs and community partnerships. He has extensive experience in nonprofit management and community organizing.",
+		image: "https://plus.unsplash.com/premium_photo-1722682239201-21c8173e776b?q=80&w=2886&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+		bio: "Mr. Verma manages our volunteer programs and community partnerships. He has extensive experience in nonprofit management and community organizing.",
 	},
 ]
 
@@ -38,13 +38,13 @@ const officials = [
 const partnerNGOs = [
 	{
 		name: "Red Cross",
-		logo: "/placeholder.svg?height=60&width=120",
+		logo: "/logos/red-cross.png",
 		description: "Providing emergency assistance, disaster relief, and disaster preparedness education.",
 		website: "https://www.redcross.org",
 	},
 	{
 		name: "Doctors Without Borders",
-		logo: "/placeholder.svg?height=60&width=120",
+		logo: "/logos/doctors-without-borders.png",
 		description: "Delivering emergency medical care to people affected by conflict, epidemics, and disasters.",
 		website: "https://www.doctorswithoutborders.org",
 	},
@@ -80,28 +80,28 @@ const annualReports = [
 		year: "2024",
 		title: "Annual Impact Report 2024",
 		description: "Comprehensive overview of our disaster response activities and impact for the year 2024.",
-		file: "/reports/annual-report-2024.pdf",
+		file: "https://docs.google.com/document/d/1yck7vekiN2W1xeGDtfIvLsHkXJmAvQi4wozTs2MSpdc/edit?usp=sharing",
 		thumbnail: "/placeholder.svg?height=150&width=100",
 	},
 	{
 		year: "2023",
 		title: "Annual Impact Report 2023",
 		description: "Comprehensive overview of our disaster response activities and impact for the year 2023.",
-		file: "/reports/annual-report-2023.pdf",
+		file: "https://docs.google.com/document/d/1yck7vekiN2W1xeGDtfIvLsHkXJmAvQi4wozTs2MSpdc/edit?usp=sharing",
 		thumbnail: "/placeholder.svg?height=150&width=100",
 	},
 	{
 		year: "2022",
 		title: "Annual Impact Report 2022",
 		description: "Comprehensive overview of our disaster response activities and impact for the year 2022.",
-		file: "/reports/annual-report-2022.pdf",
+		file: "https://docs.google.com/document/d/1yck7vekiN2W1xeGDtfIvLsHkXJmAvQi4wozTs2MSpdc/edit?usp=sharing",
 		thumbnail: "/placeholder.svg?height=150&width=100",
 	},
 	{
 		year: "2021",
 		title: "Annual Impact Report 2021",
 		description: "Comprehensive overview of our disaster response activities and impact for the year 2021.",
-		file: "/reports/annual-report-2021.pdf",
+		file: "https://docs.google.com/document/d/1yck7vekiN2W1xeGDtfIvLsHkXJmAvQi4wozTs2MSpdc/edit?usp=sharing",
 		thumbnail: "/placeholder.svg?height=150&width=100",
 	},
 ]
@@ -328,12 +328,6 @@ export function AboutPage() {
 								<Card key={report.year}>
 									<CardHeader className="pb-2">
 										<div className="relative mx-auto h-40 w-28 overflow-hidden">
-											<Image
-												src={report.thumbnail || "/placeholder.svg"}
-												alt={report.title}
-												fill
-												className="object-cover"
-											/>
 										</div>
 										<CardTitle className="mt-4 text-center text-lg">{report.title}</CardTitle>
 									</CardHeader>

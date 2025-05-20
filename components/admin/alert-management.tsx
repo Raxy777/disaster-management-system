@@ -6,21 +6,21 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog"
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -48,7 +48,7 @@ const alertsData = [
     createdAt: "2025-05-01T14:30:00Z",
     expiresAt: "2025-05-01T20:00:00Z",
     sentTo: ["SMS", "Email", "App", "Emergency Broadcast System"],
-    createdBy: "Sarah Johnson",
+    createdBy: "Rohini Chatterjee",
   },
   {
     id: 2,
@@ -108,7 +108,7 @@ const alertsData = [
     createdAt: "2025-04-30T09:10:00Z",
     expiresAt: "2025-05-03T20:00:00Z",
     sentTo: [],
-    createdBy: "Sarah Johnson",
+    createdBy: "Rohini Chatterjee",
   },
   {
     id: 6,

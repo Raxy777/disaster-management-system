@@ -72,9 +72,9 @@ export function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-medium">Headquarters</h3>
-                    <p className="text-sm text-muted-foreground">123 Response Avenue</p>
-                    <p className="text-sm text-muted-foreground">Central City, CA 90210</p>
-                    <p className="text-sm text-muted-foreground">United States</p>
+                    <p className="text-sm text-muted-foreground">325, Sarat Chatterjee Road</p>
+                    <p className="text-sm text-muted-foreground">Shibpur, Howrah-711102</p>
+                    <p className="text-sm text-muted-foreground">West Bengal</p>
                   </div>
                 </div>
               </CardContent>

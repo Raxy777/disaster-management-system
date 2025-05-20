@@ -19,11 +19,11 @@ const newsArticles = [
     excerpt:
       "Relief teams have been deployed to assist with evacuation and recovery efforts in the affected areas of Riverside County.",
     content:
-      'RIVERSIDE COUNTY - Following the severe flooding that has affected Riverside County over the past 48 hours, emergency response teams have been deployed to assist with evacuation and recovery efforts. The National Guard has been mobilized to support local authorities in rescuing stranded residents and providing essential supplies to affected communities.\n\nAccording to the Disaster Management Agency, over 200 personnel are currently on the ground, with additional teams expected to arrive in the coming days. Helicopters and boats are being used to reach isolated areas where road access has been cut off due to high water levels.\n\n"Our priority is ensuring the safety of all residents in the affected areas," said Emergency Response Coordinator Sarah Johnson. "We urge people to follow evacuation orders and to avoid attempting to return to their homes until authorities have declared it safe to do so."\n\nTemporary shelters have been established at local schools and community centers, providing accommodation for displaced residents. Medical teams are on standby to address any health concerns, and psychological support services are available for those experiencing trauma.\n\nThe flooding, caused by unprecedented rainfall, has damaged infrastructure and homes across the county. Early estimates suggest that recovery efforts will continue for several weeks, with a focus on restoring essential services and helping communities rebuild.',
+      'RIVERSIDE COUNTY - Following the severe flooding that has affected Riverside County over the past 48 hours, emergency response teams have been deployed to assist with evacuation and recovery efforts. The National Guard has been mobilized to support local authorities in rescuing stranded residents and providing essential supplies to affected communities.\n\nAccording to the Disaster Management Agency, over 200 personnel are currently on the ground, with additional teams expected to arrive in the coming days. Helicopters and boats are being used to reach isolated areas where road access has been cut off due to high water levels.\n\n"Our priority is ensuring the safety of all residents in the affected areas," said Emergency Response Coordinator Rohini Chatterjee. "We urge people to follow evacuation orders and to avoid attempting to return to their homes until authorities have declared it safe to do so."\n\nTemporary shelters have been established at local schools and community centers, providing accommodation for displaced residents. Medical teams are on standby to address any health concerns, and psychological support services are available for those experiencing trauma.\n\nThe flooding, caused by unprecedented rainfall, has damaged infrastructure and homes across the county. Early estimates suggest that recovery efforts will continue for several weeks, with a focus on restoring essential services and helping communities rebuild.',
     category: "Emergency Response",
     date: "May 1, 2025",
     author: "John Smith",
-    image: "/placeholder.svg?height=400&width=600",
+    image: "https://images.pexels.com/photos/7527770/pexels-photo-7527770.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     featured: true,
   },
   {
@@ -35,7 +35,7 @@ const newsArticles = [
     category: "Wildfire",
     date: "April 29, 2025",
     author: "Emily Johnson",
-    image: "/placeholder.svg?height=400&width=600",
+    image: "https://images.pexels.com/photos/3552472/pexels-photo-3552472.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     featured: false,
   },
   {
@@ -48,7 +48,7 @@ const newsArticles = [
     category: "Earthquake",
     date: "April 28, 2025",
     author: "David Lee",
-    image: "/placeholder.svg?height=400&width=600",
+    image: "https://images.pexels.com/photos/7907392/pexels-photo-7907392.jpeg",
     featured: false,
   },
   {
@@ -74,7 +74,7 @@ const newsArticles = [
     category: "Human Interest",
     date: "April 24, 2025",
     author: "Sophia Williams",
-    image: "/placeholder.svg?height=400&width=600",
+    image: "https://images.pexels.com/photos/6646862/pexels-photo-6646862.jpeg",
     featured: true,
   },
 ]

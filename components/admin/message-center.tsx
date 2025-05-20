@@ -7,13 +7,13 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -38,7 +38,7 @@ const messagesData = [
   },
   {
     id: 2,
-    sender: "Sarah Johnson",
+    sender: "Rohini Chatterjee",
     role: "Medical Coordinator",
     avatar: "/placeholder-user.jpg",
     content: "Medical team deployed to Eastern District. ETA 15 minutes. Will report back once on site.",
@@ -101,7 +101,7 @@ const teamMembers = [
   { id: 2, name: "Medical Team", role: "Group", avatar: "/placeholder.svg" },
   { id: 3, name: "Logistics Team", role: "Group", avatar: "/placeholder.svg" },
   { id: 4, name: "John Smith", role: "Field Volunteer", avatar: "/placeholder-user.jpg" },
-  { id: 5, name: "Sarah Johnson", role: "Medical Coordinator", avatar: "/placeholder-user.jpg" },
+  { id: 5, name: "Rohini Chatterjee", role: "Medical Coordinator", avatar: "/placeholder-user.jpg" },
   { id: 6, name: "David Wilson", role: "Logistics Manager", avatar: "/placeholder-user.jpg" },
   { id: 7, name: "Emily Chen", role: "Field Coordinator", avatar: "/placeholder-user.jpg" },
   { id: 8, name: "Michael Brown", role: "Search Team Leader", avatar: "/placeholder-user.jpg" },
