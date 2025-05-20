@@ -117,7 +117,7 @@ const emergencyKits = [
       "Local maps",
       "Cell phone with chargers and backup battery",
     ],
-    image: "/placeholder.svg?height=200&width=300",
+    image: "https://cdn.pixabay.com/photo/2012/10/22/21/48/first-aid-kit-62643_1280.jpg",
   },
   {
     id: "advanced",
@@ -140,7 +140,7 @@ const emergencyKits = [
       "Paper and pencil",
       "Books, games, puzzles, or other activities for children",
     ],
-    image: "/placeholder.svg?height=200&width=300",
+    image: "https://www.distinctivemedical.com/wp-content/uploads/EB02_006-EB02_007-web-11.jpg",
   },
   {
     id: "car",
@@ -163,7 +163,7 @@ const emergencyKits = [
       "Tire pressure gauge",
       "Tire inflator and sealant",
     ],
-    image: "/placeholder.svg?height=200&width=300",
+    image: "https://raminternational.ca/cdn/shop/products/FSAUTOEK1_1024x1024.jpg?v=1661282155",
   },
 ]
 
@@ -174,28 +174,24 @@ const evacuationPlans = [
     title: "Flood Evacuation Plan",
     description: "Guidelines for evacuating during flooding",
     file: "/evacuation-flood.pdf",
-    image: "/placeholder.svg?height=150&width=250",
   },
   {
     id: "wildfire",
     title: "Wildfire Evacuation Plan",
     description: "Guidelines for evacuating during wildfires",
     file: "/evacuation-wildfire.pdf",
-    image: "/placeholder.svg?height=150&width=250",
   },
   {
     id: "earthquake",
     title: "Earthquake Evacuation Plan",
     description: "Guidelines for evacuating after an earthquake",
     file: "/evacuation-earthquake.pdf",
-    image: "/placeholder.svg?height=150&width=250",
   },
   {
     id: "hurricane",
     title: "Hurricane Evacuation Plan",
     description: "Guidelines for evacuating during hurricanes",
     file: "/evacuation-hurricane.pdf",
-    image: "/placeholder.svg?height=150&width=250",
   },
 ]
 
@@ -373,19 +369,6 @@ export function EmergencyResourcesPage() {
                 </Select>
               </div>
             </div>
-
-            <div className="relative aspect-[16/9] overflow-hidden rounded-lg border">
-              {/* Map placeholder - would be replaced with actual map component */}
-              <div className="flex h-full w-full items-center justify-center bg-gray-100">
-                <div className="text-center">
-                  <MapPin className="mx-auto h-12 w-12 text-muted-foreground" />
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    Interactive map would render here showing hospitals and relief centers
-                  </p>
-                </div>
-              </div>
-            </div>
-
             <div className="space-y-4">
               <h3 className="text-lg font-semibold">Nearby Facilities</h3>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -494,19 +477,19 @@ export function EmergencyResourcesPage() {
               <CardContent>
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   <Button variant="outline" className="justify-start" asChild>
-                    <Link href="#">
+                    <Link href="https://ndma.gov.in/Resources/Technical-Documents">
                       <ExternalLink className="mr-2 h-4 w-4" />
-                      FEMA Emergency Kit Guide
+                      NDMA Emergency Kit Guide
                     </Link>
                   </Button>
                   <Button variant="outline" className="justify-start" asChild>
-                    <Link href="#">
+                    <Link href="https://www.redcross.org/get-help/how-to-prepare-for-emergencies.html?srsltid=AfmBOopyfDep9QOB9IDVQBzlZp2BiM9w-SqnDXetszrJr-QLg8NVj2FP">
                       <ExternalLink className="mr-2 h-4 w-4" />
                       Red Cross Preparedness Guide
                     </Link>
                   </Button>
                   <Button variant="outline" className="justify-start" asChild>
-                    <Link href="#">
+                    <Link href="https://www.cdc.gov/emergency/index.html">
                       <ExternalLink className="mr-2 h-4 w-4" />
                       CDC Emergency Preparedness
                     </Link>
@@ -529,9 +512,6 @@ export function EmergencyResourcesPage() {
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {evacuationPlans.map((plan) => (
                 <Card key={plan.id} className="overflow-hidden">
-                  <div className="relative aspect-[16/9]">
-                    <Image src={plan.image || "/placeholder.svg"} alt={plan.title} fill className="object-cover" />
-                  </div>
                   <CardHeader className="pb-2">
                     <CardTitle className="text-lg">{plan.title}</CardTitle>
                     <CardDescription>{plan.description}</CardDescription>

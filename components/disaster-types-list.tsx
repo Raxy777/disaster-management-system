@@ -1,20 +1,18 @@
 "use client"
 
-import { useState } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { ChevronDown, ChevronUp, Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+import { Input } from "@/components/ui/input"
+import { ChevronDown, ChevronUp, Search } from "lucide-react"
+import Link from "next/link"
+import { useState } from "react"
 
 const disasterTypes = [
   {
     id: "earthquake",
     title: "Earthquake",
     description: "Sudden shaking of the ground caused by movements within the Earth's crust.",
-    icon: "/placeholder.svg?height=80&width=80",
     symptoms: ["Ground shaking", "Building collapse", "Landslides", "Tsunamis in coastal areas"],
     preparedness: [
       "Secure heavy furniture to walls",
@@ -33,7 +31,6 @@ const disasterTypes = [
     id: "flood",
     title: "Flood",
     description: "Overflow of water onto normally dry land, often caused by heavy rainfall or dam failures.",
-    icon: "/placeholder.svg?height=80&width=80",
     symptoms: ["Rising water levels", "Intense rainfall", "Dam or levee failures", "Coastal storm surges"],
     preparedness: [
       "Know your area's flood risk",
@@ -52,7 +49,6 @@ const disasterTypes = [
     id: "wildfire",
     title: "Wildfire",
     description: "Uncontrolled fire that burns in wildland vegetation, often in rural areas.",
-    icon: "/placeholder.svg?height=80&width=80",
     symptoms: [
       "Smoke and ash in the air",
       "Orange/red glow in the sky",
@@ -76,7 +72,6 @@ const disasterTypes = [
     id: "cyclone",
     title: "Cyclone/Hurricane/Typhoon",
     description: "Violent storm characterized by high winds rotating around a center of low atmospheric pressure.",
-    icon: "/placeholder.svg?height=80&width=80",
     symptoms: ["Strong winds", "Heavy rainfall", "Storm surge in coastal areas", "Falling barometric pressure"],
     preparedness: [
       "Secure your home (board windows, secure loose items)",
@@ -95,7 +90,6 @@ const disasterTypes = [
     id: "tsunami",
     title: "Tsunami",
     description: "Series of ocean waves caused by underwater seismic activity or other disturbances.",
-    icon: "/placeholder.svg?height=80&width=80",
     symptoms: [
       "Rapid recession of coastal waters",
       "Loud roaring sound from the ocean",
@@ -119,7 +113,6 @@ const disasterTypes = [
     id: "landslide",
     title: "Landslide",
     description: "Movement of rock, earth, or debris down a sloped section of land.",
-    icon: "/placeholder.svg?height=80&width=80",
     symptoms: [
       "Changes in landscape",
       "Tilting trees",
@@ -181,16 +174,7 @@ export function DisasterTypesList() {
             >
               <Card className="overflow-hidden">
                 <CardHeader className="pb-3">
-                  <div className="flex items-center gap-4">
-                    <div className="relative h-16 w-16 overflow-hidden rounded-lg bg-muted">
-                      <Image
-                        src={disaster.icon || "/placeholder.svg"}
-                        alt={disaster.title}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div>
+                  <div className="flex items-center gap-4"><div>
                       <CardTitle>{disaster.title}</CardTitle>
                       <CardDescription className="line-clamp-2">{disaster.description}</CardDescription>
                     </div>

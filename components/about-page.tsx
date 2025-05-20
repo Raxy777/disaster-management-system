@@ -81,28 +81,24 @@ const annualReports = [
 		title: "Annual Impact Report 2024",
 		description: "Comprehensive overview of our disaster response activities and impact for the year 2024.",
 		file: "https://docs.google.com/document/d/1yck7vekiN2W1xeGDtfIvLsHkXJmAvQi4wozTs2MSpdc/edit?usp=sharing",
-		thumbnail: "/placeholder.svg?height=150&width=100",
 	},
 	{
 		year: "2023",
 		title: "Annual Impact Report 2023",
 		description: "Comprehensive overview of our disaster response activities and impact for the year 2023.",
 		file: "https://docs.google.com/document/d/1yck7vekiN2W1xeGDtfIvLsHkXJmAvQi4wozTs2MSpdc/edit?usp=sharing",
-		thumbnail: "/placeholder.svg?height=150&width=100",
 	},
 	{
 		year: "2022",
 		title: "Annual Impact Report 2022",
 		description: "Comprehensive overview of our disaster response activities and impact for the year 2022.",
 		file: "https://docs.google.com/document/d/1yck7vekiN2W1xeGDtfIvLsHkXJmAvQi4wozTs2MSpdc/edit?usp=sharing",
-		thumbnail: "/placeholder.svg?height=150&width=100",
 	},
 	{
 		year: "2021",
 		title: "Annual Impact Report 2021",
 		description: "Comprehensive overview of our disaster response activities and impact for the year 2021.",
 		file: "https://docs.google.com/document/d/1yck7vekiN2W1xeGDtfIvLsHkXJmAvQi4wozTs2MSpdc/edit?usp=sharing",
-		thumbnail: "/placeholder.svg?height=150&width=100",
 	},
 ]
 

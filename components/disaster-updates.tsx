@@ -13,7 +13,7 @@ const updates = [
       "Relief teams have been deployed to assist with evacuation and recovery efforts in the affected areas.",
     type: "Flood",
     date: "May 1, 2025",
-    image: "/placeholder.svg?height=200&width=400",
+    image: "https://media.istockphoto.com/id/1055164542/photo/dam-construction-on-the-river-rescue-operation-with-a-boat-oil-spill.webp?b=1&s=612x612&w=0&k=20&c=wzZJOcs4enfC17VRD_8koh4J-n6qKGZyYqIRj_x4tIA=",
   },
   {
     id: 2,
@@ -22,7 +22,7 @@ const updates = [
       "Firefighters have contained 60% of the wildfire. Evacuation orders remain in place for certain zones.",
     type: "Wildfire",
     date: "April 29, 2025",
-    image: "/placeholder.svg?height=200&width=400",
+    image: "https://images.pexels.com/photos/3552472/pexels-photo-3552472.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
   },
   {
     id: 3,
@@ -31,7 +31,7 @@ const updates = [
       "Structural engineers are evaluating buildings after the 5.2 magnitude earthquake. No major casualties reported.",
     type: "Earthquake",
     date: "April 28, 2025",
-    image: "/placeholder.svg?height=200&width=400",
+    image: "https://images.pexels.com/photos/7907392/pexels-photo-7907392.jpeg",
   },
 ]
 
