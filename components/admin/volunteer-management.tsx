@@ -39,97 +39,8 @@ import {
     Search,
     UserPlus,
 } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
-// Mock data for volunteers
-const volunteersData = [
-  {
-    id: 1,
-    name: "Aakash Singh",
-    email: "aakash.singh@example.com",
-    phone: "555-123-4567",
-    skills: ["First Aid", "Driving", "Communication"],
-    location: "Central City",
-    status: "Active",
-    availability: "Weekends",
-    assignedTo: "Evacuation Center",
-    joinedDate: "2025-01-15T14:30:00Z",
-    lastActive: "2025-05-01T10:30:00Z",
-    avatar: "/placeholder-user.jpg",
-  },
-  {
-    id: 2,
-    name: "Srijan Chatterjee",
-    email: "sri.j@example.com",
-    phone: "555-987-6543",
-    skills: ["Medical", "Counseling", "Leadership"],
-    location: "North District",
-    status: "Active",
-    availability: "Evenings",
-    assignedTo: "Medical Relief",
-    joinedDate: "2024-11-20T09:15:00Z",
-    lastActive: "2025-05-01T14:45:00Z",
-    avatar: "/placeholder-user.jpg",
-  },
-  {
-    id: 3,
-    name: "Sayon Roy",
-    email: "sroy@example.com",
-    phone: "555-456-7890",
-    skills: ["Heavy Lifting", "Construction", "Driving"],
-    location: "South District",
-    status: "Inactive",
-    availability: "Full-time",
-    assignedTo: null,
-    joinedDate: "2025-02-05T11:30:00Z",
-    lastActive: "2025-04-15T16:20:00Z",
-    avatar: "/placeholder-user.jpg",
-  },
-  {
-    id: 4,
-    name: "Pradip Debnath",
-    email: "deb.prdip@example.com",
-    phone: "555-789-0123",
-    skills: ["Translation", "First Aid", "Cooking"],
-    location: "East District",
-    status: "Active",
-    availability: "Weekdays",
-    assignedTo: "Food Distribution",
-    joinedDate: "2024-12-10T13:45:00Z",
-    lastActive: "2025-04-30T09:10:00Z",
-    avatar: "/placeholder-user.jpg",
-  },
-  {
-    id: 5,
-    name: "Ankan Basu",
-    email: "ankan.basu@example.com",
-    phone: "555-234-5678",
-    skills: ["Search and Rescue", "First Aid", "Navigation"],
-    location: "West District",
-    status: "On Leave",
-    availability: "On Call",
-    assignedTo: "Search Team",
-    joinedDate: "2025-03-01T10:00:00Z",
-    lastActive: "2025-04-25T11:30:00Z",
-    avatar: "/placeholder-user.jpg",
-  },
-  {
-    id: 6,
-    name: "Nirmal Chakraborty",
-    email: "nirchakra@example.com",
-    phone: "555-345-6789",
-    skills: ["Logistics", "Administration", "Communication"],
-    location: "Central City",
-    status: "Active",
-    availability: "Flexible",
-    assignedTo: "Command Center",
-    joinedDate: "2025-01-05T09:30:00Z",
-    lastActive: "2025-05-01T15:20:00Z",
-    avatar: "/placeholder-user.jpg",
-  },
-]
-
-// Skill options
 const skillOptions = [
   "First Aid",
   "Medical",
@@ -149,66 +60,81 @@ const skillOptions = [
 
 export function VolunteerManagement() {
   const { toast } = useToast()
-  const [volunteers, setVolunteers] = useState(volunteersData)
+  const [volunteers, setVolunteers] = useState([])
   const [searchQuery, setSearchQuery] = useState("")
   const [statusFilter, setStatusFilter] = useState("all")
   const [locationFilter, setLocationFilter] = useState("all")
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
   const [newVolunteer, setNewVolunteer] = useState({
-    name: "",
+    first_name: "",
+    last_name: "",
     email: "",
     phone: "",
-    skills: [] as string[],
-    location: "",
+    address: "",
+    city: "",
+    zip: "",
+    skills: [],
     availability: "",
+    status: "Active",
+    assigned_to: "",
+    avatar: "",
   })
+  const [loading, setLoading] = useState(true)
+  const [submitting, setSubmitting] = useState(false)
 
-  // Filter volunteers based on search query and filters
-  const filteredVolunteers = volunteers.filter((volunteer) => {
-    const matchesSearch =
-      volunteer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      volunteer.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      volunteer.skills.some((skill) => skill.toLowerCase().includes(searchQuery.toLowerCase()))
+  useEffect(() => {
+    fetchVolunteers()
+  }, [])
 
-    const matchesStatus = statusFilter === "all" || volunteer.status === statusFilter
-    const matchesLocation = locationFilter === "all" || volunteer.location === locationFilter
-
-    return matchesSearch && matchesStatus && matchesLocation
-  })
-
-  const handleAddVolunteer = (e: React.FormEvent) => {
-    e.preventDefault()
-
-    const newVolunteerObj = {
-      id: volunteers.length + 1,
-      name: newVolunteer.name,
-      email: newVolunteer.email,
-      phone: newVolunteer.phone,
-      skills: newVolunteer.skills,
-      location: newVolunteer.location,
-      status: "Active",
-      availability: newVolunteer.availability,
-      assignedTo: null,
-      joinedDate: new Date().toISOString(),
-      lastActive: new Date().toISOString(),
-      avatar: "/placeholder-user.jpg",
+  const fetchVolunteers = async () => {
+    setLoading(true)
+    try {
+      const res = await fetch("/api/volunteers")
+      const data = await res.json()
+      setVolunteers(Array.isArray(data) ? data : [])
+    } catch (err) {
+      toast({ title: "Error fetching volunteers", description: err.message, variant: "destructive" })
+    } finally {
+      setLoading(false)
     }
+  }
 
-    setVolunteers([newVolunteerObj, ...volunteers])
-    setIsAddDialogOpen(false)
-    setNewVolunteer({
-      name: "",
-      email: "",
-      phone: "",
-      skills: [],
-      location: "",
-      availability: "",
-    })
-
-    toast({
-      title: "Volunteer added",
-      description: "The volunteer has been added to the system.",
-    })
+  const handleAddVolunteer = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setSubmitting(true)
+    try {
+      const res = await fetch("/api/volunteers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newVolunteer),
+      })
+      if (res.ok) {
+        toast({ title: "Volunteer added", description: "The volunteer has been added to the system." })
+        setIsAddDialogOpen(false)
+        setNewVolunteer({
+          first_name: "",
+          last_name: "",
+          email: "",
+          phone: "",
+          address: "",
+          city: "",
+          zip: "",
+          skills: [],
+          availability: "",
+          status: "Active",
+          assigned_to: "",
+          avatar: "",
+        })
+        fetchVolunteers()
+      } else {
+        const error = await res.json()
+        toast({ title: "Error adding volunteer", description: error.error || "An error occurred.", variant: "destructive" })
+      }
+    } catch (err) {
+      toast({ title: "Error adding volunteer", description: err.message, variant: "destructive" })
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const handleDeleteVolunteer = (id: number) => {
@@ -230,8 +156,8 @@ export function VolunteerManagement() {
   }
 
   return (
-    <div className="container mx-auto">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+    <div className="container mx-auto px-2 sm:px-4 md:px-8">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
         <div>
           <h2 className="text-xl font-semibold">Volunteer Management</h2>
           <p className="text-muted-foreground">Manage volunteers and their assignments for disaster response</p>
@@ -252,45 +178,73 @@ export function VolunteerManagement() {
               <form onSubmit={handleAddVolunteer}>
                 <div className="grid gap-4 py-4">
                   <div className="space-y-2">
-                    <Label htmlFor="name">Full Name</Label>
+                    <Label htmlFor="first_name">First Name</Label>
                     <Input
-                      id="name"
-                      placeholder="Enter full name"
-                      value={newVolunteer.name}
-                      onChange={(e) => setNewVolunteer({ ...newVolunteer, name: e.target.value })}
+                      id="first_name"
+                      placeholder="Enter first name"
+                      value={newVolunteer.first_name}
+                      onChange={(e) => setNewVolunteer({ ...newVolunteer, first_name: e.target.value })}
                       required
                     />
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="Enter email address"
-                        value={newVolunteer.email}
-                        onChange={(e) => setNewVolunteer({ ...newVolunteer, email: e.target.value })}
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">Phone</Label>
-                      <Input
-                        id="phone"
-                        placeholder="Enter phone number"
-                        value={newVolunteer.phone}
-                        onChange={(e) => setNewVolunteer({ ...newVolunteer, phone: e.target.value })}
-                        required
-                      />
-                    </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="last_name">Last Name</Label>
+                    <Input
+                      id="last_name"
+                      placeholder="Enter last name"
+                      value={newVolunteer.last_name}
+                      onChange={(e) => setNewVolunteer({ ...newVolunteer, last_name: e.target.value })}
+                      required
+                    />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="location">Location</Label>
+                    <Label htmlFor="email">Email</Label>
                     <Input
-                      id="location"
-                      placeholder="Enter location"
-                      value={newVolunteer.location}
-                      onChange={(e) => setNewVolunteer({ ...newVolunteer, location: e.target.value })}
+                      id="email"
+                      type="email"
+                      placeholder="Enter email address"
+                      value={newVolunteer.email}
+                      onChange={(e) => setNewVolunteer({ ...newVolunteer, email: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="phone">Phone</Label>
+                    <Input
+                      id="phone"
+                      placeholder="Enter phone number"
+                      value={newVolunteer.phone}
+                      onChange={(e) => setNewVolunteer({ ...newVolunteer, phone: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="address">Address</Label>
+                    <Input
+                      id="address"
+                      placeholder="Enter address"
+                      value={newVolunteer.address}
+                      onChange={(e) => setNewVolunteer({ ...newVolunteer, address: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="city">City</Label>
+                    <Input
+                      id="city"
+                      placeholder="Enter city"
+                      value={newVolunteer.city}
+                      onChange={(e) => setNewVolunteer({ ...newVolunteer, city: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="zip">Zip</Label>
+                    <Input
+                      id="zip"
+                      placeholder="Enter zip code"
+                      value={newVolunteer.zip}
+                      onChange={(e) => setNewVolunteer({ ...newVolunteer, zip: e.target.value })}
                       required
                     />
                   </div>
@@ -405,7 +359,7 @@ export function VolunteerManagement() {
       </div>
 
       <Tabs defaultValue="all">
-        <TabsList className="mb-6">
+        <TabsList className="mb-6 flex flex-wrap gap-2">
           <TabsTrigger value="all">All Volunteers</TabsTrigger>
           <TabsTrigger value="active">Active</TabsTrigger>
           <TabsTrigger value="unassigned">Unassigned</TabsTrigger>
@@ -413,8 +367,8 @@ export function VolunteerManagement() {
         </TabsList>
 
         <TabsContent value="all">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredVolunteers.map((volunteer) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {volunteers.map((volunteer) => (
               <Card key={volunteer.id}>
                 <CardHeader className="pb-2">
                   <div className="flex justify-between">
@@ -451,11 +405,13 @@ export function VolunteerManagement() {
                   </div>
                   <div className="flex items-center gap-3">
                     <Avatar>
-                      <AvatarImage src={volunteer.avatar || "/placeholder.svg"} alt={volunteer.name} />
-                      <AvatarFallback>{volunteer.name.charAt(0)}</AvatarFallback>
+                      <AvatarImage src={volunteer.avatar || "/placeholder.svg"} alt={volunteer.first_name + ' ' + volunteer.last_name} />
+                      <AvatarFallback>
+                        {(volunteer.first_name?.charAt(0) ?? "") + (volunteer.last_name?.charAt(0) ?? "")}
+                      </AvatarFallback>
                     </Avatar>
                     <div>
-                      <CardTitle className="text-lg">{volunteer.name}</CardTitle>
+                      <CardTitle className="text-lg">{volunteer.first_name} {volunteer.last_name}</CardTitle>
                       <CardDescription>{volunteer.email}</CardDescription>
                     </div>
                   </div>
@@ -501,7 +457,7 @@ export function VolunteerManagement() {
             ))}
           </div>
 
-          {filteredVolunteers.length === 0 && (
+          {volunteers.length === 0 && (
             <div className="flex h-40 items-center justify-center rounded-md border border-dashed">
               <div className="text-center">
                 <AlertTriangle className="mx-auto h-10 w-10 text-muted-foreground" />

@@ -36,7 +36,6 @@ interface AdminLayoutProps {
 
 export function AdminLayout({ children, title }: AdminLayoutProps) {
   const pathname = usePathname()
-
   const navItems = [
     { name: "Dashboard", href: "/admin/dashboard", icon: Home },
     { name: "Alerts", href: "/admin/alerts", icon: Bell },
@@ -51,58 +50,54 @@ export function AdminLayout({ children, title }: AdminLayoutProps) {
 
   return (
     <SidebarProvider>
-      <Sidebar>
-        <div className="flex min-h-screen">
-          <div className="fixed inset-y-0 z-50 hidden w-64 border-r bg-background md:flex md:flex-col">
-            <SidebarHeader>
-              <div className="flex items-center gap-2 px-2">
-                <AlertTriangle className="h-6 w-6 text-primary" />
-                <span className="text-lg font-bold">Admin Panel</span>
-              </div>
-            </SidebarHeader>
-            <SidebarContent>
-              <SidebarMenu>
-                {navItems.map((item) => {
-                  const isActive = pathname === item.href
-
-                  return (
-                    <SidebarMenuItem key={item.name}>
-                      <SidebarMenuButton asChild>
-                        <Link
-                          href={item.href}
-                          className={cn(
-                            "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-                            isActive
-                              ? "bg-primary text-primary-foreground"
-                              : "text-muted-foreground hover:bg-muted hover:text-foreground",
-                          )}
-                        >
-                          <item.icon className="h-5 w-5" />
-                          <span>{item.name}</span>
-                        </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  )
-                })}
-              </SidebarMenu>
-            </SidebarContent>
-            <div className="border-t p-4">
-              <Button
-                variant="outline"
-                className="w-full justify-start gap-2 text-muted-foreground hover:text-foreground"
-              >
-                <LogOut className="h-5 w-5" />
-                <span>Log out</span>
-              </Button>
+      <div className="flex min-h-screen flex-col md:flex-row">
+        <Sidebar>
+          <SidebarHeader>
+            <div className="flex items-center gap-2 px-2">
+              <AlertTriangle className="h-6 w-6 text-primary" />
+              <span className="text-lg font-bold">Admin Panel</span>
             </div>
+          </SidebarHeader>
+          <SidebarContent>
+            <SidebarMenu>
+              {navItems.map((item) => {
+                const isActive = pathname === item.href
+                return (
+                  <SidebarMenuItem key={item.name}>
+                    <SidebarMenuButton asChild>
+                      <Link
+                        href={item.href}
+                        className={cn(
+                          "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                          isActive
+                            ? "bg-primary text-primary-foreground"
+                            : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                        )}
+                      >
+                        <item.icon className="h-5 w-5" />
+                        <span>{item.name}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                )
+              })}
+            </SidebarMenu>
+          </SidebarContent>
+          <div className="border-t p-4">
+            <Button
+              variant="outline"
+              className="w-full justify-start gap-2 text-muted-foreground hover:text-foreground"
+            >
+              <LogOut className="h-5 w-5" />
+              <span>Log out</span>
+            </Button>
           </div>
-
-          <div className="flex flex-1 flex-col md:pl-64">
-            <AdminHeader title={"ForIncreasingTheWidthOfTheContainerrree"} />
-            <main className="flex-1 p-6 overflow-y-auto">{children}</main>
-          </div>
+        </Sidebar>
+        <div className="flex flex-1 flex-col min-h-screen bg-background">
+          <AdminHeader title={title} />
+          <main className="flex-1 p-2 sm:p-4 md:p-6 overflow-y-auto w-full max-w-full">{children}</main>
         </div>
-      </Sidebar>
+      </div>
     </SidebarProvider>
   )
 }

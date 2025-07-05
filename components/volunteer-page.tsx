@@ -147,13 +147,85 @@ export function VolunteerPage() {
   const [activeTab, setActiveTab] = useState("volunteer")
   const [donationAmount, setDonationAmount] = useState("")
   const [customAmount, setCustomAmount] = useState("")
+  const [form, setForm] = useState<{
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone: string;
+    address: string;
+    city: string;
+    zip: string;
+    availability: string;
+    skills: string[];
+    experience: string;
+  }>({
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    zip: "",
+    availability: "weekends",
+    skills: [],
+    experience: "",
+  })
+  const [submitting, setSubmitting] = useState(false)
 
-  const handleVolunteerSubmit = (e: React.FormEvent) => {
+  const handleVolunteerSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    toast({
-      title: "Volunteer application submitted",
-      description: "Thank you for volunteering! We will contact you soon.",
-    })
+    setSubmitting(true)
+    try {
+      const res = await fetch("/api/volunteers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          first_name: form.first_name,
+          last_name: form.last_name,
+          email: form.email,
+          phone: form.phone,
+          address: form.address,
+          city: form.city,
+          zip: form.zip,
+          availability: form.availability,
+          skills: form.skills,
+          experience: form.experience,
+        }),
+      })
+      if (res.ok) {
+        toast({
+          title: "Volunteer application submitted",
+          description: "Thank you for volunteering! We will contact you soon.",
+        })
+        setForm({
+          first_name: "",
+          last_name: "",
+          email: "",
+          phone: "",
+          address: "",
+          city: "",
+          zip: "",
+          availability: "weekends",
+          skills: [],
+          experience: "",
+        })
+      } else {
+        const error = await res.json()
+        toast({
+          title: "Error submitting application",
+          description: error.error || "An error occurred.",
+          variant: "destructive",
+        })
+      }
+    } catch (err: any) {
+      toast({
+        title: "Error submitting application",
+        description: err.message || "An error occurred.",
+        variant: "destructive",
+      })
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const handleDonationSubmit = (e: React.FormEvent) => {
@@ -195,44 +267,92 @@ export function VolunteerPage() {
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div className="space-y-2">
                         <Label htmlFor="first-name">First Name</Label>
-                        <Input id="first-name" placeholder="Enter your first name" required />
+                        <Input
+                          id="first-name"
+                          value={form.first_name}
+                          onChange={(e) => setForm(f => ({ ...f, first_name: e.target.value }))}
+                          placeholder="Enter your first name"
+                          required
+                        />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="last-name">Last Name</Label>
-                        <Input id="last-name" placeholder="Enter your last name" required />
+                        <Input
+                          id="last-name"
+                          value={form.last_name}
+                          onChange={(e) => setForm(f => ({ ...f, last_name: e.target.value }))}
+                          placeholder="Enter your last name"
+                          required
+                        />
                       </div>
                     </div>
 
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div className="space-y-2">
                         <Label htmlFor="email">Email</Label>
-                        <Input id="email" type="email" placeholder="Enter your email" required />
+                        <Input
+                          id="email"
+                          value={form.email}
+                          onChange={(e) => setForm(f => ({ ...f, email: e.target.value }))}
+                          type="email"
+                          placeholder="Enter your email"
+                          required
+                        />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="phone">Phone Number</Label>
-                        <Input id="phone" type="tel" placeholder="Enter your phone number" required />
+                        <Input
+                          id="phone"
+                          value={form.phone}
+                          onChange={(e) => setForm(f => ({ ...f, phone: e.target.value }))}
+                          type="tel"
+                          placeholder="Enter your phone number"
+                          required
+                        />
                       </div>
                     </div>
 
                     <div className="space-y-2">
                       <Label htmlFor="address">Address</Label>
-                      <Input id="address" placeholder="Enter your address" required />
+                      <Input
+                        id="address"
+                        value={form.address}
+                        onChange={(e) => setForm(f => ({ ...f, address: e.target.value }))}
+                        placeholder="Enter your address"
+                        required
+                      />
                     </div>
 
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div className="space-y-2">
                         <Label htmlFor="city">City</Label>
-                        <Input id="city" placeholder="Enter your city" required />
+                        <Input
+                          id="city"
+                          value={form.city}
+                          onChange={(e) => setForm(f => ({ ...f, city: e.target.value }))}
+                          placeholder="Enter your city"
+                          required
+                        />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="zip">ZIP Code</Label>
-                        <Input id="zip" placeholder="Enter your ZIP code" required />
+                        <Input
+                          id="zip"
+                          value={form.zip}
+                          onChange={(e) => setForm(f => ({ ...f, zip: e.target.value }))}
+                          placeholder="Enter your ZIP code"
+                          required
+                        />
                       </div>
                     </div>
 
                     <div className="space-y-2">
                       <Label>Availability</Label>
-                      <RadioGroup defaultValue="weekends" className="flex flex-col space-y-1">
+                      <RadioGroup
+                        value={form.availability}
+                        onValueChange={(value) => setForm(f => ({ ...f, availability: value }))}
+                        className="flex flex-col space-y-1"
+                      >
                         <div className="flex items-center space-x-2">
                           <RadioGroupItem value="weekdays" id="weekdays" />
                           <Label htmlFor="weekdays">Weekdays</Label>
@@ -252,49 +372,145 @@ export function VolunteerPage() {
                       <Label>Skills & Experience</Label>
                       <div className="grid gap-2 sm:grid-cols-2">
                         <div className="flex items-center space-x-2">
-                          <input type="checkbox" id="first-aid" className="h-4 w-4 rounded border-gray-300" />
+                          <input
+                            type="checkbox"
+                            id="first-aid"
+                            className="h-4 w-4 rounded border-gray-300"
+                            checked={form.skills.includes("first-aid")}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setForm(f => ({ ...f, skills: [...f.skills, "first-aid"] }))
+                              } else {
+                                setForm(f => ({ ...f, skills: f.skills.filter((s) => s !== "first-aid") }))
+                              }
+                            }}
+                          />
                           <Label htmlFor="first-aid" className="text-sm">
                             First Aid / CPR
                           </Label>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <input type="checkbox" id="medical" className="h-4 w-4 rounded border-gray-300" />
+                          <input
+                            type="checkbox"
+                            id="medical"
+                            className="h-4 w-4 rounded border-gray-300"
+                            checked={form.skills.includes("medical")}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setForm(f => ({ ...f, skills: [...f.skills, "medical"] }))
+                              } else {
+                                setForm(f => ({ ...f, skills: f.skills.filter((s) => s !== "medical") }))
+                              }
+                            }}
+                          />
                           <Label htmlFor="medical" className="text-sm">
                             Medical Professional
                           </Label>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <input type="checkbox" id="driving" className="h-4 w-4 rounded border-gray-300" />
+                          <input
+                            type="checkbox"
+                            id="driving"
+                            className="h-4 w-4 rounded border-gray-300"
+                            checked={form.skills.includes("driving")}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setForm(f => ({ ...f, skills: [...f.skills, "driving"] }))
+                              } else {
+                                setForm(f => ({ ...f, skills: f.skills.filter((s) => s !== "driving") }))
+                              }
+                            }}
+                          />
                           <Label htmlFor="driving" className="text-sm">
                             Driving (Valid License)
                           </Label>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <input type="checkbox" id="languages" className="h-4 w-4 rounded border-gray-300" />
+                          <input
+                            type="checkbox"
+                            id="languages"
+                            className="h-4 w-4 rounded border-gray-300"
+                            checked={form.skills.includes("languages")}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setForm(f => ({ ...f, skills: [...f.skills, "languages"] }))
+                              } else {
+                                setForm(f => ({ ...f, skills: f.skills.filter((s) => s !== "languages") }))
+                              }
+                            }}
+                          />
                           <Label htmlFor="languages" className="text-sm">
                             Multiple Languages
                           </Label>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <input type="checkbox" id="cooking" className="h-4 w-4 rounded border-gray-300" />
+                          <input
+                            type="checkbox"
+                            id="cooking"
+                            className="h-4 w-4 rounded border-gray-300"
+                            checked={form.skills.includes("cooking")}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setForm(f => ({ ...f, skills: [...f.skills, "cooking"] }))
+                              } else {
+                                setForm(f => ({ ...f, skills: f.skills.filter((s) => s !== "cooking") }))
+                              }
+                            }}
+                          />
                           <Label htmlFor="cooking" className="text-sm">
                             Cooking
                           </Label>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <input type="checkbox" id="construction" className="h-4 w-4 rounded border-gray-300" />
+                          <input
+                            type="checkbox"
+                            id="construction"
+                            className="h-4 w-4 rounded border-gray-300"
+                            checked={form.skills.includes("construction")}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setForm(f => ({ ...f, skills: [...f.skills, "construction"] }))
+                              } else {
+                                setForm(f => ({ ...f, skills: f.skills.filter((s) => s !== "construction") }))
+                              }
+                            }}
+                          />
                           <Label htmlFor="construction" className="text-sm">
                             Construction
                           </Label>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <input type="checkbox" id="counseling" className="h-4 w-4 rounded border-gray-300" />
+                          <input
+                            type="checkbox"
+                            id="counseling"
+                            className="h-4 w-4 rounded border-gray-300"
+                            checked={form.skills.includes("counseling")}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setForm(f => ({ ...f, skills: [...f.skills, "counseling"] }))
+                              } else {
+                                setForm(f => ({ ...f, skills: f.skills.filter((s) => s !== "counseling") }))
+                              }
+                            }}
+                          />
                           <Label htmlFor="counseling" className="text-sm">
                             Counseling
                           </Label>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <input type="checkbox" id="tech" className="h-4 w-4 rounded border-gray-300" />
+                          <input
+                            type="checkbox"
+                            id="tech"
+                            className="h-4 w-4 rounded border-gray-300"
+                            checked={form.skills.includes("tech")}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setForm(f => ({ ...f, skills: [...f.skills, "tech"] }))
+                              } else {
+                                setForm(f => ({ ...f, skills: f.skills.filter((s) => s !== "tech") }))
+                              }
+                            }}
+                          />
                           <Label htmlFor="tech" className="text-sm">
                             Technical / IT
                           </Label>
@@ -306,21 +522,21 @@ export function VolunteerPage() {
                       <Label htmlFor="experience">Previous Volunteer Experience</Label>
                       <Textarea
                         id="experience"
+                        value={form.experience}
+                        onChange={(e) => setForm(f => ({ ...f, experience: e.target.value }))}
                         placeholder="Briefly describe any previous volunteer experience"
                         className="min-h-[100px]"
                       />
                     </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="emergency-contact">Emergency Contact</Label>
-                      <div className="grid gap-4 sm:grid-cols-2">
-                        <Input id="emergency-contact-name" placeholder="Name" required />
-                        <Input id="emergency-contact-phone" placeholder="Phone Number" required />
-                      </div>
-                    </div>
-
                     <div className="flex items-center space-x-2">
-                      <input type="checkbox" id="terms" className="h-4 w-4 rounded border-gray-300" required />
+                      <input
+                        type="checkbox"
+                        id="terms"
+                        className="h-4 w-4 rounded border-gray-300"
+                        checked={true}
+                        required
+                      />
                       <Label htmlFor="terms" className="text-sm">
                         I agree to the{" "}
                         <Link href="/terms" className="text-[#0077B6] hover:underline">
@@ -329,7 +545,7 @@ export function VolunteerPage() {
                       </Label>
                     </div>
 
-                    <Button type="submit" className="w-full bg-[#0077B6] hover:bg-[#0077B6]/90">
+                    <Button type="submit" className="w-full bg-[#0077B6] hover:bg-[#0077B6]/90" disabled={submitting}>
                       <HelpingHand className="mr-2 h-4 w-4" />
                       Submit Application
                     </Button>

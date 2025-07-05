@@ -261,144 +261,142 @@ export function ReportReview() {
 
   return (
     <AdminLayout title="Report Review">
-      <div className="container mx-auto p-4 sm:p-6">
-        <div className="mb-6">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-            <div>
-              <h2 className="text-xl font-semibold">Report Review</h2>
-              <p className="text-muted-foreground">
-                Review and manage disaster reports submitted by users.
-              </p>
-            </div>
-            <div className="flex gap-2 w-full sm:w-auto">
-              <Button variant="outline" size="sm" className="flex-1 sm:flex-none flex items-center gap-1">
-                <Filter className="h-4 w-4" />
-                Filter
-              </Button>
-              <Button variant="outline" size="sm" className="flex-1 sm:flex-none flex items-center gap-1">
-                <Download className="h-4 w-4" />
-                Export
-              </Button>
-            </div>
+      <div className="container mx-auto px-2 sm:px-4 md:px-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+          <div>
+            <h2 className="text-xl font-semibold">Report Review</h2>
+            <p className="text-muted-foreground">
+              Review and manage disaster reports submitted by users.
+            </p>
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search reports..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9"
-              />
-            </div>
-            <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger>
-                <SelectValue placeholder="Status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Status</SelectItem>
-                <SelectItem value="pending">Pending</SelectItem>
-                <SelectItem value="in-review">In Review</SelectItem>
-                <SelectItem value="verified">Verified</SelectItem>
-                <SelectItem value="resolved">Resolved</SelectItem>
-              </SelectContent>
-            </Select>
-            <Select value={typeFilter} onValueChange={setTypeFilter}>
-              <SelectTrigger>
-                <SelectValue placeholder="Type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Types</SelectItem>
-                {reportTypes.map((type) => (
-                  <SelectItem key={type.value} value={type.value}>
-                    {type.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Select value={severityFilter} onValueChange={setSeverityFilter}>
-              <SelectTrigger>
-                <SelectValue placeholder="Severity" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Severity</SelectItem>
-                <SelectItem value="high">High</SelectItem>
-                <SelectItem value="medium">Medium</SelectItem>
-                <SelectItem value="low">Low</SelectItem>
-              </SelectContent>
-            </Select>
+          <div className="flex gap-2 w-full sm:w-auto">
+            <Button variant="outline" size="sm" className="flex-1 sm:flex-none flex items-center gap-1">
+              <Filter className="h-4 w-4" />
+              Filter
+            </Button>
+            <Button variant="outline" size="sm" className="flex-1 sm:flex-none flex items-center gap-1">
+              <Download className="h-4 w-4" />
+              Export
+            </Button>
           </div>
+        </div>
 
-          <div className="grid grid-cols-1 gap-4">
-            {filteredReports.map((report) => (
-              <Card key={report.id}>
-                <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                  <div>
-                    <CardTitle className="flex items-center gap-2">
-                      {report.title}
-                      {report.verified && (
-                        <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-                          <CheckCircle className="h-3 w-3 mr-1" />
-                          Verified
-                        </Badge>
-                      )}
-                    </CardTitle>
-                    <CardDescription className="flex items-center gap-2">
-                      <MapPin className="h-4 w-4" />
-                      {report.location}
-                    </CardDescription>
-                  </div>
-                  <div className="flex gap-2 w-full sm:w-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Search reports..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-9"
+            />
+          </div>
+          <Select value={statusFilter} onValueChange={setStatusFilter}>
+            <SelectTrigger>
+              <SelectValue placeholder="Status" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Status</SelectItem>
+              <SelectItem value="pending">Pending</SelectItem>
+              <SelectItem value="in-review">In Review</SelectItem>
+              <SelectItem value="verified">Verified</SelectItem>
+              <SelectItem value="resolved">Resolved</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select value={typeFilter} onValueChange={setTypeFilter}>
+            <SelectTrigger>
+              <SelectValue placeholder="Type" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Types</SelectItem>
+              {reportTypes.map((type) => (
+                <SelectItem key={type.value} value={type.value}>
+                  {type.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Select value={severityFilter} onValueChange={setSeverityFilter}>
+            <SelectTrigger>
+              <SelectValue placeholder="Severity" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Severity</SelectItem>
+              <SelectItem value="high">High</SelectItem>
+              <SelectItem value="medium">Medium</SelectItem>
+              <SelectItem value="low">Low</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4">
+          {filteredReports.map((report) => (
+            <Card key={report.id}>
+              <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    {report.title}
+                    {report.verified && (
+                      <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                        <CheckCircle className="h-3 w-3 mr-1" />
+                        Verified
+                      </Badge>
+                    )}
+                  </CardTitle>
+                  <CardDescription className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4" />
+                    {report.location}
+                  </CardDescription>
+                </div>
+                <div className="flex gap-2 w-full sm:w-auto">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="flex-1 sm:flex-none"
+                    onClick={() => {
+                      setSelectedReport(report)
+                      setIsViewDialogOpen(true)
+                    }}
+                  >
+                    <Eye className="h-4 w-4 mr-1" />
+                    View
+                  </Button>
+                  {!report.verified && (
+                    <Button
+                      size="sm"
+                      className="flex-1 sm:flex-none"
+                      onClick={() => handleVerifyReport(report.id)}
+                    >
+                      <CheckCircle className="h-4 w-4 mr-1" />
+                      Verify
+                    </Button>
+                  )}
+                  {report.status !== "resolved" && (
                     <Button
                       variant="outline"
                       size="sm"
                       className="flex-1 sm:flex-none"
-                      onClick={() => {
-                        setSelectedReport(report)
-                        setIsViewDialogOpen(true)
-                      }}
+                      onClick={() => handleResolveReport(report.id)}
                     >
-                      <Eye className="h-4 w-4 mr-1" />
-                      View
+                      Resolve
                     </Button>
-                    {!report.verified && (
-                      <Button
-                        size="sm"
-                        className="flex-1 sm:flex-none"
-                        onClick={() => handleVerifyReport(report.id)}
-                      >
-                        <CheckCircle className="h-4 w-4 mr-1" />
-                        Verify
-                      </Button>
-                    )}
-                    {report.status !== "resolved" && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="flex-1 sm:flex-none"
-                        onClick={() => handleResolveReport(report.id)}
-                      >
-                        Resolve
-                      </Button>
-                    )}
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="flex-1 sm:flex-none text-red-600 hover:text-red-700"
-                      onClick={() => handleDeleteReport(report.id)}
-                    >
-                      <Trash2 className="h-4 w-4 mr-1" />
-                      Delete
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">{report.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                  )}
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="flex-1 sm:flex-none text-red-600 hover:text-red-700"
+                    onClick={() => handleDeleteReport(report.id)}
+                  >
+                    <Trash2 className="h-4 w-4 mr-1" />
+                    Delete
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">{report.description}</p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
         <Dialog open={isViewDialogOpen} onOpenChange={setIsViewDialogOpen}>

@@ -169,8 +169,8 @@ export function MessageCenter() {
   }
 
   return (
-    <div className="container mx-auto">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+    <div className="container mx-auto px-2 sm:px-4 md:px-8">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
         <div>
           <h2 className="text-xl font-semibold">Message Center</h2>
           <p className="text-muted-foreground">Communicate with teams and manage alerts</p>
