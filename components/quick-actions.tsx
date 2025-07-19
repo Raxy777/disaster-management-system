@@ -27,14 +27,6 @@ const actions = [
     color: "text-green-500",
     bgColor: "bg-green-50",
   },
-  {
-    title: "View Affected Areas",
-    description: "See interactive maps of affected regions",
-    icon: MapPin,
-    href: "/map",
-    color: "text-[#FF9933]",
-    bgColor: "bg-orange-50",
-  },
 ]
 
 export function QuickActions() {
@@ -42,7 +34,7 @@ export function QuickActions() {
     <section className="py-12">
       <div className="container">
         <h2 className="mb-8 text-center text-2xl font-bold tracking-tight md:text-3xl">Quick Actions</h2>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {actions.map((action) => (
             <Link key={action.title} href={action.href}>
               <Card className="h-full transition-all hover:shadow-md">

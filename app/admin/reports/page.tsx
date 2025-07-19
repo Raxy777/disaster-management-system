@@ -1,5 +1,10 @@
+import { AdminLayout } from "@/components/admin/admin-layout"
 import { ReportReview } from "@/components/admin/report-review"
 
 export default function ReportsPage() {
-  return <ReportReview />
+  return (
+    <AdminLayout title="Report Review">
+      <ReportReview />
+    </AdminLayout>
+  )
 }

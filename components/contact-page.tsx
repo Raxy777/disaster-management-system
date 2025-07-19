@@ -248,7 +248,7 @@ export function ContactPage() {
               </CardContent>
             </Card>
 
-            <div className="mt-6">
+            {/* <div className="mt-6">
               <Card>
                 <CardHeader>
                   <CardTitle>Location Map</CardTitle>
@@ -256,7 +256,6 @@ export function ContactPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="aspect-[16/9] overflow-hidden rounded-md bg-muted">
-                    {/* Map placeholder - would be replaced with actual map component */}
                     <div className="flex h-full w-full items-center justify-center bg-gray-100">
                       <div className="text-center">
                         <MapPin className="mx-auto h-12 w-12 text-muted-foreground" />
@@ -268,7 +267,7 @@ export function ContactPage() {
                   </div>
                 </CardContent>
               </Card>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

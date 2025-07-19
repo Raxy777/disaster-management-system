@@ -77,11 +77,11 @@ export function DisasterUpdates() {
                 <CardDescription className="line-clamp-3">{update.description}</CardDescription>
               </CardContent>
               <CardFooter>
-                <Button variant="link" className="px-0 text-[#0077B6]" asChild>
+                {/* <Button variant="link" className="px-0 text-[#0077B6]" asChild>
                   <Link href={`/news/${update.id}`}>
                     Read more <ArrowRight className="ml-1 h-3 w-3" />
                   </Link>
-                </Button>
+                </Button> */}
               </CardFooter>
             </Card>
           ))}

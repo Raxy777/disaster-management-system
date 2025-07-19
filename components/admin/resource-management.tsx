@@ -194,12 +194,9 @@ export function ResourceManagement() {
   }
 
   return (
-    <div className="container mx-auto">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
-        <div>
-          <h2 className="text-xl font-semibold">Resource Management</h2>
-          <p className="text-muted-foreground">Manage and track disaster response resources and inventory</p>
-        </div>
+    <div>
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+        <div className="flex-1"></div>
         <div className="mt-4 md:mt-0 flex gap-2">
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
@@ -330,7 +327,7 @@ export function ResourceManagement() {
       </div>
 
       <Tabs defaultValue="inventory">
-        <TabsList className="mb-6">
+        <TabsList className="mb-6 flex flex-wrap gap-2">
           <TabsTrigger value="inventory">Inventory</TabsTrigger>
           <TabsTrigger value="requests">Requests</TabsTrigger>
           <TabsTrigger value="allocations">Allocations</TabsTrigger>
@@ -338,7 +335,7 @@ export function ResourceManagement() {
         </TabsList>
 
         <TabsContent value="inventory">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredResources.map((resource) => (
               <Card key={resource.id}>
                 <CardHeader className="pb-2">

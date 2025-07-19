@@ -277,19 +277,19 @@ export function EmergencyResourcesPage() {
         </div>
 
         <Tabs defaultValue="helplines" className="space-y-8">
-          <TabsList className="grid w-full grid-cols-2 md:grid-cols-5">
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
             <TabsTrigger value="helplines">Helplines</TabsTrigger>
             <TabsTrigger value="facilities">Hospitals & Relief Centers</TabsTrigger>
             <TabsTrigger value="kits">Emergency Kits</TabsTrigger>
             <TabsTrigger value="evacuation">Evacuation Plans</TabsTrigger>
-            <TabsTrigger value="weather">Weather Forecast</TabsTrigger>
+            {/* <TabsTrigger value="weather">Weather Forecast</TabsTrigger> */}
           </TabsList>
 
           {/* Helplines Tab */}
           <TabsContent value="helplines" className="space-y-6">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <h2 className="text-2xl font-bold">Emergency Helplines</h2>
-              <div className="flex gap-2">
+              {/* <div className="flex gap-2">
                 <Select defaultValue="all" onValueChange={setSelectedState}>
                   <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder="Select State" />
@@ -306,7 +306,7 @@ export function EmergencyResourcesPage() {
                   <Download className="mr-2 h-4 w-4" />
                   Download List
                 </Button>
-              </div>
+              </div> */}
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -340,7 +340,7 @@ export function EmergencyResourcesPage() {
             <div className="rounded-lg border bg-muted/50 p-4">
               <h3 className="mb-2 font-semibold">Important Note</h3>
               <p className="text-sm text-muted-foreground">
-                In case of a life-threatening emergency, always call 911 first. The helplines listed above are for
+                In case of a life-threatening emergency, always call helplines first. The helplines listed above are for
                 specific assistance and information during disasters.
               </p>
             </div>
@@ -351,12 +351,12 @@ export function EmergencyResourcesPage() {
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <h2 className="text-2xl font-bold">Hospitals & Relief Centers</h2>
               <div className="flex flex-col gap-2 sm:flex-row">
-                <Input
+                {/* <Input
                   placeholder="Search by name or location"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full sm:w-[250px]"
-                />
+                /> */}
                 <Select defaultValue="all" onValueChange={setSelectedFacilityType}>
                   <SelectTrigger className="w-full sm:w-[180px]">
                     <SelectValue placeholder="Facility Type" />
@@ -571,7 +571,7 @@ export function EmergencyResourcesPage() {
           </TabsContent>
 
           {/* Weather Forecast Tab */}
-          <TabsContent value="weather" className="space-y-6">
+          {/* <TabsContent value="weather" className="space-y-6">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-bold">Weather Forecast</h2>
               <div className="flex items-center gap-2">
@@ -715,7 +715,7 @@ export function EmergencyResourcesPage() {
                 </Button>
               </CardFooter>
             </Card>
-          </TabsContent>
+          </TabsContent> */}
         </Tabs>
       </div>
     </div>
