@@ -17,7 +17,6 @@ import { useToast } from "@/hooks/use-toast"
 import { CheckCircle, Download, Eye, Filter, MapPin, Search, Trash2 } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
-import { AdminLayout } from "./admin-layout"
 
 // Mock data for reports
 const reportsData = [
@@ -260,16 +259,10 @@ export function ReportReview() {
   }
 
   return (
-    <AdminLayout title="Report Review">
-      <div className="container mx-auto px-2 sm:px-4 md:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-          <div>
-            <h2 className="text-xl font-semibold">Report Review</h2>
-            <p className="text-muted-foreground">
-              Review and manage disaster reports submitted by users.
-            </p>
-          </div>
-          <div className="flex gap-2 w-full sm:w-auto">
+    <div className="container mx-auto px-2 sm:px-4 md:px-8">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+        <div className="flex-1"></div>
+        <div className="flex gap-2 w-full sm:w-auto">
             <Button variant="outline" size="sm" className="flex-1 sm:flex-none flex items-center gap-1">
               <Filter className="h-4 w-4" />
               Filter
@@ -539,6 +532,5 @@ export function ReportReview() {
           </DialogContent>
         </Dialog>
       </div>
-    </AdminLayout>
   )
 }

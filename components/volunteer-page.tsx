@@ -335,12 +335,12 @@ export function VolunteerPage() {
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="zip">ZIP Code</Label>
+                        <Label htmlFor="zip">PIN Code</Label>
                         <Input
                           id="zip"
                           value={form.zip}
                           onChange={(e) => setForm(f => ({ ...f, zip: e.target.value }))}
-                          placeholder="Enter your ZIP code"
+                          placeholder="Enter your PIN code"
                           required
                         />
                       </div>

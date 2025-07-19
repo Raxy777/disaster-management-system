@@ -194,12 +194,9 @@ export function ResourceManagement() {
   }
 
   return (
-    <div className="container mx-auto px-2 sm:px-4 md:px-8">
+    <div>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-        <div>
-          <h2 className="text-xl font-semibold">Resource Management</h2>
-          <p className="text-muted-foreground">Manage and track disaster response resources and inventory</p>
-        </div>
+        <div className="flex-1"></div>
         <div className="mt-4 md:mt-0 flex gap-2">
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>

@@ -7,21 +7,21 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog"
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -29,17 +29,37 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useToast } from "@/hooks/use-toast"
 import {
-    AlertTriangle,
-    Calendar,
-    Download,
-    Filter,
-    MapPin,
-    MoreHorizontal,
-    Phone,
-    Search,
-    UserPlus,
+  AlertTriangle,
+  Calendar,
+  Download,
+  Filter,
+  MapPin,
+  MoreHorizontal,
+  Phone,
+  Search,
+  UserPlus,
 } from "lucide-react"
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
+
+interface Volunteer {
+  id: number
+  first_name: string
+  last_name: string
+  email: string
+  phone: string
+  address: string
+  city: string
+  zip: string
+  skills: string[]
+  availability: string
+  status: string
+  assigned_to: string
+  assignedTo?: string
+  avatar: string
+  location?: string
+  joinedDate: string
+  lastActive: string
+}
 
 const skillOptions = [
   "First Aid",
@@ -60,12 +80,12 @@ const skillOptions = [
 
 export function VolunteerManagement() {
   const { toast } = useToast()
-  const [volunteers, setVolunteers] = useState([])
+  const [volunteers, setVolunteers] = useState<Volunteer[]>([])
   const [searchQuery, setSearchQuery] = useState("")
   const [statusFilter, setStatusFilter] = useState("all")
   const [locationFilter, setLocationFilter] = useState("all")
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
-  const [newVolunteer, setNewVolunteer] = useState({
+  const [newVolunteer, setNewVolunteer] = useState<Omit<Volunteer, 'id' | 'joinedDate' | 'lastActive'>>({
     first_name: "",
     last_name: "",
     email: "",
@@ -93,7 +113,8 @@ export function VolunteerManagement() {
       const data = await res.json()
       setVolunteers(Array.isArray(data) ? data : [])
     } catch (err) {
-      toast({ title: "Error fetching volunteers", description: err.message, variant: "destructive" })
+      const errorMessage = err instanceof Error ? err.message : "An unknown error occurred"
+      toast({ title: "Error fetching volunteers", description: errorMessage, variant: "destructive" })
     } finally {
       setLoading(false)
     }
@@ -131,7 +152,8 @@ export function VolunteerManagement() {
         toast({ title: "Error adding volunteer", description: error.error || "An error occurred.", variant: "destructive" })
       }
     } catch (err) {
-      toast({ title: "Error adding volunteer", description: err.message, variant: "destructive" })
+      const errorMessage = err instanceof Error ? err.message : "An unknown error occurred"
+      toast({ title: "Error adding volunteer", description: errorMessage, variant: "destructive" })
     } finally {
       setSubmitting(false)
     }
@@ -156,12 +178,9 @@ export function VolunteerManagement() {
   }
 
   return (
-    <div className="container mx-auto px-2 sm:px-4 md:px-8">
+    <div>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-        <div>
-          <h2 className="text-xl font-semibold">Volunteer Management</h2>
-          <p className="text-muted-foreground">Manage volunteers and their assignments for disaster response</p>
-        </div>
+        <div className="flex-1"></div>
         <div className="mt-4 md:mt-0 flex gap-2">
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
@@ -239,10 +258,10 @@ export function VolunteerManagement() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="zip">Zip</Label>
+                    <Label htmlFor="zip">PIN</Label>
                     <Input
                       id="zip"
-                      placeholder="Enter zip code"
+                      placeholder="Enter pin code"
                       value={newVolunteer.zip}
                       onChange={(e) => setNewVolunteer({ ...newVolunteer, zip: e.target.value })}
                       required
@@ -438,7 +457,7 @@ export function VolunteerManagement() {
                     <div className="pt-1">
                       <div className="text-xs text-muted-foreground mb-1">Skills:</div>
                       <div className="flex flex-wrap gap-1">
-                        {volunteer.skills.map((skill, index) => (
+                        {volunteer.skills?.map((skill: string, index: number) => (
                           <Badge key={index} variant="secondary" className="text-xs">
                             {skill}
                           </Badge>

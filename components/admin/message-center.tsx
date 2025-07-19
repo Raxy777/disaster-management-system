@@ -169,13 +169,9 @@ export function MessageCenter() {
   }
 
   return (
-    <div className="container mx-auto px-2 sm:px-4 md:px-8">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-        <div>
-          <h2 className="text-xl font-semibold">Message Center</h2>
-          <p className="text-muted-foreground">Communicate with teams and manage alerts</p>
-        </div>
-        <div className="mt-4 md:mt-0 flex gap-2">
+    <div className="w-full max-w-none">
+      <div className="flex justify-end items-center mb-6">
+        <div className="flex gap-2">
           <Dialog open={isComposeDialogOpen} onOpenChange={setIsComposeDialogOpen}>
             <DialogTrigger asChild>
               <Button className="bg-[#0077B6] hover:bg-[#0077B6]/90">
@@ -258,8 +254,8 @@ export function MessageCenter() {
         </div>
       </div>
 
-      <div className="mb-6 flex flex-col gap-4 md:flex-row">
-        <div className="relative flex-1">
+      <div className="mb-6 flex flex-col gap-4 lg:flex-row">
+        <div className="relative flex-1 min-w-0">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
             placeholder="Search messages..."
@@ -268,7 +264,7 @@ export function MessageCenter() {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 shrink-0">
           <select
             className="flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 w-[150px]"
             value={categoryFilter}
@@ -296,8 +292,8 @@ export function MessageCenter() {
         </div>
       </div>
 
-      <Tabs defaultValue="inbox">
-        <TabsList className="mb-6">
+      <Tabs defaultValue="inbox" className="w-full">
+        <TabsList className="mb-6 w-full justify-start">
           <TabsTrigger value="inbox">Inbox</TabsTrigger>
           <TabsTrigger value="sent">Sent</TabsTrigger>
           <TabsTrigger value="alerts">Alerts</TabsTrigger>
