@@ -628,7 +628,7 @@ export function VolunteerPage() {
               </div>
             </div>
 
-            <h2 className="mt-8 text-2xl font-bold">Current Volunteer Opportunities</h2>
+            {/* <h2 className="mt-8 text-2xl font-bold">Current Volunteer Opportunities</h2>
             <div className="grid gap-6 md:grid-cols-2">
               {volunteerOpportunities.map((opportunity) => (
                 <Card key={opportunity.id}>
@@ -660,7 +660,7 @@ export function VolunteerPage() {
                   </CardFooter>
                 </Card>
               ))}
-            </div>
+            </div> */}
           </TabsContent>
 
           {/* Donate Tab */}

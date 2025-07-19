@@ -24,7 +24,6 @@ const navItems = [
   { name: "Report a Disaster", href: "/report" },
   { name: "Volunteer & Donate", href: "/volunteer-donate" },
   { name: "News", href: "/news" },
-  { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
 ]
 

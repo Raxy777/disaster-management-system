@@ -218,11 +218,11 @@ export function DisasterTypesList() {
                     </div>
                   </CollapsibleContent>
                 </CardContent>
-                <CardFooter>
+                {/* <CardFooter>
                   <Button variant="outline" size="sm" className="w-full" asChild>
                     <Link href={`/disaster-types/${disaster.id}`}>Learn More</Link>
                   </Button>
-                </CardFooter>
+                </CardFooter> */}
               </Card>
             </Collapsible>
           ))}

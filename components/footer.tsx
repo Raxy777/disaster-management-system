@@ -46,7 +46,7 @@ export function Footer() {
               </li>
             </ul>
           </div>
-          <div>
+          {/* <div>
             <h3 className="mb-4 text-sm font-semibold">Resources</h3>
             <ul className="space-y-2 text-sm">
               <li>
@@ -75,7 +75,7 @@ export function Footer() {
                 </Link>
               </li>
             </ul>
-          </div>
+          </div> */}
           <div>
             <h3 className="mb-4 text-sm font-semibold">Connect With Us</h3>
             <div className="flex space-x-4">
@@ -108,7 +108,7 @@ export function Footer() {
             <p className="text-xs text-muted-foreground">
               © {new Date().getFullYear()} Suraksha Setu. All rights reserved.
             </p>
-            <div className="flex gap-4 text-xs text-muted-foreground">
+            {/* <div className="flex gap-4 text-xs text-muted-foreground">
               <Link href="/privacy" className="hover:text-foreground">
                 Privacy Policy
               </Link>
@@ -118,7 +118,7 @@ export function Footer() {
               <Link href="/accessibility" className="hover:text-foreground">
                 Accessibility
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
