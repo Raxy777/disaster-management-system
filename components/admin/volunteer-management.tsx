@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+import * as XLSX from 'xlsx'
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
@@ -177,6 +178,75 @@ export function VolunteerManagement() {
     })
   }
 
+  const handleDownloadExcel = () => {
+    if (volunteers.length === 0) {
+      toast({
+        title: "No data to export",
+        description: "There are no volunteers to export.",
+        variant: "destructive"
+      })
+      return
+    }
+
+    // Prepare data for Excel export
+    const exportData = volunteers.map((volunteer) => ({
+      'ID': volunteer.id,
+      'First Name': volunteer.first_name,
+      'Last Name': volunteer.last_name,
+      'Email': volunteer.email,
+      'Phone': volunteer.phone,
+      'Address': volunteer.address,
+      'City': volunteer.city,
+      'PIN Code': volunteer.zip,
+      'Skills': volunteer.skills.join(', '),
+      'Availability': volunteer.availability,
+      'Status': volunteer.status,
+      'Assigned To': volunteer.assigned_to || volunteer.assignedTo || 'Unassigned',
+      'Location': volunteer.location || `${volunteer.city}`,
+      'Joined Date': volunteer.joinedDate,
+      'Last Active': volunteer.lastActive,
+    }))
+
+    // Create workbook and worksheet
+    const workbook = XLSX.utils.book_new()
+    const worksheet = XLSX.utils.json_to_sheet(exportData)
+
+    // Set column widths for better readability
+    const columnWidths = [
+      { wch: 10 }, // ID
+      { wch: 15 }, // First Name
+      { wch: 15 }, // Last Name
+      { wch: 25 }, // Email
+      { wch: 15 }, // Phone
+      { wch: 30 }, // Address
+      { wch: 15 }, // City
+      { wch: 12 }, // PIN Code
+      { wch: 40 }, // Skills
+      { wch: 15 }, // Availability
+      { wch: 12 }, // Status
+      { wch: 20 }, // Assigned To
+      { wch: 20 }, // Location
+      { wch: 15 }, // Joined Date
+      { wch: 15 }, // Last Active
+    ]
+    worksheet['!cols'] = columnWidths
+
+    // Add worksheet to workbook
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Volunteers')
+
+    // Generate filename with current date
+    const currentDate = new Date().toISOString().split('T')[0]
+    const filename = `volunteers_data_${currentDate}.xlsx`
+
+    // Download the file
+    XLSX.writeFile(workbook, filename)
+
+    toast({
+      title: "Export successful",
+      description: `Downloaded ${volunteers.length} volunteer records to ${filename}`,
+    })
+  }
+
   return (
     <div>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
@@ -189,13 +259,13 @@ export function VolunteerManagement() {
                 Add Volunteer
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[500px]">
+            <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-hidden flex flex-col">
               <DialogHeader>
                 <DialogTitle>Add New Volunteer</DialogTitle>
                 <DialogDescription>Add a new volunteer to the disaster response team.</DialogDescription>
               </DialogHeader>
-              <form onSubmit={handleAddVolunteer}>
-                <div className="grid gap-4 py-4">
+              <form onSubmit={handleAddVolunteer} className="flex flex-col h-full">
+                <div className="grid gap-4 py-4 overflow-y-auto flex-1 max-h-[60vh]">
                   <div className="space-y-2">
                     <Label htmlFor="first_name">First Name</Label>
                     <Input
@@ -319,18 +389,23 @@ export function VolunteerManagement() {
                     </div>
                   </div>
                 </div>
-                <DialogFooter>
+                <DialogFooter className="mt-4 border-t pt-4">
                   <Button type="button" variant="outline" onClick={() => setIsAddDialogOpen(false)}>
                     Cancel
                   </Button>
-                  <Button type="submit" className="bg-[#0077B6] hover:bg-[#0077B6]/90">
-                    Add Volunteer
+                  <Button type="submit" className="bg-[#0077B6] hover:bg-[#0077B6]/90" disabled={submitting}>
+                    {submitting ? "Adding..." : "Add Volunteer"}
                   </Button>
                 </DialogFooter>
               </form>
             </DialogContent>
           </Dialog>
-          <Button variant="outline" size="icon">
+          <Button 
+            variant="outline" 
+            size="icon" 
+            onClick={handleDownloadExcel}
+            title="Download volunteers data as Excel file"
+          >
             <Download className="h-4 w-4" />
           </Button>
         </div>
