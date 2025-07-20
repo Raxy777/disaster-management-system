@@ -95,47 +95,40 @@ const mockVolunteers = [
   }
 ]
 
-export async function GET() {
+// Update volunteer assignment
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  const { assigned_to, status } = await req.json()
+
+  const updateData: any = {}
+  if (assigned_to !== undefined) updateData.assigned_to = assigned_to
+  if (status !== undefined) updateData.status = status
+
   try {
     const { data, error } = await supabase
       .from('volunteers')
-      .select('*')
-      .order('created_at', { ascending: false })
+      .update(updateData)
+      .eq('id', id)
+      .select()
 
-    if (error) {
-      console.log('Supabase error, using mock data:', error.message)
-      // Return mock data if Supabase fails
-      return NextResponse.json(mockVolunteers)
+    if (error || !data || data.length === 0) {
+      // Fallback to mock data
+      const mockVolunteer = mockVolunteers.find(v => v.id === parseInt(id))
+      if (mockVolunteer) {
+        const updatedVolunteer = { ...mockVolunteer, ...updateData }
+        return NextResponse.json(updatedVolunteer)
+      }
+      return NextResponse.json({ error: 'Volunteer not found' }, { status: 404 })
     }
-    
-    // If no data from Supabase, return mock data
-    if (!data || data.length === 0) {
-      return NextResponse.json(mockVolunteers)
-    }
-    
-    return NextResponse.json(data)
+
+    return NextResponse.json(data[0])
   } catch (err) {
-    console.log('Database error, using mock data:', err)
-    // Fallback to mock data if database is not available
-    return NextResponse.json(mockVolunteers)
+    // Fallback to mock data
+    const mockVolunteer = mockVolunteers.find(v => v.id === parseInt(id))
+    if (mockVolunteer) {
+      const updatedVolunteer = { ...mockVolunteer, ...updateData }
+      return NextResponse.json(updatedVolunteer)
+    }
+    return NextResponse.json({ error: 'Volunteer not found' }, { status: 404 })
   }
 }
-
-export async function POST(req: NextRequest) {
-  try {
-    const body = await req.json()
-    const { data, error } = await supabase
-      .from('volunteers')
-      .insert([body])
-      .select()
-    
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 })
-    }
-    
-    return NextResponse.json(data, { status: 201 })
-  } catch (err) {
-    const errorMessage = err instanceof Error ? err.message : "An unknown error occurred"
-    return NextResponse.json({ error: errorMessage }, { status: 500 })
-  }
-} 
