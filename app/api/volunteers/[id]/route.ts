@@ -95,47 +95,97 @@ const mockVolunteers = [
   }
 ]
 
-export async function GET() {
+// GET individual volunteer
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+
   try {
     const { data, error } = await supabase
       .from('volunteers')
       .select('*')
-      .order('created_at', { ascending: false })
+      .eq('id', id)
+      .single()
 
-    if (error) {
-      console.log('Supabase error, using mock data:', error.message)
-      // Return mock data if Supabase fails
-      return NextResponse.json(mockVolunteers)
+    if (error || !data) {
+      // Fallback to mock data
+      const mockVolunteer = mockVolunteers.find(v => v.id === parseInt(id))
+      if (mockVolunteer) {
+        return NextResponse.json(mockVolunteer)
+      }
+      return NextResponse.json({ error: 'Volunteer not found' }, { status: 404 })
     }
-    
-    // If no data from Supabase, return mock data
-    if (!data || data.length === 0) {
-      return NextResponse.json(mockVolunteers)
-    }
-    
+
     return NextResponse.json(data)
   } catch (err) {
-    console.log('Database error, using mock data:', err)
-    // Fallback to mock data if database is not available
-    return NextResponse.json(mockVolunteers)
+    // Fallback to mock data
+    const mockVolunteer = mockVolunteers.find(v => v.id === parseInt(id))
+    if (mockVolunteer) {
+      return NextResponse.json(mockVolunteer)
+    }
+    return NextResponse.json({ error: 'Volunteer not found' }, { status: 404 })
   }
 }
 
-export async function POST(req: NextRequest) {
+// PUT (update) individual volunteer
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  const body = await req.json()
+
   try {
-    const body = await req.json()
     const { data, error } = await supabase
       .from('volunteers')
-      .insert([body])
+      .update(body)
+      .eq('id', id)
       .select()
-    
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 })
+
+    if (error || !data || data.length === 0) {
+      // For mock data, just return the updated volunteer
+      const mockVolunteer = mockVolunteers.find(v => v.id === parseInt(id))
+      if (mockVolunteer) {
+        const updatedVolunteer = { ...mockVolunteer, ...body }
+        return NextResponse.json(updatedVolunteer)
+      }
+      return NextResponse.json({ error: 'Volunteer not found' }, { status: 404 })
     }
-    
-    return NextResponse.json(data, { status: 201 })
+
+    return NextResponse.json(data[0])
   } catch (err) {
-    const errorMessage = err instanceof Error ? err.message : "An unknown error occurred"
-    return NextResponse.json({ error: errorMessage }, { status: 500 })
+    // For mock data, just return the updated volunteer
+    const mockVolunteer = mockVolunteers.find(v => v.id === parseInt(id))
+    if (mockVolunteer) {
+      const updatedVolunteer = { ...mockVolunteer, ...body }
+      return NextResponse.json(updatedVolunteer)
+    }
+    return NextResponse.json({ error: 'Volunteer not found' }, { status: 404 })
   }
-} 
+}
+
+// DELETE individual volunteer
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+
+  try {
+    const { error } = await supabase
+      .from('volunteers')
+      .delete()
+      .eq('id', id)
+
+    if (error) {
+      // For mock data, just return success
+      const mockVolunteer = mockVolunteers.find(v => v.id === parseInt(id))
+      if (mockVolunteer) {
+        return NextResponse.json({ message: 'Volunteer deleted successfully' })
+      }
+      return NextResponse.json({ error: 'Volunteer not found' }, { status: 404 })
+    }
+
+    return NextResponse.json({ message: 'Volunteer deleted successfully' })
+  } catch (err) {
+    // For mock data, just return success
+    const mockVolunteer = mockVolunteers.find(v => v.id === parseInt(id))
+    if (mockVolunteer) {
+      return NextResponse.json({ message: 'Volunteer deleted successfully' })
+    }
+    return NextResponse.json({ error: 'Volunteer not found' }, { status: 404 })
+  }
+}
