@@ -16,7 +16,6 @@ import {
   ArrowRight,
   Calendar,
   CreditCard,
-  DollarSign,
   Download,
   ExternalLink,
   Heart,
@@ -26,7 +25,7 @@ import {
   MapPin,
   Package,
   ShoppingBag,
-  Users,
+  Users
 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -158,6 +157,7 @@ export function VolunteerPage() {
     availability: string;
     skills: string[];
     experience: string;
+    status: string;
   }>({
     first_name: "",
     last_name: "",
@@ -169,12 +169,106 @@ export function VolunteerPage() {
     availability: "weekends",
     skills: [],
     experience: "",
+    status: "pending",
   })
   const [submitting, setSubmitting] = useState(false)
+
+  // Add state for donation form fields
+  const [donationForm, setDonationForm] = useState({
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
+    type: 'monetary',
+    payment_method: 'credit_card',
+    recurring: false,
+    card_number: '',
+    expiry: '',
+    cvc: '',
+  })
+  const [donationSubmitting, setDonationSubmitting] = useState(false)
 
   const handleVolunteerSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSubmitting(true)
+
+    // Validate first name
+    if (!validateName(form.first_name)) {
+      toast({
+        title: "Invalid first name",
+        description: "Please enter a valid first name (at least 2 characters, letters only).",
+        variant: "destructive",
+      })
+      setSubmitting(false)
+      return
+    }
+
+    // Validate last name
+    if (!validateName(form.last_name)) {
+      toast({
+        title: "Invalid last name",
+        description: "Please enter a valid last name (at least 2 characters, letters only).",
+        variant: "destructive",
+      })
+      setSubmitting(false)
+      return
+    }
+
+    // Validate email
+    if (!validateEmail(form.email)) {
+      toast({
+        title: "Invalid email",
+        description: "Please enter a valid email address.",
+        variant: "destructive",
+      })
+      setSubmitting(false)
+      return
+    }
+
+    // Validate phone number
+    if (!validatePhoneNumber(form.phone)) {
+      toast({
+        title: "Invalid phone number",
+        description: "Please enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9.",
+        variant: "destructive",
+      })
+      setSubmitting(false)
+      return
+    }
+
+    // Validate address
+    if (!validateAddress(form.address)) {
+      toast({
+        title: "Invalid address",
+        description: "Please enter a complete address (at least 10 characters).",
+        variant: "destructive",
+      })
+      setSubmitting(false)
+      return
+    }
+
+    // Validate city
+    if (!validateCity(form.city)) {
+      toast({
+        title: "Invalid city",
+        description: "Please enter a valid city name (letters only, at least 2 characters).",
+        variant: "destructive",
+      })
+      setSubmitting(false)
+      return
+    }
+
+    // Validate PIN code
+    if (!validatePinCode(form.zip)) {
+      toast({
+        title: "Invalid PIN code",
+        description: "Please enter a valid 6-digit Indian PIN code.",
+        variant: "destructive",
+      })
+      setSubmitting(false)
+      return
+    }
+
     try {
       const res = await fetch("/api/volunteers", {
         method: "POST",
@@ -190,12 +284,13 @@ export function VolunteerPage() {
           availability: form.availability,
           skills: form.skills,
           experience: form.experience,
+          status: "pending", // Set default status as pending
         }),
       })
       if (res.ok) {
         toast({
           title: "Volunteer application submitted",
-          description: "Thank you for volunteering! We will contact you soon.",
+          description: "Thank you for volunteering! Your application is pending review. We will contact you soon.",
         })
         setForm({
           first_name: "",
@@ -208,6 +303,7 @@ export function VolunteerPage() {
           availability: "weekends",
           skills: [],
           experience: "",
+          status: "pending",
         })
       } else {
         const error = await res.json()
@@ -228,12 +324,265 @@ export function VolunteerPage() {
     }
   }
 
-  const handleDonationSubmit = (e: React.FormEvent) => {
+  // Input formatting functions
+  const formatCardNumber = (value: string) => {
+    // Remove all non-digits
+    const cleanedValue = value.replace(/\D/g, '')
+    // Add spaces every 4 digits
+    return cleanedValue.replace(/(\d{4})(?=\d)/g, '$1 ').trim()
+  }
+
+  const formatExpiryDate = (value: string) => {
+    // Remove all non-digits
+    const cleanedValue = value.replace(/\D/g, '')
+    // Add slash after 2 digits
+    if (cleanedValue.length >= 2) {
+      return cleanedValue.substring(0, 2) + '/' + cleanedValue.substring(2, 4)
+    }
+    return cleanedValue
+  }
+
+  const formatCVC = (value: string) => {
+    // Only allow digits and limit to 4 characters
+    return value.replace(/\D/g, '').substring(0, 4)
+  }
+
+  const formatPhoneNumber = (value: string) => {
+    // Remove all non-digits
+    const cleanedValue = value.replace(/\D/g, '')
+    // Limit to 10 digits for Indian phone numbers
+    return cleanedValue.substring(0, 10)
+  }
+
+  const validatePhoneNumber = (phone: string) => {
+    // Indian phone number validation: 10 digits starting with 6-9
+    const phoneRegex = /^[6-9]\d{9}$/
+    return phoneRegex.test(phone.replace(/\D/g, ''))
+  }
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
+  }
+
+  const validatePinCode = (pin: string) => {
+    // Indian PIN code validation: 6 digits
+    const pinRegex = /^\d{6}$/
+    return pinRegex.test(pin)
+  }
+
+  const validateName = (name: string) => {
+    // Name should be at least 2 characters and contain only letters and spaces
+    const nameRegex = /^[A-Za-z\s]{2,}$/
+    return nameRegex.test(name.trim())
+  }
+
+  const validateAddress = (address: string) => {
+    // Address should be at least 10 characters
+    return address.trim().length >= 10
+  }
+
+  const validateCity = (city: string) => {
+    // City should be at least 2 characters and contain only letters and spaces
+    const cityRegex = /^[A-Za-z\s]{2,}$/
+    return cityRegex.test(city.trim())
+  }
+
+  const formatPinCode = (value: string) => {
+    // Only allow digits and limit to 6 characters
+    return value.replace(/\D/g, '').substring(0, 6)
+  }
+
+  const validateCardNumber = (cardNumber: string) => {
+    // Remove spaces and hyphens
+    const cleanedNumber = cardNumber.replace(/[\s-]/g, '')
+    // Check if it's 13-19 digits
+    if (!/^\d{13,19}$/.test(cleanedNumber)) {
+      return false
+    }
+    // Luhn algorithm validation
+    let sum = 0
+    let alternate = false
+    for (let i = cleanedNumber.length - 1; i >= 0; i--) {
+      let n = parseInt(cleanedNumber.charAt(i), 10)
+      if (alternate) {
+        n *= 2
+        if (n > 9) n = (n % 10) + 1
+      }
+      sum += n
+      alternate = !alternate
+    }
+    return sum % 10 === 0
+  }
+
+  const validateExpiryDate = (expiry: string) => {
+    const expiryRegex = /^(0[1-9]|1[0-2])\/\d{2}$/
+    if (!expiryRegex.test(expiry)) {
+      return false
+    }
+    const [month, year] = expiry.split('/').map(Number)
+    const currentDate = new Date()
+    const currentYear = currentDate.getFullYear() % 100
+    const currentMonth = currentDate.getMonth() + 1
+    
+    if (year < currentYear || (year === currentYear && month < currentMonth)) {
+      return false
+    }
+    return true
+  }
+
+  const validateCVC = (cvc: string) => {
+    return /^\d{3,4}$/.test(cvc)
+  }
+
+  const handleDonationSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    toast({
-      title: "Thank you for your donation",
-      description: `Your donation of $${donationAmount || customAmount} will help those in need.`,
-    })
+    setDonationSubmitting(true)
+    const amount = Number(donationAmount || customAmount)
+    if (!amount || isNaN(amount) || amount <= 0) {
+      toast({
+        title: 'Invalid amount',
+        description: 'Please enter a valid donation amount greater than ₹0.',
+        variant: 'destructive',
+      })
+      setDonationSubmitting(false)
+      return
+    }
+
+    if (amount > 1000000) {
+      toast({
+        title: 'Amount too large',
+        description: 'Please contact us directly for donations above ₹10,00,000.',
+        variant: 'destructive',
+      })
+      setDonationSubmitting(false)
+      return
+    }
+
+    // Validate credit card details
+    if (!validateCardNumber(donationForm.card_number)) {
+      toast({
+        title: 'Invalid card number',
+        description: 'Please enter a valid credit card number.',
+        variant: 'destructive',
+      })
+      setDonationSubmitting(false)
+      return
+    }
+
+    if (!validateExpiryDate(donationForm.expiry)) {
+      toast({
+        title: 'Invalid expiry date',
+        description: 'Please enter a valid expiry date (MM/YY) that is not expired.',
+        variant: 'destructive',
+      })
+      setDonationSubmitting(false)
+      return
+    }
+
+    if (!validateCVC(donationForm.cvc)) {
+      toast({
+        title: 'Invalid CVC',
+        description: 'Please enter a valid 3 or 4 digit CVC code.',
+        variant: 'destructive',
+      })
+      setDonationSubmitting(false)
+      return
+    }
+
+    // Validate phone number if provided
+    if (donationForm.phone && !validatePhoneNumber(donationForm.phone)) {
+      toast({
+        title: 'Invalid phone number',
+        description: 'Please enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9.',
+        variant: 'destructive',
+      })
+      setDonationSubmitting(false)
+      return
+    }
+
+    // Validate donor details
+    if (!validateName(donationForm.first_name)) {
+      toast({
+        title: 'Invalid first name',
+        description: 'Please enter a valid first name (at least 2 characters, letters only).',
+        variant: 'destructive',
+      })
+      setDonationSubmitting(false)
+      return
+    }
+
+    if (!validateName(donationForm.last_name)) {
+      toast({
+        title: 'Invalid last name',
+        description: 'Please enter a valid last name (at least 2 characters, letters only).',
+        variant: 'destructive',
+      })
+      setDonationSubmitting(false)
+      return
+    }
+
+    if (!validateEmail(donationForm.email)) {
+      toast({
+        title: 'Invalid email',
+        description: 'Please enter a valid email address.',
+        variant: 'destructive',
+      })
+      setDonationSubmitting(false)
+      return
+    }
+
+    try {
+      const res = await fetch('/api/donations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          first_name: donationForm.first_name,
+          last_name: donationForm.last_name,
+          email: donationForm.email,
+          phone: donationForm.phone,
+          amount,
+          type: donationForm.type,
+          payment_method: donationForm.payment_method,
+          recurring: donationForm.recurring,
+        }),
+      })
+      if (res.ok) {
+        toast({
+          title: 'Thank you for your donation',
+          description: `Your donation of ₹${amount} will help those in need.`,
+        })
+        setDonationAmount('')
+        setCustomAmount('')
+        setDonationForm({
+          first_name: '',
+          last_name: '',
+          email: '',
+          phone: '',
+          type: 'monetary',
+          payment_method: 'credit_card',
+          recurring: false,
+          card_number: '',
+          expiry: '',
+          cvc: '',
+        })
+      } else {
+        const error = await res.json()
+        toast({
+          title: 'Error submitting donation',
+          description: error.error || 'An error occurred.',
+          variant: 'destructive',
+        })
+      }
+    } catch (err: any) {
+      toast({
+        title: 'Error submitting donation',
+        description: err.message || 'An error occurred.',
+        variant: 'destructive',
+      })
+    } finally {
+      setDonationSubmitting(false)
+    }
   }
 
   return (
@@ -272,8 +621,12 @@ export function VolunteerPage() {
                           value={form.first_name}
                           onChange={(e) => setForm(f => ({ ...f, first_name: e.target.value }))}
                           placeholder="Enter your first name"
+                          className={!validateName(form.first_name) && form.first_name ? 'border-red-500' : ''}
                           required
                         />
+                        {!validateName(form.first_name) && form.first_name && (
+                          <p className="text-sm text-red-500">Please enter a valid first name (letters only, at least 2 characters)</p>
+                        )}
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="last-name">Last Name</Label>
@@ -282,8 +635,12 @@ export function VolunteerPage() {
                           value={form.last_name}
                           onChange={(e) => setForm(f => ({ ...f, last_name: e.target.value }))}
                           placeholder="Enter your last name"
+                          className={!validateName(form.last_name) && form.last_name ? 'border-red-500' : ''}
                           required
                         />
+                        {!validateName(form.last_name) && form.last_name && (
+                          <p className="text-sm text-red-500">Please enter a valid last name (letters only, at least 2 characters)</p>
+                        )}
                       </div>
                     </div>
 
@@ -296,19 +653,31 @@ export function VolunteerPage() {
                           onChange={(e) => setForm(f => ({ ...f, email: e.target.value }))}
                           type="email"
                           placeholder="Enter your email"
+                          className={!validateEmail(form.email) && form.email ? 'border-red-500' : ''}
                           required
                         />
+                        {!validateEmail(form.email) && form.email && (
+                          <p className="text-sm text-red-500">Please enter a valid email address</p>
+                        )}
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="phone">Phone Number</Label>
                         <Input
                           id="phone"
                           value={form.phone}
-                          onChange={(e) => setForm(f => ({ ...f, phone: e.target.value }))}
+                          onChange={(e) => {
+                            const formatted = formatPhoneNumber(e.target.value)
+                            setForm(f => ({ ...f, phone: formatted }))
+                          }}
                           type="tel"
-                          placeholder="Enter your phone number"
+                          placeholder="Enter your 10-digit mobile number"
+                          maxLength={10}
+                          className={!validatePhoneNumber(form.phone) && form.phone ? 'border-red-500' : ''}
                           required
                         />
+                        {!validatePhoneNumber(form.phone) && form.phone && (
+                          <p className="text-sm text-red-500">Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9</p>
+                        )}
                       </div>
                     </div>
 
@@ -318,9 +687,13 @@ export function VolunteerPage() {
                         id="address"
                         value={form.address}
                         onChange={(e) => setForm(f => ({ ...f, address: e.target.value }))}
-                        placeholder="Enter your address"
+                        placeholder="Enter your complete address"
+                        className={!validateAddress(form.address) && form.address ? 'border-red-500' : ''}
                         required
                       />
+                      {!validateAddress(form.address) && form.address && (
+                        <p className="text-sm text-red-500">Please enter a complete address (at least 10 characters)</p>
+                      )}
                     </div>
 
                     <div className="grid gap-4 sm:grid-cols-2">
@@ -331,18 +704,30 @@ export function VolunteerPage() {
                           value={form.city}
                           onChange={(e) => setForm(f => ({ ...f, city: e.target.value }))}
                           placeholder="Enter your city"
+                          className={!validateCity(form.city) && form.city ? 'border-red-500' : ''}
                           required
                         />
+                        {!validateCity(form.city) && form.city && (
+                          <p className="text-sm text-red-500">Please enter a valid city name (letters only, at least 2 characters)</p>
+                        )}
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="zip">PIN Code</Label>
                         <Input
                           id="zip"
                           value={form.zip}
-                          onChange={(e) => setForm(f => ({ ...f, zip: e.target.value }))}
-                          placeholder="Enter your PIN code"
+                          onChange={(e) => {
+                            const formatted = formatPinCode(e.target.value)
+                            setForm(f => ({ ...f, zip: formatted }))
+                          }}
+                          placeholder="Enter your 6-digit PIN code"
+                          maxLength={6}
+                          className={!validatePinCode(form.zip) && form.zip ? 'border-red-500' : ''}
                           required
                         />
+                        {!validatePinCode(form.zip) && form.zip && (
+                          <p className="text-sm text-red-500">Please enter a valid 6-digit PIN code</p>
+                        )}
                       </div>
                     </div>
 
@@ -708,12 +1093,19 @@ export function VolunteerPage() {
                       <div className="relative">
                         <IndianRupee className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
                         <Input
+                          type="number"
+                          min="1"
+                          max="1000000"
                           placeholder="Custom Amount"
                           className="pl-9"
                           value={customAmount}
                           onChange={(e) => {
-                            setCustomAmount(e.target.value)
-                            setDonationAmount("")
+                            const value = e.target.value
+                            // Only allow positive numbers
+                            if (value === '' || (Number(value) > 0 && Number(value) <= 1000000)) {
+                              setCustomAmount(value)
+                              setDonationAmount("")
+                            }
                           }}
                         />
                       </div>
@@ -725,22 +1117,67 @@ export function VolunteerPage() {
                       <div className="grid gap-4 sm:grid-cols-2">
                         <div className="space-y-2">
                           <Label htmlFor="first-name-donate">First Name</Label>
-                          <Input id="first-name-donate" placeholder="Enter your first name" required />
+                          <Input 
+                            id="first-name-donate" 
+                            value={donationForm.first_name} 
+                            onChange={e => setDonationForm(f => ({ ...f, first_name: e.target.value }))} 
+                            placeholder="Enter your first name" 
+                            className={!validateName(donationForm.first_name) && donationForm.first_name ? 'border-red-500' : ''}
+                            required 
+                          />
+                          {!validateName(donationForm.first_name) && donationForm.first_name && (
+                            <p className="text-sm text-red-500">Please enter a valid first name (letters only, at least 2 characters)</p>
+                          )}
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="last-name-donate">Last Name</Label>
-                          <Input id="last-name-donate" placeholder="Enter your last name" required />
+                          <Input 
+                            id="last-name-donate" 
+                            value={donationForm.last_name} 
+                            onChange={e => setDonationForm(f => ({ ...f, last_name: e.target.value }))} 
+                            placeholder="Enter your last name" 
+                            className={!validateName(donationForm.last_name) && donationForm.last_name ? 'border-red-500' : ''}
+                            required 
+                          />
+                          {!validateName(donationForm.last_name) && donationForm.last_name && (
+                            <p className="text-sm text-red-500">Please enter a valid last name (letters only, at least 2 characters)</p>
+                          )}
                         </div>
                       </div>
 
                       <div className="grid gap-4 sm:grid-cols-2">
                         <div className="space-y-2">
                           <Label htmlFor="email-donate">Email</Label>
-                          <Input id="email-donate" type="email" placeholder="Enter your email" required />
+                          <Input 
+                            id="email-donate" 
+                            type="email" 
+                            value={donationForm.email} 
+                            onChange={e => setDonationForm(f => ({ ...f, email: e.target.value }))} 
+                            placeholder="Enter your email" 
+                            className={!validateEmail(donationForm.email) && donationForm.email ? 'border-red-500' : ''}
+                            required 
+                          />
+                          {!validateEmail(donationForm.email) && donationForm.email && (
+                            <p className="text-sm text-red-500">Please enter a valid email address</p>
+                          )}
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="phone-donate">Phone Number</Label>
-                          <Input id="phone-donate" type="tel" placeholder="Enter your phone number" />
+                          <Input 
+                            id="phone-donate" 
+                            type="tel" 
+                            value={donationForm.phone} 
+                            onChange={(e) => {
+                              const formatted = formatPhoneNumber(e.target.value)
+                              setDonationForm(f => ({ ...f, phone: formatted }))
+                            }}
+                            placeholder="Enter your 10-digit mobile number (optional)" 
+                            maxLength={10}
+                            className={donationForm.phone && !validatePhoneNumber(donationForm.phone) ? 'border-red-500' : ''}
+                          />
+                          {donationForm.phone && !validatePhoneNumber(donationForm.phone) && (
+                            <p className="text-sm text-red-500">Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9</p>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -770,29 +1207,71 @@ export function VolunteerPage() {
                       <div className="grid gap-4 sm:grid-cols-2">
                         <div className="space-y-2">
                           <Label htmlFor="card-number">Card Number</Label>
-                          <Input id="card-number" placeholder="1234 5678 9012 3456" required />
+                          <Input 
+                            id="card-number" 
+                            value={donationForm.card_number} 
+                            onChange={(e) => {
+                              const formatted = formatCardNumber(e.target.value)
+                              setDonationForm(f => ({ ...f, card_number: formatted }))
+                            }}
+                            placeholder="1234 5678 9012 3456" 
+                            maxLength={19}
+                            className={!validateCardNumber(donationForm.card_number) && donationForm.card_number ? 'border-red-500' : ''}
+                            required 
+                          />
+                          {!validateCardNumber(donationForm.card_number) && donationForm.card_number && (
+                            <p className="text-sm text-red-500">Please enter a valid card number</p>
+                          )}
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                           <div className="space-y-2">
                             <Label htmlFor="expiry">Expiry Date</Label>
-                            <Input id="expiry" placeholder="MM/YY" required />
+                            <Input 
+                              id="expiry" 
+                              value={donationForm.expiry} 
+                              onChange={(e) => {
+                                const formatted = formatExpiryDate(e.target.value)
+                                setDonationForm(f => ({ ...f, expiry: formatted }))
+                              }}
+                              placeholder="MM/YY" 
+                              maxLength={5}
+                              className={!validateExpiryDate(donationForm.expiry) && donationForm.expiry ? 'border-red-500' : ''}
+                              required 
+                            />
+                            {!validateExpiryDate(donationForm.expiry) && donationForm.expiry && (
+                              <p className="text-sm text-red-500">Invalid or expired date</p>
+                            )}
                           </div>
                           <div className="space-y-2">
                             <Label htmlFor="cvc">CVC</Label>
-                            <Input id="cvc" placeholder="123" required />
+                            <Input 
+                              id="cvc" 
+                              value={donationForm.cvc} 
+                              onChange={(e) => {
+                                const formatted = formatCVC(e.target.value)
+                                setDonationForm(f => ({ ...f, cvc: formatted }))
+                              }}
+                              placeholder="123" 
+                              maxLength={4}
+                              className={!validateCVC(donationForm.cvc) && donationForm.cvc ? 'border-red-500' : ''}
+                              required 
+                            />
+                            {!validateCVC(donationForm.cvc) && donationForm.cvc && (
+                              <p className="text-sm text-red-500">Invalid CVC code</p>
+                            )}
                           </div>
                         </div>
                       </div>
                     </div>
 
                     <div className="flex items-center space-x-2">
-                      <input type="checkbox" id="recurring" className="h-4 w-4 rounded border-gray-300" />
+                      <input type="checkbox" id="recurring" className="h-4 w-4 rounded border-gray-300" checked={donationForm.recurring} onChange={e => setDonationForm(f => ({ ...f, recurring: e.target.checked }))} />
                       <Label htmlFor="recurring" className="text-sm">
                         Make this a monthly recurring donation
                       </Label>
                     </div>
 
-                    <Button type="submit" className="w-full bg-[#0077B6] hover:bg-[#0077B6]/90">
+                    <Button type="submit" className="w-full bg-[#0077B6] hover:bg-[#0077B6]/90" disabled={donationSubmitting}>
                       <Heart className="mr-2 h-4 w-4" />
                       {donationAmount || customAmount
                         ? `Donate $${donationAmount || customAmount}`
