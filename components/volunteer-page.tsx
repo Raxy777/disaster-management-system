@@ -157,6 +157,7 @@ export function VolunteerPage() {
     availability: string;
     skills: string[];
     experience: string;
+    status: string;
   }>({
     first_name: "",
     last_name: "",
@@ -168,6 +169,7 @@ export function VolunteerPage() {
     availability: "weekends",
     skills: [],
     experience: "",
+    status: "pending",
   })
   const [submitting, setSubmitting] = useState(false)
 
@@ -190,11 +192,77 @@ export function VolunteerPage() {
     e.preventDefault()
     setSubmitting(true)
 
+    // Validate first name
+    if (!validateName(form.first_name)) {
+      toast({
+        title: "Invalid first name",
+        description: "Please enter a valid first name (at least 2 characters, letters only).",
+        variant: "destructive",
+      })
+      setSubmitting(false)
+      return
+    }
+
+    // Validate last name
+    if (!validateName(form.last_name)) {
+      toast({
+        title: "Invalid last name",
+        description: "Please enter a valid last name (at least 2 characters, letters only).",
+        variant: "destructive",
+      })
+      setSubmitting(false)
+      return
+    }
+
+    // Validate email
+    if (!validateEmail(form.email)) {
+      toast({
+        title: "Invalid email",
+        description: "Please enter a valid email address.",
+        variant: "destructive",
+      })
+      setSubmitting(false)
+      return
+    }
+
     // Validate phone number
     if (!validatePhoneNumber(form.phone)) {
       toast({
         title: "Invalid phone number",
         description: "Please enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9.",
+        variant: "destructive",
+      })
+      setSubmitting(false)
+      return
+    }
+
+    // Validate address
+    if (!validateAddress(form.address)) {
+      toast({
+        title: "Invalid address",
+        description: "Please enter a complete address (at least 10 characters).",
+        variant: "destructive",
+      })
+      setSubmitting(false)
+      return
+    }
+
+    // Validate city
+    if (!validateCity(form.city)) {
+      toast({
+        title: "Invalid city",
+        description: "Please enter a valid city name (letters only, at least 2 characters).",
+        variant: "destructive",
+      })
+      setSubmitting(false)
+      return
+    }
+
+    // Validate PIN code
+    if (!validatePinCode(form.zip)) {
+      toast({
+        title: "Invalid PIN code",
+        description: "Please enter a valid 6-digit Indian PIN code.",
         variant: "destructive",
       })
       setSubmitting(false)
@@ -216,12 +284,13 @@ export function VolunteerPage() {
           availability: form.availability,
           skills: form.skills,
           experience: form.experience,
+          status: "pending", // Set default status as pending
         }),
       })
       if (res.ok) {
         toast({
           title: "Volunteer application submitted",
-          description: "Thank you for volunteering! We will contact you soon.",
+          description: "Thank you for volunteering! Your application is pending review. We will contact you soon.",
         })
         setForm({
           first_name: "",
@@ -234,6 +303,7 @@ export function VolunteerPage() {
           availability: "weekends",
           skills: [],
           experience: "",
+          status: "pending",
         })
       } else {
         const error = await res.json()
@@ -288,6 +358,39 @@ export function VolunteerPage() {
     // Indian phone number validation: 10 digits starting with 6-9
     const phoneRegex = /^[6-9]\d{9}$/
     return phoneRegex.test(phone.replace(/\D/g, ''))
+  }
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
+  }
+
+  const validatePinCode = (pin: string) => {
+    // Indian PIN code validation: 6 digits
+    const pinRegex = /^\d{6}$/
+    return pinRegex.test(pin)
+  }
+
+  const validateName = (name: string) => {
+    // Name should be at least 2 characters and contain only letters and spaces
+    const nameRegex = /^[A-Za-z\s]{2,}$/
+    return nameRegex.test(name.trim())
+  }
+
+  const validateAddress = (address: string) => {
+    // Address should be at least 10 characters
+    return address.trim().length >= 10
+  }
+
+  const validateCity = (city: string) => {
+    // City should be at least 2 characters and contain only letters and spaces
+    const cityRegex = /^[A-Za-z\s]{2,}$/
+    return cityRegex.test(city.trim())
+  }
+
+  const formatPinCode = (value: string) => {
+    // Only allow digits and limit to 6 characters
+    return value.replace(/\D/g, '').substring(0, 6)
   }
 
   const validateCardNumber = (cardNumber: string) => {
@@ -398,6 +501,37 @@ export function VolunteerPage() {
       return
     }
 
+    // Validate donor details
+    if (!validateName(donationForm.first_name)) {
+      toast({
+        title: 'Invalid first name',
+        description: 'Please enter a valid first name (at least 2 characters, letters only).',
+        variant: 'destructive',
+      })
+      setDonationSubmitting(false)
+      return
+    }
+
+    if (!validateName(donationForm.last_name)) {
+      toast({
+        title: 'Invalid last name',
+        description: 'Please enter a valid last name (at least 2 characters, letters only).',
+        variant: 'destructive',
+      })
+      setDonationSubmitting(false)
+      return
+    }
+
+    if (!validateEmail(donationForm.email)) {
+      toast({
+        title: 'Invalid email',
+        description: 'Please enter a valid email address.',
+        variant: 'destructive',
+      })
+      setDonationSubmitting(false)
+      return
+    }
+
     try {
       const res = await fetch('/api/donations', {
         method: 'POST',
@@ -487,8 +621,12 @@ export function VolunteerPage() {
                           value={form.first_name}
                           onChange={(e) => setForm(f => ({ ...f, first_name: e.target.value }))}
                           placeholder="Enter your first name"
+                          className={!validateName(form.first_name) && form.first_name ? 'border-red-500' : ''}
                           required
                         />
+                        {!validateName(form.first_name) && form.first_name && (
+                          <p className="text-sm text-red-500">Please enter a valid first name (letters only, at least 2 characters)</p>
+                        )}
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="last-name">Last Name</Label>
@@ -497,8 +635,12 @@ export function VolunteerPage() {
                           value={form.last_name}
                           onChange={(e) => setForm(f => ({ ...f, last_name: e.target.value }))}
                           placeholder="Enter your last name"
+                          className={!validateName(form.last_name) && form.last_name ? 'border-red-500' : ''}
                           required
                         />
+                        {!validateName(form.last_name) && form.last_name && (
+                          <p className="text-sm text-red-500">Please enter a valid last name (letters only, at least 2 characters)</p>
+                        )}
                       </div>
                     </div>
 
@@ -511,8 +653,12 @@ export function VolunteerPage() {
                           onChange={(e) => setForm(f => ({ ...f, email: e.target.value }))}
                           type="email"
                           placeholder="Enter your email"
+                          className={!validateEmail(form.email) && form.email ? 'border-red-500' : ''}
                           required
                         />
+                        {!validateEmail(form.email) && form.email && (
+                          <p className="text-sm text-red-500">Please enter a valid email address</p>
+                        )}
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="phone">Phone Number</Label>
@@ -541,9 +687,13 @@ export function VolunteerPage() {
                         id="address"
                         value={form.address}
                         onChange={(e) => setForm(f => ({ ...f, address: e.target.value }))}
-                        placeholder="Enter your address"
+                        placeholder="Enter your complete address"
+                        className={!validateAddress(form.address) && form.address ? 'border-red-500' : ''}
                         required
                       />
+                      {!validateAddress(form.address) && form.address && (
+                        <p className="text-sm text-red-500">Please enter a complete address (at least 10 characters)</p>
+                      )}
                     </div>
 
                     <div className="grid gap-4 sm:grid-cols-2">
@@ -554,18 +704,30 @@ export function VolunteerPage() {
                           value={form.city}
                           onChange={(e) => setForm(f => ({ ...f, city: e.target.value }))}
                           placeholder="Enter your city"
+                          className={!validateCity(form.city) && form.city ? 'border-red-500' : ''}
                           required
                         />
+                        {!validateCity(form.city) && form.city && (
+                          <p className="text-sm text-red-500">Please enter a valid city name (letters only, at least 2 characters)</p>
+                        )}
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="zip">PIN Code</Label>
                         <Input
                           id="zip"
                           value={form.zip}
-                          onChange={(e) => setForm(f => ({ ...f, zip: e.target.value }))}
-                          placeholder="Enter your PIN code"
+                          onChange={(e) => {
+                            const formatted = formatPinCode(e.target.value)
+                            setForm(f => ({ ...f, zip: formatted }))
+                          }}
+                          placeholder="Enter your 6-digit PIN code"
+                          maxLength={6}
+                          className={!validatePinCode(form.zip) && form.zip ? 'border-red-500' : ''}
                           required
                         />
+                        {!validatePinCode(form.zip) && form.zip && (
+                          <p className="text-sm text-red-500">Please enter a valid 6-digit PIN code</p>
+                        )}
                       </div>
                     </div>
 
@@ -955,18 +1117,49 @@ export function VolunteerPage() {
                       <div className="grid gap-4 sm:grid-cols-2">
                         <div className="space-y-2">
                           <Label htmlFor="first-name-donate">First Name</Label>
-                          <Input id="first-name-donate" value={donationForm.first_name} onChange={e => setDonationForm(f => ({ ...f, first_name: e.target.value }))} placeholder="Enter your first name" required />
+                          <Input 
+                            id="first-name-donate" 
+                            value={donationForm.first_name} 
+                            onChange={e => setDonationForm(f => ({ ...f, first_name: e.target.value }))} 
+                            placeholder="Enter your first name" 
+                            className={!validateName(donationForm.first_name) && donationForm.first_name ? 'border-red-500' : ''}
+                            required 
+                          />
+                          {!validateName(donationForm.first_name) && donationForm.first_name && (
+                            <p className="text-sm text-red-500">Please enter a valid first name (letters only, at least 2 characters)</p>
+                          )}
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="last-name-donate">Last Name</Label>
-                          <Input id="last-name-donate" value={donationForm.last_name} onChange={e => setDonationForm(f => ({ ...f, last_name: e.target.value }))} placeholder="Enter your last name" required />
+                          <Input 
+                            id="last-name-donate" 
+                            value={donationForm.last_name} 
+                            onChange={e => setDonationForm(f => ({ ...f, last_name: e.target.value }))} 
+                            placeholder="Enter your last name" 
+                            className={!validateName(donationForm.last_name) && donationForm.last_name ? 'border-red-500' : ''}
+                            required 
+                          />
+                          {!validateName(donationForm.last_name) && donationForm.last_name && (
+                            <p className="text-sm text-red-500">Please enter a valid last name (letters only, at least 2 characters)</p>
+                          )}
                         </div>
                       </div>
 
                       <div className="grid gap-4 sm:grid-cols-2">
                         <div className="space-y-2">
                           <Label htmlFor="email-donate">Email</Label>
-                          <Input id="email-donate" type="email" value={donationForm.email} onChange={e => setDonationForm(f => ({ ...f, email: e.target.value }))} placeholder="Enter your email" required />
+                          <Input 
+                            id="email-donate" 
+                            type="email" 
+                            value={donationForm.email} 
+                            onChange={e => setDonationForm(f => ({ ...f, email: e.target.value }))} 
+                            placeholder="Enter your email" 
+                            className={!validateEmail(donationForm.email) && donationForm.email ? 'border-red-500' : ''}
+                            required 
+                          />
+                          {!validateEmail(donationForm.email) && donationForm.email && (
+                            <p className="text-sm text-red-500">Please enter a valid email address</p>
+                          )}
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="phone-donate">Phone Number</Label>
